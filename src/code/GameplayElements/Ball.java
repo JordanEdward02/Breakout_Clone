@@ -1,8 +1,9 @@
-package code;
+package code.GameplayElements;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
+import java.util.Random;
 
 abstract public class Ball {
 
@@ -35,7 +36,16 @@ abstract public class Ball {
         left.setLocation(center.getX()-(radiusA /2),center.getY());
         right.setLocation(center.getX()+(radiusA /2),center.getY());
 
+        Random rnd = new Random();
+        int speedX,speedY;
+        do{
+            speedX = rnd.nextInt(5) - 2;
+        }while(speedX == 0);
+        do{
+            speedY = -rnd.nextInt(3);
+        }while(speedY == 0);
 
+        setSpeed(speedX,speedY);
         ballFace = makeBall(center,radiusA,radiusB);
         this.border = border;
         this.inner  = inner;

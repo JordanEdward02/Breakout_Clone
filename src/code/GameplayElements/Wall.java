@@ -1,4 +1,4 @@
-package code;
+package code.GameplayElements;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -12,48 +12,18 @@ public class Wall {
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
 
-    private Random rnd;
-    private Rectangle area;
-
     Brick[] bricks;
-    Ball ball;
-    Paddle player;
 
     private Brick[][] levels;
     private int level;
 
-    private Point startPoint;
     private int brickCount;
-    private int ballCount;
-    private boolean ballLost;
 
-    public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
-
-        this.startPoint = new Point(ballPos);
-
+    public Wall(int brickCount, int lineCount, double brickDimensionRatio){
+    /*
         levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
         level = 0;
-
-        ballCount = 3;
-        ballLost = false;
-
-        rnd = new Random();
-
-        makeBall(ballPos);
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        ball.setSpeed(speedX,speedY);
-
-        player = new Paddle((Point) ballPos.clone(),150,10, drawArea);
-
-        area = drawArea;
-
+    */
 
     }
 
@@ -136,10 +106,19 @@ public class Wall {
         return tmp;
     }
 
-    public void makeBall(Point2D ballPos){
-        ball = new Ball1(ballPos);
+    public Brick[] getBricks()
+    {
+        return bricks;
     }
 
+    public void reduceBrickCount()
+    {
+        brickCount--;
+        return;
+    }
+/* makeLevels should be it's own class, or they should be stored within an external file so that they can be easily
+
+changed by the user if needed.
     public Brick[][] makeLevels(Rectangle drawArea,int brickCount,int lineCount,double brickDimensionRatio){
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
         tmp[0] = makeSingleTypeLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY);
@@ -149,30 +128,7 @@ public class Wall {
         return tmp;
     }
 
-    public void move(){
-        player.move();
-        ball.move();
-    }
-
-    public void findImpacts(){
-        if(player.impact(ball)){
-            ball.reverseY();
-        }
-        else if(impactWall()){
-            // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
-            brickCount--;
-        }
-        else if(impactBorder()) {
-            ball.reverseX();
-        }
-        else if(ball.getPosition().getY() < area.getY()){
-            ball.reverseY();
-        }
-        else if(ball.getPosition().getY() > area.getY() + area.getHeight()){
-            ballCount--;
-            ballLost = true;
-        }
-    }
+*/
 
     public boolean impactWall(){
         for(Brick b : bricks){
@@ -197,9 +153,14 @@ public class Wall {
         return false;
     }
 
-    public boolean impactBorder(){
+    public boolean impactBorder(Ball ball){
         Point2D p = ball.getPosition();
         return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
+    }
+
+    public void setBrickCount(int brickCount)
+    {
+        brickCount = brickCount;
     }
 
     public int getBrickCount(){
@@ -210,35 +171,6 @@ public class Wall {
         return ballCount;
     }
 
-    public boolean isBallLost(){
-        return ballLost;
-    }
-
-    public void ballReset(){
-        player.moveTo(startPoint);
-        ball.moveTo(startPoint);
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        ball.setSpeed(speedX,speedY);
-        ballLost = false;
-    }
-
-    public void wallReset(){
-        for(Brick b : bricks)
-            b.repair();
-        brickCount = bricks.length;
-        ballCount = 3;
-    }
-
-    public boolean ballEnd(){
-        return ballCount == 0;
-    }
 
     public boolean isDone(){
         return brickCount == 0;

@@ -1,4 +1,4 @@
-package code;
+package code.GameplayElements;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

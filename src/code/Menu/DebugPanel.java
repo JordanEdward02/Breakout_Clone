@@ -1,4 +1,6 @@
-package code;
+package code.Menu;
+
+import code.GameplayElements.Wall;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;

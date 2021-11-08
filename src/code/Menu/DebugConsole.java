@@ -1,4 +1,8 @@
-package code;
+package code.Menu;
+
+import code.GameplayElements.Ball;
+import code.GameplayElements.ElementsManager;
+import code.GameplayElements.Wall;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,17 +17,17 @@ public class DebugConsole extends JDialog implements WindowListener{
     private JFrame owner;
     private DebugPanel debugPanel;
     private GameBoard gameBoard;
-    private Wall wall;
+    private ElementsManager m_gameManager;
 
 
-    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    public DebugConsole(JFrame owner,ElementsManager gameManager,GameBoard gameBoard){
 
-        this.wall = wall;
+        m_gameManager = gameManager;
         this.owner = owner;
         this.gameBoard = gameBoard;
         initialize();
 
-        debugPanel = new DebugPanel(wall);
+        debugPanel = new DebugPanel(m_gameManager.getWall());
         this.add(debugPanel,BorderLayout.CENTER);
 
 
@@ -75,7 +79,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = wall.ball;
+        Ball b = m_gameManager.getBall();
         debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
     }
 
