@@ -1,5 +1,6 @@
 package code.GameplayElements;
 
+import javax.swing.text.AbstractDocument;
 import java.awt.geom.Point2D;
 import java.awt.*;
 import java.util.Random;
@@ -9,6 +10,7 @@ public class ElementsManager
     private Wall m_gameWall = null;
     private Ball m_gameBall = null;
     private Paddle m_gamePaddle = null;
+    private LevelManager m_levelManager = null;
     private int m_ballCount;
     private boolean m_ballLost;
     private Point m_startPoint ;
@@ -17,33 +19,22 @@ public class ElementsManager
     public ElementsManager(Wall gameWall, Point ballPos, Rectangle drawArea)
     {
      m_gameWall = gameWall;
+     m_drawArea = drawArea;
      m_gameBall = new Ball1((ballPos));
      m_gamePaddle = new Paddle((Point) ballPos.clone(),150,10, m_drawArea);
+     m_levelManager = new LevelManager();
      m_ballCount = 3;
      m_ballLost = false;
      m_startPoint = new Point(300,430);
-     m_drawArea = drawArea;
     }
     public Wall getWall()
     {
         return m_gameWall;
     }
 
-    public void setBall(Ball gameBall)
-    {
-        m_gameBall = gameBall;
-        return;
-    }
-
     public Ball getBall()
     {
         return m_gameBall;
-    }
-
-    public void setPaddle(Paddle gamePaddle)
-    {
-        m_gamePaddle = gamePaddle;
-        return;
     }
 
     public Paddle getPaddle()
@@ -118,6 +109,7 @@ public class ElementsManager
         }while(speedY == 0);
 
         m_gameBall.setSpeed(speedX,speedY);
+        m_ballCount--;
         m_ballLost = false;
     }
 
@@ -143,5 +135,13 @@ public class ElementsManager
         m_ballCount = 3;
     }
 
+    public boolean newLevel()
+    {
+        return m_levelManager.hasNextLevel();
+    }
 
+    public void nextLevel(){
+        m_levelManager.incrementLevel();
+        m_gameWall.renderWall(m_levelManager, m_drawArea);
+    }
 }
