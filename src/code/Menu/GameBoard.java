@@ -1,9 +1,9 @@
 package code.Menu;
 
 import code.GameplayElements.*;
+import code.GameplayElements.Bricks.Brick;
 
 import javax.swing.*;
-import javax.swing.text.Element;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;

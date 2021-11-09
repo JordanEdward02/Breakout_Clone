@@ -1,5 +1,9 @@
 package code.GameplayElements;
 
+import code.GameplayElements.Bricks.Brick;
+import code.GameplayElements.Bricks.BrickClay;
+import code.GameplayElements.Bricks.BrickFactory;
+
 import java.awt.*;
 
 public class LevelManager
@@ -36,13 +40,13 @@ public class LevelManager
             x =(line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,type);
+            tmp[i] = BrickFactory.getBrick(p,brickSize,type);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
-            tmp[i] = new Brick2(p,brickSize);
+            tmp[i] = new BrickClay(p,brickSize);
         }
         return tmp;
 
@@ -79,13 +83,13 @@ public class LevelManager
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ?  makeBrick(p,brickSize,typeA) : makeBrick(p,brickSize,typeB);
+            tmp[i] = b ?  BrickFactory.getBrick(p,brickSize,typeA) : BrickFactory.getBrick(p,brickSize,typeB);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
-            tmp[i] = makeBrick(p,brickSize,typeA);
+            tmp[i] = BrickFactory.getBrick(p,brickSize,typeA);
         }
         return tmp;
     }
@@ -118,21 +122,4 @@ public class LevelManager
         }
     }
 
-    public Brick makeBrick(Point point, Dimension size, int type){
-        Brick out;
-        switch(type){
-            case CLAY:
-                out = new Brick2(point,size);
-                break;
-            case STEEL:
-                out = new Brick3(point,size);
-                break;
-            case CEMENT:
-                out = new Brick1(point, size);
-                break;
-            default:
-                throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
-        }
-        return  out;
-    }
 }

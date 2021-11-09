@@ -1,5 +1,7 @@
 package code.GameplayElements;
 
+import code.GameplayElements.Bricks.Brick;
+
 import java.awt.*;
 
 public class Wall {
