@@ -45,17 +45,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public GameBoard(JFrame owner){
         super();
-
         strLen = 0;
         showPauseMenu = false;
-
-
-
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-
-
         this.initialize();
         message = "Press SPACE to start";
+
         m_GameManager = new ElementsManager(new Wall(), new Point(300,430),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner,m_GameManager,this);
         //initialize the first level
@@ -64,7 +59,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameTimer = new Timer(10,e ->{
             m_GameManager.move();
             m_GameManager.findImpacts();
-            message = String.format("Bricks: %d Balls %d",m_GameManager.getWall().getBrickCount(),m_GameManager.getBallCount());
+            message = String.format("Bricks: %d Balls %d",m_GameManager.getBrickCount(),m_GameManager.getBallCount());
             if(m_GameManager.isBallLost()){
                 if(m_GameManager.ballEnd()){
                     m_GameManager.wallReset();

@@ -1,14 +1,12 @@
 package code.GameplayElements;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.util.Random;
 
 public class Wall {
 
     Brick[] bricks;
 
-    private int m_brickCount = 30;
+    private int m_brickCount = 31;
 
     public Brick[] getBricks()
     {
@@ -18,14 +16,13 @@ public class Wall {
     public void reduceBrickCount()
     {
         m_brickCount--;
-        return;
     }
 
     public void renderWall(LevelManager levelManager, Rectangle drawArea)
     {
         bricks = levelManager.renderWall(drawArea, m_brickCount);
     }
-    // Kept this in the wall class as it's about interactions with the wall, and this manages it with all of the bricks
+    // Kept this in the wall class as it's about interactions with the wall, and this manages it with all the bricks
     public boolean impactWall(Ball ball){
         for(Brick b : bricks){
             switch(b.findImpact(ball)) {

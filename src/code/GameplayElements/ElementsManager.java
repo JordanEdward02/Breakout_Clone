@@ -7,10 +7,10 @@ import java.util.Random;
 
 public class ElementsManager
 {
-    private Wall m_gameWall = null;
-    private Ball m_gameBall = null;
-    private Paddle m_gamePaddle = null;
-    private LevelManager m_levelManager = null;
+    private Wall m_gameWall;
+    private Ball m_gameBall;
+    private Paddle m_gamePaddle;
+    private LevelManager m_levelManager;
     private int m_ballCount;
     private boolean m_ballLost;
     private Point m_startPoint ;
@@ -47,6 +47,11 @@ public class ElementsManager
         return m_ballCount;
     }
 
+    public int getBrickCount()
+    {
+        return m_gameWall.getBrickCount();
+    }
+
     public void move()
     {
         m_gamePaddle.move();
@@ -69,7 +74,7 @@ public class ElementsManager
             m_gameBall.reverseY();
         }
         else if(m_gameBall.getPosition().getY() > m_drawArea.getY() + m_drawArea.getHeight()){
-            m_gameWall.reduceBrickCount();
+            m_ballCount--;
             m_ballLost = true;
         }
     }
@@ -109,7 +114,6 @@ public class ElementsManager
         }while(speedY == 0);
 
         m_gameBall.setSpeed(speedX,speedY);
-        m_ballCount--;
         m_ballLost = false;
     }
 

@@ -9,7 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DebugPanel extends JPanel {
-
+    // Got to update the debug panel, as when it has many errors.
+    // Skip level can overflow which breaks the game and throws an error
+    // Skip level also doesn't reset the brick count as it should so makes the wall wrong and doesn't always end
     private static final Color DEF_BKG = Color.WHITE;
 
 

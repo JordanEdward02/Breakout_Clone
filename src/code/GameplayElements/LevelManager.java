@@ -9,8 +9,6 @@ public class LevelManager
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
     private int level=0;
-    private double m_brickDimensionRatio = 6/2;
-    private int lineCount = 3;
 
 
     public Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
@@ -103,6 +101,8 @@ public class LevelManager
 
     public Brick[] renderWall(Rectangle drawArea, int brickCount)
     {
+        double m_brickDimensionRatio = (double) 6/2;
+        int lineCount = 3;
         switch(level)
         {
             case 1:
