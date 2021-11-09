@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Wall {
 
-    public static final int LEVELS_COUNT = 4;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
@@ -14,18 +13,7 @@ public class Wall {
 
     Brick[] bricks;
 
-    private Brick[][] levels;
-    private int level;
-
     private int brickCount;
-
-    public Wall(int brickCount, int lineCount, double brickDimensionRatio){
-    /*
-        levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
-        level = 0;
-    */
-
-    }
 
     public Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         // if brickCount is not divisible by line count,brickCount is adjusted to the biggest multiple of lineCount smaller then brickCount
@@ -129,8 +117,8 @@ changed by the user if needed.
     }
 
 */
-
-    public boolean impactWall(){
+    // Kept this in the wall class as it's about interactions with the wall, and this manages it with all of the bricks
+    public boolean impactWall(Ball ball){
         for(Brick b : bricks){
             switch(b.findImpact(ball)) {
                 //Vertical Impact
@@ -153,11 +141,6 @@ changed by the user if needed.
         return false;
     }
 
-    public boolean impactBorder(Ball ball){
-        Point2D p = ball.getPosition();
-        return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
-    }
-
     public void setBrickCount(int brickCount)
     {
         brickCount = brickCount;
@@ -165,10 +148,6 @@ changed by the user if needed.
 
     public int getBrickCount(){
         return brickCount;
-    }
-
-    public int getBallCount(){
-        return ballCount;
     }
 
 
@@ -183,18 +162,6 @@ changed by the user if needed.
 
     public boolean hasLevel(){
         return level < levels.length;
-    }
-
-    public void setBallXSpeed(int s){
-        ball.setXSpeed(s);
-    }
-
-    public void setBallYSpeed(int s){
-        ball.setYSpeed(s);
-    }
-
-    public void resetBallCount(){
-        ballCount = 3;
     }
 
     public Brick makeBrick(Point point, Dimension size, int type){

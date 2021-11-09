@@ -51,6 +51,11 @@ public class ElementsManager
         return m_gamePaddle;
     }
 
+    public int getBallCount()
+    {
+        return m_ballCount;
+    }
+
     public void move()
     {
         m_gamePaddle.move();
@@ -62,11 +67,11 @@ public class ElementsManager
         if(m_gamePaddle.impact(m_gameBall)){
             m_gameBall.reverseY();
         }
-        else if(m_gameWall.impactWall()){
+        else if(m_gameWall.impactWall(m_gameBall)){
             // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
             m_gameWall.reduceBrickCount();
         }
-        else if(m_gameWall.impactBorder(m_gameBall)) {
+        else if(impactBorder()) {
             m_gameBall.reverseX();
         }
         else if(m_gameBall.getPosition().getY() < m_drawArea.getY()){
@@ -115,4 +120,28 @@ public class ElementsManager
         m_gameBall.setSpeed(speedX,speedY);
         m_ballLost = false;
     }
+
+
+    public boolean impactBorder()
+    {
+        Point2D p = m_gameBall.getPosition();
+        return ((p.getX() < m_drawArea.getX()) ||(p.getX() > (m_drawArea.getX() + m_drawArea.getWidth())));
+    }
+
+
+    public void setBallXSpeed(int s)
+    {
+        m_gameBall.setXSpeed(s);
+    }
+
+    public void setBallYSpeed(int s){
+        m_gameBall.setYSpeed(s);
+    }
+
+    public void resetBallCount()
+    {
+        m_ballCount = 3;
+    }
+
+
 }

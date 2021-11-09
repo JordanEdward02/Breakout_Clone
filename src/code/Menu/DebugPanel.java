@@ -1,5 +1,6 @@
 package code.Menu;
 
+import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Wall;
 
 import javax.swing.*;
@@ -18,19 +19,19 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
+    private ElementsManager m_gameManager;
 
-    public DebugPanel(Wall wall){
+    public DebugPanel(ElementsManager gameManager){
 
-        this.wall = wall;
+        m_gameManager = gameManager;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level",e -> wall.nextLevel());
-        resetBalls = makeButton("Reset Balls",e -> wall.resetBallCount());
+        skipLevel = makeButton("Skip Level",e -> m_gameManager.nextLevel());
+        resetBalls = makeButton("Reset Balls",e -> m_gameManager.resetBallCount());
 
-        ballXSpeed = makeSlider(-4,4,e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4,4,e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        ballXSpeed = makeSlider(-4,4,e -> m_gameManager.setBallXSpeed(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(-4,4,e -> m_gameManager.setBallYSpeed(ballYSpeed.getValue()));
 
         this.add(skipLevel);
         this.add(resetBalls);
