@@ -37,6 +37,7 @@ abstract public class Ball {
         right.setLocation(center.getX()+(radiusA /2),center.getY());
 
         Random rnd = new Random();
+
         int speedX,speedY;
         do{
             speedX = rnd.nextInt(5) - 2;
@@ -68,6 +69,25 @@ abstract public class Ball {
         ballFace = tmp;
     }
 
+    public Point2D getUp()
+    {
+        return up;
+    }
+
+    public Point2D getDown()
+    {
+        return down;
+    }
+
+    public Point2D getRight()
+    {
+        return right;
+    }
+
+    public Point2D getLeft()
+    {
+        return left;
+    }
     public void setSpeed(int x,int y){
         speedX = x;
         speedY = y;

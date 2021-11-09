@@ -1,5 +1,9 @@
 package code.GameplayElements;
 
+import code.GameplayElements.Bricks.Brick;
+import code.GameplayElements.Bricks.BrickClay;
+import code.GameplayElements.Bricks.BrickFactory;
+
 import java.awt.*;
 
 public class LevelManager
