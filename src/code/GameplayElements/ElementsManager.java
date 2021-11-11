@@ -17,17 +17,6 @@ public class ElementsManager
     private Point m_startPoint ;
     private Rectangle m_drawArea;
 
-    public ElementsManager(Wall gameWall, Point ballPos, Rectangle drawArea)
-    {
-     m_gameWall = gameWall;
-     m_drawArea = drawArea;
-     m_gameBall = new BallRubber((ballPos));
-     m_gamePaddle = new Paddle((Point) ballPos.clone(),150,10, m_drawArea);
-     m_levelManager = new LevelManager();
-     m_ballCount = 3;
-     m_ballLost = false;
-     m_startPoint = new Point(300,430);
-    }
     public Wall GetWall()
     {
         return m_gameWall;
@@ -62,6 +51,17 @@ public class ElementsManager
         m_gameBall.SetYSpeed(s);
     }
 
+    public ElementsManager(Wall gameWall, Point ballPos, Rectangle drawArea)
+    {
+        m_gameWall = gameWall;
+        m_drawArea = drawArea;
+        m_gameBall = new BallRubber((ballPos));
+        m_gamePaddle = new Paddle((Point) ballPos.clone(),150,10, m_drawArea);
+        m_levelManager = new LevelManager();
+        m_ballCount = 3;
+        m_ballLost = false;
+        m_startPoint = new Point(300,430);
+    }
 
     public void Move()
     {

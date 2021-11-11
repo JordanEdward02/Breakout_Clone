@@ -23,6 +23,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
 
+    // Added so when creating ball we adhere to Bob's conventions
+    private static final int DEF_BALL_X = 300;
+    private static final int DEF_BALL_Y = 420;
+
     private static final Color BG_COLOR = Color.WHITE;
 
     private Timer gameTimer;
@@ -45,13 +49,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public GameBoard(JFrame owner){
         super();
-        strLen = 0;
         showPauseMenu = false;
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
         this.initialize();
         message = "Press SPACE to start";
 
-        m_GameManager = new ElementsManager(new Wall(), new Point(300,430),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
+        m_GameManager = new ElementsManager(new Wall(), new Point(DEF_BALL_X,DEF_BALL_Y),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         debugConsole = new DebugConsole(owner,m_GameManager,this);
         //initialize the first level
         m_GameManager.NextLevel();
