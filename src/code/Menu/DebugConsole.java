@@ -14,27 +14,33 @@ public class DebugConsole extends JDialog implements WindowListener{
     private static final String TITLE = "Debug Console";
 
 
-    private JFrame owner;
-    private DebugPanel debugPanel;
-    private GameBoard gameBoard;
+    private JFrame m_owner;
+    private DebugPanel m_debugPanel;
+    private GameBoard m_gameBoard;
     private ElementsManager m_gameManager;
 
+
+    private void setLocation(){
+        int x = ((m_owner.getWidth() - this.getWidth()) / 2) + m_owner.getX();
+        int y = ((m_owner.getHeight() - this.getHeight()) / 2) + m_owner.getY();
+        this.setLocation(x,y);
+    }
 
     public DebugConsole(JFrame owner,ElementsManager gameManager,GameBoard gameBoard){
 
         m_gameManager = gameManager;
-        this.owner = owner;
-        this.gameBoard = gameBoard;
+        m_owner = owner;
+        m_gameBoard = gameBoard;
         initialize();
 
-        debugPanel = new DebugPanel(m_gameManager);
-        this.add(debugPanel,BorderLayout.CENTER);
+        m_debugPanel = new DebugPanel(m_gameManager);
+        this.add(m_debugPanel,BorderLayout.CENTER);
 
 
         this.pack();
     }
 
-    public void initialize(){
+    private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -43,14 +49,6 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.setFocusable(true);
     }
 
-
-    public void setLocation(){
-        int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
-        int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
-        this.setLocation(x,y);
-    }
-
-
     @Override
     public void windowOpened(WindowEvent windowEvent) {
 
@@ -58,7 +56,7 @@ public class DebugConsole extends JDialog implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameBoard.repaint();
+        m_gameBoard.repaint();
     }
 
     @Override
@@ -79,8 +77,8 @@ public class DebugConsole extends JDialog implements WindowListener{
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = m_gameManager.getBall();
-        debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
+        Ball b = m_gameManager.GetBall();
+        m_debugPanel.SetValues(b.GetSpeedX(),b.GetSpeedY());
     }
 
     @Override

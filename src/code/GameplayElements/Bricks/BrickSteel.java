@@ -15,33 +15,32 @@ public class BrickSteel extends Brick {
     private Random rnd;
     private Shape brickFace;
 
+    @Override
+    public Shape GetBrick() {
+        return brickFace;
+    }
+
+    public boolean SetImpact(Point2D point , int dir){
+        if(super.IsBroken())
+            return false;
+        impact();
+        return  super.IsBroken();
+    }
+
     public BrickSteel(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
-        brickFace = super.brickFace;
+        brickFace = super.m_brickFace;
     }
-
 
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
 
-    @Override
-    public Shape getBrick() {
-        return brickFace;
-    }
-
-    public  boolean setImpact(Point2D point , int dir){
-        if(super.isBroken())
-            return false;
-        impact();
-        return  super.isBroken();
-    }
-
-    public void impact(){
+    private void impact(){
         if(rnd.nextDouble() < STEEL_PROBABILITY){
-            super.impact();
+            super.Impact();
         }
     }
 

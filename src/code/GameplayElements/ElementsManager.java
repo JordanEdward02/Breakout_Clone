@@ -21,91 +21,101 @@ public class ElementsManager
     {
      m_gameWall = gameWall;
      m_drawArea = drawArea;
-     m_gameBall = new Ball1((ballPos));
+     m_gameBall = new BallRubber((ballPos));
      m_gamePaddle = new Paddle((Point) ballPos.clone(),150,10, m_drawArea);
      m_levelManager = new LevelManager();
      m_ballCount = 3;
      m_ballLost = false;
      m_startPoint = new Point(300,430);
     }
-    public Wall getWall()
+    public Wall GetWall()
     {
         return m_gameWall;
     }
 
-    public Ball getBall()
+    public Ball GetBall()
     {
         return m_gameBall;
     }
 
-    public Paddle getPaddle()
+    public Paddle GetPaddle()
     {
         return m_gamePaddle;
     }
 
-    public int getBallCount()
+    public int GetBallCount()
     {
         return m_ballCount;
     }
 
-    public int getBrickCount()
+    public int GetBrickCount()
     {
-        return m_gameWall.getBrickCount();
+        return m_gameWall.GetBrickCount();
     }
 
-    public void move()
+    public void SetBallXSpeed(int s)
     {
-        m_gamePaddle.move();
-        m_gameBall.move();
+        m_gameBall.SetXSpeed(s);
     }
 
-    public void findImpacts()
+    public void SetBallYSpeed(int s){
+        m_gameBall.SetYSpeed(s);
+    }
+
+
+    public void Move()
     {
-        if(m_gamePaddle.impact(m_gameBall)){
-            m_gameBall.reverseY();
+        m_gamePaddle.Move();
+        m_gameBall.Move();
+    }
+
+    public void FindImpacts()
+    {
+        if(m_gamePaddle.Impact(m_gameBall)){
+            m_gameBall.ReverseY();
         }
-        else if(m_gameWall.impactWall(m_gameBall)){
+        else if(m_gameWall.ImpactWall(m_gameBall)){
             // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
-            m_gameWall.reduceBrickCount();
+            m_gameWall.ReduceBrickCount();
         }
         else if(impactBorder()) {
-            m_gameBall.reverseX();
+            m_gameBall.ReverseX();
         }
-        else if(m_gameBall.getPosition().getY() < m_drawArea.getY()){
-            m_gameBall.reverseY();
+        else if(m_gameBall.GetPosition().getY() < m_drawArea.getY()){
+            m_gameBall.ReverseY();
         }
-        else if(m_gameBall.getPosition().getY() > m_drawArea.getY() + m_drawArea.getHeight()){
+        else if(m_gameBall.GetPosition().getY() > m_drawArea.getY() + m_drawArea.getHeight()){
             m_ballCount--;
             m_ballLost = true;
         }
     }
 
-    public boolean isBallLost()
+    public boolean IsBallLost()
     {
         return m_ballLost;
     }
 
 
-    public boolean ballEnd()
+    public boolean BallEnd()
     {
         return m_ballCount == 0;
     }
 
 
-    public void wallReset()
+    public void WallReset()
     {
-        for(Brick b : m_gameWall.getBricks())
-            b.repair();
-        m_gameWall.setBrickCount(m_gameWall.getBricks().length);
+        for(Brick b : m_gameWall.GetBricks())
+            b.Repair();
+        m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
         m_ballCount = 3;
     }
 
 
-    public void ballReset()
+    public void BallReset()
     {
         Random rnd = new Random();
-        m_gamePaddle.moveTo(m_startPoint);
-        m_gameBall.moveTo(m_startPoint);
+        m_gamePaddle.MoveTo(m_startPoint);
+        m_gameBall.MoveTo(m_startPoint);
         int speedX,speedY;
         do{
             speedX = rnd.nextInt(5) - 2;
@@ -114,39 +124,29 @@ public class ElementsManager
             speedY = -rnd.nextInt(3);
         }while(speedY == 0);
 
-        m_gameBall.setSpeed(speedX,speedY);
+        m_gameBall.SetSpeed(speedX,speedY);
         m_ballLost = false;
     }
 
 
-    public boolean impactBorder()
+    private boolean impactBorder()
     {
-        Point2D p = m_gameBall.getPosition();
+        Point2D p = m_gameBall.GetPosition();
         return ((p.getX() < m_drawArea.getX()) ||(p.getX() > (m_drawArea.getX() + m_drawArea.getWidth())));
     }
 
-
-    public void setBallXSpeed(int s)
-    {
-        m_gameBall.setXSpeed(s);
-    }
-
-    public void setBallYSpeed(int s){
-        m_gameBall.setYSpeed(s);
-    }
-
-    public void resetBallCount()
+    public void ResetBallCount()
     {
         m_ballCount = 3;
     }
 
-    public boolean newLevel()
+    public boolean NewLevel()
     {
-        return m_levelManager.hasNextLevel();
+        return m_levelManager.HasNextLevel();
     }
 
-    public void nextLevel(){
-        m_levelManager.incrementLevel();
-        m_gameWall.renderWall(m_levelManager, m_drawArea);
+    public void NextLevel(){
+        m_levelManager.IncrementLevel();
+        m_gameWall.RenderWall(m_levelManager, m_drawArea);
     }
 }

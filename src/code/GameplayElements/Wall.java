@@ -10,55 +10,56 @@ public class Wall {
 
     private int m_brickCount = 31;
 
-    public Brick[] getBricks()
+    public Brick[] GetBricks()
     {
         return bricks;
     }
 
-    public void reduceBrickCount()
+    public void SetBrickCount(int brickCount)
+    {
+        m_brickCount = brickCount;
+    }
+
+    public int GetBrickCount(){
+        return m_brickCount;
+    }
+
+
+    public void ReduceBrickCount()
     {
         m_brickCount--;
     }
 
-    public void renderWall(LevelManager levelManager, Rectangle drawArea)
+    public void RenderWall(LevelManager levelManager, Rectangle drawArea)
     {
-        bricks = levelManager.renderWall(drawArea, m_brickCount);
+        bricks = levelManager.RenderWall(drawArea, m_brickCount);
     }
     // Kept this in the wall class as it's about interactions with the wall, and this manages it with all the bricks
-    public boolean impactWall(Ball ball){
+    public boolean ImpactWall(Ball ball){
         for(Brick b : bricks){
-            switch(b.findImpact(ball)) {
+            switch(b.FindImpact(ball)) {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
+                    ball.ReverseY();
+                    return b.SetImpact(ball.down, Brick.Crack.UP);
                 case Brick.DOWN_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.up,Brick.Crack.DOWN);
+                    ball.ReverseY();
+                    return b.SetImpact(ball.up,Brick.Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.right,Brick.Crack.RIGHT);
+                    ball.ReverseX();
+                    return b.SetImpact(ball.right,Brick.Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.left,Brick.Crack.LEFT);
+                    ball.ReverseX();
+                    return b.SetImpact(ball.left,Brick.Crack.LEFT);
             }
         }
         return false;
     }
 
-    public void setBrickCount(int brickCount)
-    {
-        m_brickCount = brickCount;
-    }
 
-    public int getBrickCount(){
-        return m_brickCount;
-    }
-
-
-    public boolean isDone(){
+    public boolean IsDone(){
         return m_brickCount == 0;
     }
 

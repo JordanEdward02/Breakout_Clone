@@ -17,6 +17,10 @@ public class Paddle {
     private int min;
     private int max;
 
+    public Shape GetPaddleFace(){
+        return paddleFace;
+    }
+
 
     public Paddle(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
@@ -27,16 +31,16 @@ public class Paddle {
 
     }
 
-    public Rectangle makeRectangle(int width,int height){
+    private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
 
-    public boolean impact(Ball b){
-        return paddleFace.contains(b.getPosition()) && paddleFace.contains(b.down) ;
+    public boolean Impact(Ball b){
+        return paddleFace.contains(b.GetPosition()) && paddleFace.contains(b.down) ;
     }
 
-    public void move(){
+    public void Move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
             return;
@@ -44,23 +48,19 @@ public class Paddle {
         paddleFace.setLocation(ballPoint.x - (int) paddleFace.getWidth()/2,ballPoint.y);
     }
 
-    public void moveLeft(){
+    public void MoveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    public void movRight(){
+    public void MoveRight(){
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
-    public void stop(){
+    public void Stop(){
         moveAmount = 0;
     }
 
-    public Shape getPaddleFace(){
-        return paddleFace;
-    }
-
-    public void moveTo(Point p){
+    public void MoveTo(Point p){
         ballPoint.setLocation(p);
         paddleFace.setLocation(ballPoint.x - (int) paddleFace.getWidth()/2,ballPoint.y);
     }
