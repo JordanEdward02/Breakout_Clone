@@ -1,4 +1,4 @@
-package code.Menu;
+package code.Menu.Debug;
 
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Wall;

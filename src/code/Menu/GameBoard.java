@@ -2,6 +2,7 @@ package code.Menu;
 
 import code.GameplayElements.*;
 import code.GameplayElements.Bricks.Brick;
+import code.Menu.Debug.DebugConsole;
 
 import javax.swing.*;
 import java.awt.*;
