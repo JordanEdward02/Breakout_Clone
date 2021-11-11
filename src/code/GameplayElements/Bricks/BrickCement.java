@@ -13,24 +13,12 @@ public class BrickCement extends Brick {
     private Crack crack;
     private Shape brickFace;
 
-
-    public BrickCement(Point point, Dimension size){
-        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
-        crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
-        brickFace = super.brickFace;
-    }
-
     @Override
-    protected Shape makeBrickFace(Point pos, Dimension size) {
-        return new Rectangle(pos,size);
-    }
-
-    @Override
-    public boolean setImpact(Point2D point, int dir) {
-        if(super.isBroken())
+    public boolean SetImpact(Point2D point, int dir) {
+        if(super.IsBroken())
             return false;
-        super.impact();
-        if(!super.isBroken()){
+        super.Impact();
+        if(!super.IsBroken()){
             crack.makeCrack(point,dir);
             updateBrick();
             return false;
@@ -40,21 +28,33 @@ public class BrickCement extends Brick {
 
 
     @Override
-    public Shape getBrick() {
+    public Shape GetBrick() {
         return brickFace;
     }
 
+    public BrickCement(Point point, Dimension size){
+        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
+        crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS);
+        brickFace = super.m_brickFace;
+    }
+
+    @Override
+    protected Shape makeBrickFace(Point pos, Dimension size) {
+        return new Rectangle(pos,size);
+    }
+
+
     private void updateBrick(){
-        if(!super.isBroken()){
-            GeneralPath gp = crack.draw();
-            gp.append(super.brickFace,false);
+        if(!super.IsBroken()){
+            GeneralPath gp = crack.Draw();
+            gp.append(super.m_brickFace,false);
             brickFace = gp;
         }
     }
 
-    public void repair(){
-        super.repair();
-        crack.reset();
-        brickFace = super.brickFace;
+    public void Repair(){
+        super.Repair();
+        crack.Reset();
+        brickFace = super.m_brickFace;
     }
 }

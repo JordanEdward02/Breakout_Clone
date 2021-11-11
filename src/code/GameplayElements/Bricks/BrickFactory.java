@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class BrickFactory {
 
-    public static Brick getBrick(Point point, Dimension size, int type)
+    public static Brick GetBrick(Point point, Dimension size, int type)
     {
         Brick newBrick;
         switch(type)

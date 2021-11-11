@@ -15,7 +15,7 @@ public class LevelManager
     private int level=0;
 
 
-    public Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
+    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         // if brickCount is not divisible by line count,brickCount is adjusted to the biggest multiple of lineCount smaller then brickCount
         brickCnt -= brickCnt % lineCnt;
 
@@ -40,7 +40,7 @@ public class LevelManager
             x =(line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x,y);
-            tmp[i] = BrickFactory.getBrick(p,brickSize,type);
+            tmp[i] = BrickFactory.GetBrick(p,brickSize,type);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
@@ -52,7 +52,7 @@ public class LevelManager
 
     }
 
-    public Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
+    private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB){
         // if brickCount is not divisible by line count, brickCount is adjusted to the biggest multiple of lineCount smaller then brickCount
         brickCnt -= brickCnt % lineCnt;
 
@@ -83,27 +83,27 @@ public class LevelManager
             p.setLocation(x,y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ?  BrickFactory.getBrick(p,brickSize,typeA) : BrickFactory.getBrick(p,brickSize,typeB);
+            tmp[i] = b ?  BrickFactory.GetBrick(p,brickSize,typeA) : BrickFactory.GetBrick(p,brickSize,typeB);
         }
 
         for(double y = brickHgt;i < tmp.length;i++, y += 2*brickHgt){
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x,y);
-            tmp[i] = BrickFactory.getBrick(p,brickSize,typeA);
+            tmp[i] = BrickFactory.GetBrick(p,brickSize,typeA);
         }
         return tmp;
     }
 
-    public boolean hasNextLevel(){
+    public boolean HasNextLevel(){
         return level < LEVELS_COUNT;
     }
 
-    public void incrementLevel()
+    public void IncrementLevel()
     {
         level++;
     }
 
-    public Brick[] renderWall(Rectangle drawArea, int brickCount)
+    public Brick[] RenderWall(Rectangle drawArea, int brickCount)
     {
         double m_brickDimensionRatio = (double) 6/2;
         int lineCount = 3;

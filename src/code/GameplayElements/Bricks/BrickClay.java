@@ -10,8 +10,10 @@ public class BrickClay extends Brick {
     private static final Color DEF_BORDER = Color.GRAY;
     private static final int CLAY_STRENGTH = 1;
 
-
-
+    @Override
+    public Shape GetBrick() {
+        return super.m_brickFace;
+    }
 
 
 
@@ -23,11 +25,5 @@ public class BrickClay extends Brick {
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
-
-    @Override
-    public Shape getBrick() {
-        return super.brickFace;
-    }
-
 
 }

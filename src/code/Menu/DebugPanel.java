@@ -15,13 +15,18 @@ public class DebugPanel extends JPanel {
     private static final Color DEF_BKG = Color.WHITE;
 
 
-    private JButton skipLevel;
-    private JButton resetBalls;
+    private JButton m_skipLevel;
+    private JButton m_resetBalls;
 
-    private JSlider ballXSpeed;
-    private JSlider ballYSpeed;
+    private JSlider m_ballXSpeed;
+    private JSlider m_ballYSpeed;
 
     private ElementsManager m_gameManager;
+
+    public void SetValues(int x,int y){
+        m_ballXSpeed.setValue(x);
+        m_ballYSpeed.setValue(y);
+    }
 
     public DebugPanel(ElementsManager gameManager){
 
@@ -29,43 +34,38 @@ public class DebugPanel extends JPanel {
 
         initialize();
 
-        skipLevel = makeButton("Skip Level",e -> m_gameManager.nextLevel());
-        resetBalls = makeButton("Reset Balls",e -> m_gameManager.resetBallCount());
+        m_skipLevel = makeButton("Skip Level",e -> m_gameManager.NextLevel());
+        m_resetBalls = makeButton("Reset Balls",e -> m_gameManager.ResetBallCount());
 
-        ballXSpeed = makeSlider(-4,4,e -> m_gameManager.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4,4,e -> m_gameManager.setBallYSpeed(ballYSpeed.getValue()));
+        m_ballXSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallXSpeed(m_ballXSpeed.getValue()));
+        m_ballYSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallYSpeed(m_ballYSpeed.getValue()));
 
-        this.add(skipLevel);
-        this.add(resetBalls);
+        this.add(m_skipLevel);
+        this.add(m_resetBalls);
 
-        this.add(ballXSpeed);
-        this.add(ballYSpeed);
+        this.add(m_ballXSpeed);
+        this.add(m_ballYSpeed);
 
     }
 
-    public void initialize(){
+    private void initialize(){
         this.setBackground(DEF_BKG);
         this.setLayout(new GridLayout(2,2));
     }
 
-    public JButton makeButton(String title, ActionListener e){
+    private JButton makeButton(String title, ActionListener e){
         JButton out = new JButton(title);
         out.addActionListener(e);
         return  out;
     }
 
-    public JSlider makeSlider(int min, int max, ChangeListener e){
+    private JSlider makeSlider(int min, int max, ChangeListener e){
         JSlider out = new JSlider(min,max);
         out.setMajorTickSpacing(1);
         out.setSnapToTicks(true);
         out.setPaintTicks(true);
         out.addChangeListener(e);
         return out;
-    }
-
-    public void setValues(int x,int y){
-        ballXSpeed.setValue(x);
-        ballYSpeed.setValue(y);
     }
 
 }

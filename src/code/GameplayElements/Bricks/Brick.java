@@ -10,8 +10,6 @@ import java.util.Random;
 
 abstract public class Brick  {
 
-    public static final int MIN_CRACK = 1;
-    public static final int MAX_CRACK = 3;
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
 
@@ -37,33 +35,33 @@ abstract public class Brick  {
 
 
 
-        private GeneralPath crack;
+        private GeneralPath m_crack;
 
-        private int crackDepth;
-        private int steps;
+        private int m_crackDepth;
+        private int m_steps;
 
 
         public Crack(int crackDepth, int steps){
 
-            crack = new GeneralPath();
-            this.crackDepth = crackDepth;
-            this.steps = steps;
+            m_crack = new GeneralPath();
+            this.m_crackDepth = crackDepth;
+            this.m_steps = steps;
 
         }
 
 
 
-        public GeneralPath draw(){
+        public GeneralPath Draw(){
 
-            return crack;
+            return m_crack;
         }
 
-        public void reset(){
-            crack.reset();
+        public void Reset(){
+            m_crack.reset();
         }
 
         protected void makeCrack(Point2D point, int direction){
-            Rectangle bounds = Brick.this.brickFace.getBounds();
+            Rectangle bounds = Brick.this.m_brickFace.getBounds();
 
             Point impact = new Point((int)point.getX(),(int)point.getY());
             Point start = new Point();
@@ -109,20 +107,20 @@ abstract public class Brick  {
 
             path.moveTo(start.x,start.y);
 
-            double w = (end.x - start.x) / (double)steps;
-            double h = (end.y - start.y) / (double)steps;
+            double w = (end.x - start.x) / (double)m_steps;
+            double h = (end.y - start.y) / (double)m_steps;
 
-            int bound = crackDepth;
+            int bound = m_crackDepth;
             int jump  = bound * 5;
 
             double x,y;
 
-            for(int i = 1; i < steps;i++){
+            for(int i = 1; i < m_steps;i++){
 
                 x = (i * w) + start.x;
                 y = (i * h) + start.y + randomInBounds(bound);
 
-                if(inMiddle(i,CRACK_SECTIONS,steps))
+                if(inMiddle(i,CRACK_SECTIONS,m_steps))
                     y += jumps(jump,JUMP_PROBABILITY);
 
                 path.lineTo(x,y);
@@ -130,41 +128,41 @@ abstract public class Brick  {
             }
 
             path.lineTo(end.x,end.y);
-            crack.append(path,true);
+            m_crack.append(path,true);
         }
 
-        public int randomInBounds(int bound){
+        private int randomInBounds(int bound){
             int n = (bound * 2) + 1;
-            return rnd.nextInt(n) - bound;
+            return m_rnd.nextInt(n) - bound;
         }
 
-        public boolean inMiddle(int i,int steps,int divisions){
+        private boolean inMiddle(int i,int steps,int divisions){
             int low = (steps / divisions);
             int up = low * (divisions - 1);
 
             return  (i > low) && (i < up);
         }
 
-        public int jumps(int bound,double probability){
+        private int jumps(int bound,double probability){
 
-            if(rnd.nextDouble() > probability)
+            if(m_rnd.nextDouble() > probability)
                 return randomInBounds(bound);
             return  0;
 
         }
 
-        public Point makeRandomPoint(Point from,Point to, int direction){
+        private Point makeRandomPoint(Point from,Point to, int direction){
 
             Point out = new Point();
             int pos;
 
             switch(direction){
                 case HORIZONTAL:
-                    pos = rnd.nextInt(to.x - from.x) + from.x;
+                    pos = m_rnd.nextInt(to.x - from.x) + from.x;
                     out.setLocation(pos,to.y);
                     break;
                 case VERTICAL:
-                    pos = rnd.nextInt(to.y - from.y) + from.y;
+                    pos = m_rnd.nextInt(to.y - from.y) + from.y;
                     out.setLocation(to.x,pos);
                     break;
             }
@@ -173,78 +171,78 @@ abstract public class Brick  {
 
     }
 
-    private static Random rnd;
+    private static Random m_rnd;
 
-    Shape brickFace;
+    Shape m_brickFace;
 
-    private Color border;
-    private Color inner;
+    private Color m_border;
+    private Color m_inner;
 
-    private int fullStrength;
-    private int strength;
+    private int m_fullStrength;
+    private int m_strength;
 
-    private boolean broken;
+    private boolean m_broken;
+
+    public  boolean SetImpact(Point2D point , int dir){
+        if(m_broken)
+            return false;
+        Impact();
+        return  m_broken;
+    }
+
+    public abstract Shape GetBrick();
 
 
     public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
-        rnd = new Random();
-        broken = false;
-        brickFace = makeBrickFace(pos,size);
-        this.border = border;
-        this.inner = inner;
-        this.fullStrength = this.strength = strength;
+        m_rnd = new Random();
+        m_broken = false;
+        m_brickFace = makeBrickFace(pos,size);
+        m_border = border;
+        m_inner = inner;
+        m_fullStrength = m_strength = strength;
 
     }
 
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
-    public  boolean setImpact(Point2D point , int dir){
-        if(broken)
-            return false;
-        impact();
-        return  broken;
+
+
+    public Color GetBorderColor(){
+        return  m_border;
     }
 
-    public abstract Shape getBrick();
-
-
-
-    public Color getBorderColor(){
-        return  border;
-    }
-
-    public Color getInnerColor(){
-        return inner;
+    public Color GetInnerColor(){
+        return m_inner;
     }
 
 
-    public final int findImpact(Ball b){
-        if(broken)
+    public final int FindImpact(Ball b){
+        if(m_broken)
             return 0;
         int out  = 0;
-        if(brickFace.contains(b.getRight()))
+        if(m_brickFace.contains(b.GetRight()))
             out = LEFT_IMPACT;
-        else if(brickFace.contains(b.getLeft()))
+        else if(m_brickFace.contains(b.GetLeft()))
             out = RIGHT_IMPACT;
-        else if(brickFace.contains(b.getUp()))
+        else if(m_brickFace.contains(b.GetUp()))
             out = DOWN_IMPACT;
-        else if(brickFace.contains(b.getDown()))
+        else if(m_brickFace.contains(b.GetDown()))
             out = UP_IMPACT;
         return out;
     }
 
-    public final boolean isBroken(){
-        return broken;
+    public final boolean IsBroken(){
+        return m_broken;
     }
 
-    public void repair() {
-        broken = false;
-        strength = fullStrength;
+    public void Repair() {
+        m_broken = false;
+        m_strength = m_fullStrength;
     }
 
-    public void impact(){
-        strength--;
-        broken = (strength == 0);
+    public void Impact(){
+        m_strength--;
+        m_broken = (m_strength == 0);
     }
 
 
