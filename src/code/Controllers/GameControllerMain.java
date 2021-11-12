@@ -11,6 +11,8 @@ import javax.swing.Timer;
 public class GameControllerMain implements KeyListener, MouseListener, MouseMotionListener {
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
+    private DebugMenuController m_DebugMenu;
+
     public void GameControllerMain (ElementsManager GameManager, GameBoard GameBoard)
     {
         m_GameManager = GameManager;
@@ -20,10 +22,10 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
 
     private void initialise()
     {
-
         m_GameBoard.addKeyListener(this);
         m_GameBoard.addMouseListener(this);
         m_GameBoard.addMouseMotionListener(this);
+        m_DebugMenu = new DebugMenuController(m_GameManager, m_GameBoard);
     }
     @Override
     public void keyTyped(KeyEvent keyEvent) {
@@ -66,24 +68,9 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if(!m_ShowPauseMenu)
-            return;
-        if(m_continueButtonRect.contains(p)){
-            m_ShowPauseMenu = false;
-            repaint();
+        if (m_GameBoard.GetShowPauseMenu()) {
+            m_DebugMenu.DebugInputs(mouseEvent);
         }
-        else if(m_restartButtonRect.contains(p)){
-            m_Message = "Restarting Game...";
-            m_GameManager.BallReset();
-            m_GameManager.WallReset();
-            m_ShowPauseMenu = false;
-            repaint();
-        }
-        else if(m_exitButtonRect.contains(p)){
-            System.exit(0);
-        }
-
     }
 
     @Override
@@ -113,16 +100,11 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if(m_exitButtonRect != null && m_ShowPauseMenu) {
-            if (m_exitButtonRect.contains(p) || m_continueButtonRect.contains(p) || m_restartButtonRect.contains(p))
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
-                this.setCursor(Cursor.getDefaultCursor());
+        if (m_GameBoard.GetShowPauseMenu()) {
+            m_DebugMenu.DebugMenuVisuals(mouseEvent);
         }
         else{
-            this.setCursor(Cursor.getDefaultCursor());
+            m_GameBoard.setCursor(Cursor.getDefaultCursor());
         }
     }
-
 }

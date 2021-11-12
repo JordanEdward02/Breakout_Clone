@@ -44,15 +44,46 @@ public class GameBoard extends JComponent{
     private Rectangle m_restartButtonRect;
     private int m_MenuInt=0;
 
-    private DebugConsole debugConsole;
+    private DebugConsole m_debugConsole;
 
     public boolean GetShowPauseMenu()
     {
         return m_ShowPauseMenu;
     }
+
     public Timer GetGameTimer()
     {
         return m_GameTimer;
+    }
+
+    public Rectangle GetContinueBut()
+    {
+        return m_continueButtonRect;
+    }
+
+    public Rectangle GetExitBut()
+    {
+        return m_exitButtonRect;
+    }
+
+    public Rectangle GetRestartBut()
+    {
+        return m_restartButtonRect;
+    }
+
+    public void SetShowPauseMenu(boolean newMenuState)
+    {
+        m_ShowPauseMenu = newMenuState;
+    }
+
+    public void SetMessage(String newMessage)
+    {
+        m_Message = newMessage;
+    }
+
+    public DebugConsole GetDebugConsole()
+    {
+        return m_debugConsole;
     }
 
     public GameBoard(JFrame owner){
@@ -63,7 +94,7 @@ public class GameBoard extends JComponent{
         m_Message = "Press SPACE to start";
 
         m_GameManager = new ElementsManager(new Wall(), new Point(DEF_BALL_X,DEF_BALL_Y),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
-        debugConsole = new DebugConsole(owner,m_GameManager,this);
+        m_debugConsole = new DebugConsole(owner,m_GameManager,this);
         //initialize the first level
         m_GameManager.NextLevel();
 
@@ -252,7 +283,5 @@ public class GameBoard extends JComponent{
         m_Message = "Focus Lost";
         repaint();
     }
-
-
 
 }
