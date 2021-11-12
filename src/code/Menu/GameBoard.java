@@ -6,12 +6,11 @@ import code.Menu.Debug.DebugConsole;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 
 
-public class GameBoard extends JComponent implements KeyListener,MouseListener,MouseMotionListener {
+public class GameBoard extends JComponent{
 
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
@@ -47,6 +46,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     private DebugConsole debugConsole;
 
+    public boolean GetShowPauseMenu()
+    {
+        return m_ShowPauseMenu;
+    }
+    public Timer GetGameTimer()
+    {
+        return m_GameTimer;
+    }
 
     public GameBoard(JFrame owner){
         super();
@@ -95,9 +102,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
         this.setFocusable(true);
         this.requestFocusInWindow();
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
     }
 
     @Override
@@ -241,104 +245,6 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        Paddle tempPaddle = m_GameManager.GetPaddle();
-        int code=e.getKeyCode();
-        if(code==KeyEvent.VK_LEFT){
-            tempPaddle.MoveLeft();
-        }
-        if(code==KeyEvent.VK_RIGHT){
-            tempPaddle.MoveRight();
-        }
-        if(code==KeyEvent.VK_SPACE){
-            if(!m_ShowPauseMenu)
-                if(m_GameTimer.isRunning())
-                    m_GameTimer.stop();
-                else
-                    m_GameTimer.start();
-        }
-        if(code==KeyEvent.VK_ESCAPE){
-            m_ShowPauseMenu = !m_ShowPauseMenu;
-            repaint();
-            m_GameTimer.stop();
-        }
-        if(code==KeyEvent.VK_F1){
-            if(e.isAltDown() && e.isShiftDown())
-                debugConsole.setVisible(true);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        m_GameManager.GetPaddle().Stop();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if(!m_ShowPauseMenu)
-            return;
-        if(m_continueButtonRect.contains(p)){
-            m_ShowPauseMenu = false;
-            repaint();
-        }
-        else if(m_restartButtonRect.contains(p)){
-            m_Message = "Restarting Game...";
-            m_GameManager.BallReset();
-            m_GameManager.WallReset();
-            m_ShowPauseMenu = false;
-            repaint();
-        }
-        else if(m_exitButtonRect.contains(p)){
-            System.exit(0);
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if(m_exitButtonRect != null && m_ShowPauseMenu) {
-            if (m_exitButtonRect.contains(p) || m_continueButtonRect.contains(p) || m_restartButtonRect.contains(p))
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
-                this.setCursor(Cursor.getDefaultCursor());
-        }
-        else{
-            this.setCursor(Cursor.getDefaultCursor());
-        }
     }
 
     public void OnLostFocus(){
