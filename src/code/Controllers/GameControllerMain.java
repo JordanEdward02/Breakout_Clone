@@ -9,11 +9,12 @@ import java.awt.event.*;
 import javax.swing.Timer;
 
 public class GameControllerMain implements KeyListener, MouseListener, MouseMotionListener {
+
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
-    private DebugMenuController m_DebugMenu;
+    private PauseMenuController m_PauseMenu;
 
-    public void GameControllerMain (ElementsManager GameManager, GameBoard GameBoard)
+    public GameControllerMain (ElementsManager GameManager, GameBoard GameBoard)
     {
         m_GameManager = GameManager;
         m_GameBoard = GameBoard;
@@ -25,7 +26,7 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
         m_GameBoard.addKeyListener(this);
         m_GameBoard.addMouseListener(this);
         m_GameBoard.addMouseMotionListener(this);
-        m_DebugMenu = new DebugMenuController(m_GameManager, m_GameBoard);
+        m_PauseMenu = new PauseMenuController(m_GameManager, m_GameBoard);
     }
     @Override
     public void keyTyped(KeyEvent keyEvent) {
@@ -51,13 +52,13 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
                     gameTimer.start();
         }
         if(code==KeyEvent.VK_ESCAPE){
-            showPauseMenu = !showPauseMenu;
+            m_GameBoard.SetShowPauseMenu(!showPauseMenu);
             m_GameBoard.repaint();
             gameTimer.stop();
         }
         if(code==KeyEvent.VK_F1){
             if(e.isAltDown() && e.isShiftDown())
-                gameTimer.setVisible(true);
+                m_GameBoard.GetDebugConsole().setVisible(true);
         }
     }
 
@@ -69,7 +70,7 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (m_GameBoard.GetShowPauseMenu()) {
-            m_DebugMenu.DebugInputs(mouseEvent);
+            m_PauseMenu.PauseInputs(mouseEvent);
         }
     }
 
@@ -101,7 +102,7 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         if (m_GameBoard.GetShowPauseMenu()) {
-            m_DebugMenu.DebugMenuVisuals(mouseEvent);
+            m_PauseMenu.PauseMenuVisuals(mouseEvent);
         }
         else{
             m_GameBoard.setCursor(Cursor.getDefaultCursor());

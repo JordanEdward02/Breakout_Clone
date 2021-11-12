@@ -6,17 +6,17 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import code.Menu.GameBoard;
 
-public class DebugMenuController {
+public class PauseMenuController {
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
 
-    public DebugMenuController(ElementsManager gameManager, GameBoard gameBoard)
+    public PauseMenuController(ElementsManager gameManager, GameBoard gameBoard)
     {
         m_GameManager = gameManager;
         m_GameBoard = gameBoard;
     }
 
-    public void DebugInputs(MouseEvent NewEvent)
+    public void PauseInputs(MouseEvent NewEvent)
     {
         Point p = NewEvent.getPoint();
         Rectangle exitButton = m_GameBoard.GetExitBut();
@@ -40,7 +40,7 @@ public class DebugMenuController {
     }
 
 
-    public void DebugMenuVisuals(MouseEvent NewEvent)
+    public void PauseMenuVisuals(MouseEvent NewEvent)
     {
         Point p = NewEvent.getPoint();
         Rectangle exitButton = m_GameBoard.GetExitBut();
