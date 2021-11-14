@@ -7,14 +7,30 @@ import java.awt.event.MouseEvent;
 import code.Menu.GameBoard;
 
 public class PauseMenuController {
+    private static PauseMenuController m_ControllerPause;
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
 
-    public PauseMenuController(ElementsManager gameManager, GameBoard gameBoard)
+    public static PauseMenuController GetPauseMenuController()
     {
-        m_GameManager = gameManager;
-        m_GameBoard = gameBoard;
+        if (m_ControllerPause == null)
+        {
+            m_ControllerPause = new PauseMenuController();
+        }
+        return m_ControllerPause;
     }
+
+    public void SetGameManager(ElementsManager GameManager)
+    {
+        m_GameManager = GameManager;
+    }
+
+    public void SetGameBoard(GameBoard GameBoard)
+    {
+        m_GameBoard = GameBoard;
+    }
+
+    private PauseMenuController(){}
 
     public void PauseInputs(MouseEvent NewEvent)
     {

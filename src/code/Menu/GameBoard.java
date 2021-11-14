@@ -98,7 +98,8 @@ public class GameBoard extends JComponent{
 
         m_GameManager = new ElementsManager(new Wall(), new Point(DEF_BALL_X,DEF_BALL_Y),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         m_debugConsole = new DebugConsole(owner,m_GameManager,this);
-        m_GameController = new GameControllerMain(m_GameManager, this);
+        m_GameController = GameControllerMain.getControllerMain();
+        m_GameController.SetGame(m_GameManager, this);
         //initialize the first level
         m_GameManager.NextLevel();
 

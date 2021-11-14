@@ -10,15 +10,30 @@ import javax.swing.Timer;
 
 public class GameControllerMain implements KeyListener, MouseListener, MouseMotionListener {
 
+    private static GameControllerMain m_ControllerMain;
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
     private PauseMenuController m_PauseMenu;
 
-    public GameControllerMain (ElementsManager GameManager, GameBoard GameBoard)
+    public static GameControllerMain getControllerMain()
+    {
+        if (m_ControllerMain == null)
+        {
+            m_ControllerMain = new GameControllerMain();
+        }
+        return m_ControllerMain;
+    }
+
+    public void SetGame(ElementsManager GameManager, GameBoard GameBoard)
     {
         m_GameManager = GameManager;
         m_GameBoard = GameBoard;
         initialise();
+    }
+
+    private GameControllerMain ()
+    {
+
     }
 
     private void initialise()
@@ -26,7 +41,9 @@ public class GameControllerMain implements KeyListener, MouseListener, MouseMoti
         m_GameBoard.addKeyListener(this);
         m_GameBoard.addMouseListener(this);
         m_GameBoard.addMouseMotionListener(this);
-        m_PauseMenu = new PauseMenuController(m_GameManager, m_GameBoard);
+        m_PauseMenu = PauseMenuController.GetPauseMenuController();
+        m_PauseMenu.SetGameManager(m_GameManager);
+        m_PauseMenu.SetGameBoard(m_GameBoard);
     }
     @Override
     public void keyTyped(KeyEvent keyEvent) {
