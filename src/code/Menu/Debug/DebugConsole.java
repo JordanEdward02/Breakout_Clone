@@ -1,8 +1,8 @@
-package code.Menu;
+package code.Menu.Debug;
 
 import code.GameplayElements.Ball;
 import code.GameplayElements.ElementsManager;
-import code.GameplayElements.Wall;
+import code.Menu.GameBoard;
 
 import javax.swing.*;
 import java.awt.*;
