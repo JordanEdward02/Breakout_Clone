@@ -95,12 +95,10 @@ public class ElementsManager
         return m_ballLost;
     }
 
-
     public boolean BallEnd()
     {
         return m_ballCount == 0;
     }
-
 
     public void WallReset()
     {
@@ -109,7 +107,6 @@ public class ElementsManager
         m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
         m_ballCount = 3;
     }
-
 
     public void BallReset()
     {
@@ -127,7 +124,6 @@ public class ElementsManager
         m_gameBall.SetSpeed(speedX,speedY);
         m_ballLost = false;
     }
-
 
     private boolean impactBorder()
     {

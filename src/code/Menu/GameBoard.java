@@ -13,6 +13,8 @@ import java.awt.font.FontRenderContext;
 
 public class GameBoard extends JComponent{
 
+    // Far too many class viriables for this to be maintainable. When creating the pause menu class, hopefully lots of
+    // these will be moved and the
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";

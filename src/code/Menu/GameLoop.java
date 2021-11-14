@@ -25,6 +25,7 @@ public class GameLoop {
         m_GameManager = GameManager;
         m_GameBoard = GameBoard;
     }
+
     public void StartLoop()
     {
         m_Timer = new Timer(10,e ->{
