@@ -30,7 +30,7 @@ public class GameBoard extends JComponent{
 
     private static final Color BG_COLOR = Color.WHITE;
 
-    private Timer m_GameTimer;
+    private GameLoop m_GameLoop;
 
     private ElementsManager m_GameManager;
 
@@ -54,9 +54,9 @@ public class GameBoard extends JComponent{
         return m_ShowPauseMenu;
     }
 
-    public Timer GetGameTimer()
+    public GameLoop GetGameLoop()
     {
-        return m_GameTimer;
+        return m_GameLoop;
     }
 
     public Rectangle GetContinueBut()
@@ -103,34 +103,9 @@ public class GameBoard extends JComponent{
         //initialize the first level
         m_GameManager.NextLevel();
 
-        m_GameTimer = new Timer(10,e ->{
-            m_GameManager.Move();
-            m_GameManager.FindImpacts();
-            m_Message = String.format("Bricks: %d Balls %d",m_GameManager.GetBrickCount(),m_GameManager.GetBallCount());
-            if(m_GameManager.IsBallLost()){
-                if(m_GameManager.BallEnd()){
-                    m_GameManager.WallReset();
-                    m_Message = "Game over";
-                }
-                m_GameManager.BallReset();
-                m_GameTimer.stop();
-            }
-            else if(m_GameManager.GetWall().IsDone()){
-                if(m_GameManager.NewLevel()){
-                    m_Message = "Go to Next Level";
-                    m_GameTimer.stop();
-                    m_GameManager.BallReset();
-                    m_GameManager.WallReset();
-                    m_GameManager.NextLevel();
-                }
-                else{
-                    m_Message = "ALL WALLS DESTROYED";
-                    m_GameTimer.stop();
-                }
-            }
-
-            repaint();
-        });
+        m_GameLoop = GameLoop.GetGameLoop();
+        m_GameLoop.SetGameData(m_GameManager, this);
+        m_GameLoop.StartLoop();
 
     }
 
@@ -284,7 +259,7 @@ public class GameBoard extends JComponent{
     }
 
     public void OnLostFocus(){
-        m_GameTimer.stop();
+        m_GameLoop.TimerStop();
         m_Message = "Focus Lost";
         repaint();
     }

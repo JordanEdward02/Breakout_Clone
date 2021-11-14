@@ -2,9 +2,8 @@ package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.Menu.GameBoard;
+import code.Menu.*;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class MainGameController {
@@ -35,7 +34,7 @@ public class MainGameController {
     {
         Paddle tempPaddle = m_GameManager.GetPaddle();
         boolean showPauseMenu = m_GameBoard.GetShowPauseMenu();
-        Timer gameTimer = m_GameBoard.GetGameTimer();
+        GameLoop gameTimer = m_GameBoard.GetGameLoop();
         int code=e.getKeyCode();
         switch(code)
         {
@@ -47,16 +46,16 @@ public class MainGameController {
                 break;
             case KeyEvent.VK_SPACE:
                 if(!showPauseMenu) {
-                    if (gameTimer.isRunning())
-                        gameTimer.stop();
+                    if (gameTimer.LoopIsRunning())
+                        gameTimer.TimerStop();
                     else
-                        gameTimer.start();
+                        gameTimer.LoopStart();
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
                 m_GameBoard.SetShowPauseMenu(!showPauseMenu);
                 m_GameBoard.repaint();
-                gameTimer.stop();
+                gameTimer.TimerStop();
                 break;
             case KeyEvent.VK_F1:
                 if(e.isAltDown() && e.isShiftDown())
