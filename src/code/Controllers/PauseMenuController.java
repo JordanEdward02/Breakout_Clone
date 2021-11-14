@@ -30,9 +30,7 @@ public class PauseMenuController {
         m_GameBoard = GameBoard;
     }
 
-    private PauseMenuController(){}
-
-    public void PauseInputs(MouseEvent NewEvent)
+    public void PauseMenuInputs(MouseEvent NewEvent)
     {
         Point p = NewEvent.getPoint();
         Rectangle exitButton = m_GameBoard.GetExitBut();
@@ -54,7 +52,6 @@ public class PauseMenuController {
             System.exit(0);
         }
     }
-
 
     public void PauseMenuVisuals(MouseEvent NewEvent)
     {

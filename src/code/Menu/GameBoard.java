@@ -1,6 +1,6 @@
 package code.Menu;
 
-import code.Controllers.GameControllerMain;
+import code.Controllers.GameControllerBrain;
 import code.GameplayElements.*;
 import code.GameplayElements.Bricks.Brick;
 import code.Menu.Debug.DebugConsole;
@@ -47,7 +47,7 @@ public class GameBoard extends JComponent{
 
     private DebugConsole m_debugConsole;
 
-    private GameControllerMain m_GameController;
+    private GameControllerBrain m_GameController;
 
     public boolean GetShowPauseMenu()
     {
@@ -98,7 +98,7 @@ public class GameBoard extends JComponent{
 
         m_GameManager = new ElementsManager(new Wall(), new Point(DEF_BALL_X,DEF_BALL_Y),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
         m_debugConsole = new DebugConsole(owner,m_GameManager,this);
-        m_GameController = GameControllerMain.getControllerMain();
+        m_GameController = GameControllerBrain.getControllerBrain();
         m_GameController.SetGame(m_GameManager, this);
         //initialize the first level
         m_GameManager.NextLevel();

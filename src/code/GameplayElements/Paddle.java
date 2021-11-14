@@ -21,7 +21,6 @@ public class Paddle {
         return paddleFace;
     }
 
-
     public Paddle(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;

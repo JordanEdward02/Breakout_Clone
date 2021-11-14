@@ -149,4 +149,9 @@ public class ElementsManager
         m_levelManager.IncrementLevel();
         m_gameWall.RenderWall(m_levelManager, m_drawArea);
     }
+
+    public void StopPaddle()
+    {
+        m_gamePaddle.Stop();
+    }
 }
