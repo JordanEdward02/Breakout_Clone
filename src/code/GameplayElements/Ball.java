@@ -7,6 +7,9 @@ import java.util.Random;
 
 abstract public class Ball {
 
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FIVE = 5;
     private Shape ballFace;
 
     private Point2D center;
@@ -63,6 +66,21 @@ abstract public class Ball {
         speedY = y;
     }
 
+    public void SetSpeedRandom()
+    {
+        Random rnd = new Random();
+
+        int speedX,speedY;
+        do{
+            speedX = rnd.nextInt(FIVE) - TWO;
+        }while(speedX == 0);
+        do{
+            speedY = -rnd.nextInt(THREE);
+        }while(speedY == 0);
+
+        SetSpeed(speedX,speedY);
+    }
+
     public void SetXSpeed(int s){
         speedX = s;
     }
@@ -87,7 +105,6 @@ abstract public class Ball {
         return speedY;
     }
 
-
     public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
         this.center = center;
 
@@ -96,23 +113,13 @@ abstract public class Ball {
         left = new Point2D.Double();
         right = new Point2D.Double();
 
-        up.setLocation(center.getX(),center.getY()-(radiusB / 2));
-        down.setLocation(center.getX(),center.getY()+(radiusB / 2));
+        up.setLocation(center.getX(),center.getY()-(radiusB / TWO));
+        down.setLocation(center.getX(),center.getY()+(radiusB / TWO));
 
-        left.setLocation(center.getX()-(radiusA /2),center.getY());
-        right.setLocation(center.getX()+(radiusA /2),center.getY());
+        left.setLocation(center.getX()-(radiusA /TWO),center.getY());
+        right.setLocation(center.getX()+(radiusA /TWO),center.getY());
 
-        Random rnd = new Random();
-
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        SetSpeed(speedX,speedY);
+        SetSpeedRandom();
         ballFace = makeBall(center,radiusA,radiusB);
         this.border = border;
         this.inner  = inner;
@@ -126,7 +133,7 @@ abstract public class Ball {
         double w = tmp.getWidth();
         double h = tmp.getHeight();
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
+        tmp.setFrame((center.getX() -(w / TWO)),(center.getY() - (h / TWO)),w,h);
         setPoints(w,h);
 
 
@@ -148,7 +155,7 @@ abstract public class Ball {
         double w = tmp.getWidth();
         double h = tmp.getHeight();
 
-        tmp.setFrame((center.getX() -(w / 2)),(center.getY() - (h / 2)),w,h);
+        tmp.setFrame((center.getX() -(w / TWO)),(center.getY() - (h / TWO)),w,h);
         ballFace = tmp;
     }
 

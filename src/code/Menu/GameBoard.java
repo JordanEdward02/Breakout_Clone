@@ -13,10 +13,10 @@ public class GameBoard extends JComponent{
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
-
-    // Added so when creating ball we adhere to Bob's conventions
     private static final int DEF_BALL_X = 300;
     private static final int DEF_BALL_Y = 420;
+    private static final int TWOFIFTY = 250;
+    private static final int TWOTWENTYFIVE = 225;
 
     private static final Color BG_COLOR = Color.WHITE;
 
@@ -90,7 +90,7 @@ public class GameBoard extends JComponent{
         clear(g2d);
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString(m_Message,250,225);
+        g2d.drawString(m_Message,TWOFIFTY,TWOTWENTYFIVE);
 
         drawBall(m_GameManager.GetBall(),g2d);
 
