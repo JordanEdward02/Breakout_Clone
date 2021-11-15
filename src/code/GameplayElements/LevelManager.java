@@ -14,7 +14,6 @@ public class LevelManager
     private static final int CEMENT = 3;
     private int level=0;
 
-
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type){
         // if brickCount is not divisible by line count,brickCount is adjusted to the biggest multiple of lineCount smaller then brickCount
         brickCnt -= brickCnt % lineCnt;

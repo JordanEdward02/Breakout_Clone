@@ -5,11 +5,13 @@ import code.GameplayElements.ElementsManager;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import code.Menu.GameBoard;
+import code.Menu.PauseMenu;
 
 public class PauseMenuController {
     private static PauseMenuController m_ControllerPause;
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
+    private PauseMenu m_PauseMenuFrame;
 
     public static PauseMenuController GetPauseMenuController()
     {
@@ -30,12 +32,18 @@ public class PauseMenuController {
         m_GameBoard = GameBoard;
     }
 
+    public void SetPauseMenuFrame(PauseMenu PauseFrame)
+    {
+        m_PauseMenuFrame = PauseFrame;
+    }
+
+
     public void PauseMenuInputs(MouseEvent NewEvent)
     {
         Point p = NewEvent.getPoint();
-        Rectangle exitButton = m_GameBoard.GetExitBut();
-        Rectangle continueButton = m_GameBoard.GetContinueBut();
-        Rectangle restartButton = m_GameBoard.GetRestartBut();
+        Rectangle exitButton = m_PauseMenuFrame.GetExitBut();
+        Rectangle continueButton = m_PauseMenuFrame.GetContinueBut();
+        Rectangle restartButton = m_PauseMenuFrame.GetRestartBut();
         boolean showPauseMenu = m_GameBoard.GetShowPauseMenu();
         if(continueButton.contains(p)){
             m_GameBoard.SetShowPauseMenu(false);
@@ -56,9 +64,9 @@ public class PauseMenuController {
     public void PauseMenuVisuals(MouseEvent NewEvent)
     {
         Point p = NewEvent.getPoint();
-        Rectangle exitButton = m_GameBoard.GetExitBut();
-        Rectangle continueButton = m_GameBoard.GetContinueBut();
-        Rectangle restartButton = m_GameBoard.GetRestartBut();
+        Rectangle exitButton = m_PauseMenuFrame.GetExitBut();
+        Rectangle continueButton = m_PauseMenuFrame.GetContinueBut();
+        Rectangle restartButton = m_PauseMenuFrame.GetRestartBut();
 
         if(exitButton != null && m_GameBoard.GetShowPauseMenu()) {
             if (exitButton.contains(p) || continueButton.contains(p) || restartButton.contains(p))
