@@ -6,37 +6,38 @@ import java.awt.*;
 
 public class Wall {
 
-    Brick[] bricks;
+    Brick[] m_Bricks;
 
-    private int m_brickCount = 31;
+    private int m_BrickCount = 30;
 
     public Brick[] GetBricks()
     {
-        return bricks;
+        return m_Bricks;
     }
 
     public void SetBrickCount(int brickCount)
     {
-        m_brickCount = brickCount;
+        m_BrickCount = brickCount;
     }
 
     public int GetBrickCount(){
-        return m_brickCount;
+        return m_BrickCount;
     }
 
 
     public void ReduceBrickCount()
     {
-        m_brickCount--;
+        m_BrickCount--;
     }
 
     public void RenderWall(LevelManager levelManager, Rectangle drawArea)
     {
-        bricks = levelManager.RenderWall(drawArea, m_brickCount);
+        m_Bricks = levelManager.RenderWall(drawArea, m_BrickCount);
+        m_BrickCount = m_Bricks.length;
     }
     // Kept this in the wall class as it's about interactions with the wall, and this manages it with all the bricks
     public boolean ImpactWall(Ball ball){
-        for(Brick b : bricks){
+        for(Brick b : m_Bricks){
             switch(b.FindImpact(ball)) {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
@@ -60,7 +61,7 @@ public class Wall {
 
 
     public boolean IsDone(){
-        return m_brickCount == 0;
+        return m_BrickCount == 0;
     }
 
 
