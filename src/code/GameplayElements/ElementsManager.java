@@ -4,7 +4,6 @@ import code.GameplayElements.Bricks.Brick;
 
 import java.awt.geom.Point2D;
 import java.awt.*;
-import java.util.Random;
 
 public class ElementsManager
 {
