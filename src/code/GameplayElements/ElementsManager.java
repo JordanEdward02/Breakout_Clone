@@ -8,6 +8,14 @@ import java.util.Random;
 
 public class ElementsManager
 {
+    private static final int THREE = 3;
+    private static final int FIVE = 5;
+    private static final int TWO = 2;
+    private static final int PADDLE_X = 150;
+    private static final int PADDLE_Y = 10;
+    private static final int START_POINT_X = 300;
+    private static final int START_POINT_Y = 430;
+
     private Wall m_gameWall;
     private Ball m_gameBall;
     private Paddle m_gamePaddle;
@@ -56,11 +64,11 @@ public class ElementsManager
         m_gameWall = gameWall;
         m_drawArea = drawArea;
         m_gameBall = new BallRubber((ballPos));
-        m_gamePaddle = new Paddle((Point) ballPos.clone(),150,10, m_drawArea);
+        m_gamePaddle = new Paddle((Point) ballPos.clone(),PADDLE_X,PADDLE_Y, m_drawArea);
         m_levelManager = new LevelManager();
-        m_ballCount = 3;
+        m_ballCount = THREE;
         m_ballLost = false;
-        m_startPoint = new Point(300,430);
+        m_startPoint = new Point(START_POINT_X,START_POINT_Y);
     }
 
     public void Move()
@@ -105,23 +113,14 @@ public class ElementsManager
         for(Brick b : m_gameWall.GetBricks())
             b.Repair();
         m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
-        m_ballCount = 3;
+        m_ballCount = THREE;
     }
 
     public void BallReset()
     {
-        Random rnd = new Random();
         m_gamePaddle.MoveTo(m_startPoint);
         m_gameBall.MoveTo(m_startPoint);
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        m_gameBall.SetSpeed(speedX,speedY);
+        m_gameBall.SetSpeedRandom();
         m_ballLost = false;
     }
 
@@ -133,7 +132,7 @@ public class ElementsManager
 
     public void ResetBallCount()
     {
-        m_ballCount = 3;
+        m_ballCount = THREE;
     }
 
     public boolean NewLevel()

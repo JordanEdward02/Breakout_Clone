@@ -192,7 +192,6 @@ abstract public class Brick  {
 
     public abstract Shape GetBrick();
 
-
     public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
         m_rnd = new Random();
         m_broken = false;
@@ -205,8 +204,6 @@ abstract public class Brick  {
 
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
-
-
     public Color GetBorderColor(){
         return  m_border;
     }
@@ -214,7 +211,6 @@ abstract public class Brick  {
     public Color GetInnerColor(){
         return m_inner;
     }
-
 
     public final int FindImpact(Ball b){
         if(m_broken)
