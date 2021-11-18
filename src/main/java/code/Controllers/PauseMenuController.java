@@ -5,13 +5,15 @@ import code.GameplayElements.ElementsManager;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import code.Menu.GameBoard;
-import code.Menu.PauseMenu;
+import code.Menu.Painters.GameBoardPainter;
+import code.Menu.Painters.PauseMenuPainter;
 
 public class PauseMenuController {
     private static PauseMenuController m_ControllerPause;
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
-    private PauseMenu m_PauseMenuFrame;
+    private PauseMenuPainter m_PauseMenuFrame;
+    private GameBoardPainter m_BoardPainter;
 
     public static PauseMenuController GetPauseMenuController()
     {
@@ -32,9 +34,14 @@ public class PauseMenuController {
         m_GameBoard = GameBoard;
     }
 
-    public void SetPauseMenuFrame(PauseMenu PauseFrame)
+    public void SetPauseMenuFrame(PauseMenuPainter PauseFrame)
     {
         m_PauseMenuFrame = PauseFrame;
+    }
+
+    public void SetBoardPainter(GameBoardPainter BoardPainter)
+    {
+        m_BoardPainter = BoardPainter;
     }
 
 
@@ -44,13 +51,12 @@ public class PauseMenuController {
         Rectangle exitButton = m_PauseMenuFrame.GetExitBut();
         Rectangle continueButton = m_PauseMenuFrame.GetContinueBut();
         Rectangle restartButton = m_PauseMenuFrame.GetRestartBut();
-        boolean showPauseMenu = m_GameBoard.GetShowPauseMenu();
         if(continueButton.contains(p)){
             m_GameBoard.SetShowPauseMenu(false);
             m_GameBoard.repaint();
         }
         else if(restartButton.contains(p)){
-            m_GameBoard.SetMessage("Restarting Game...");
+            m_BoardPainter.SetMessage("Restarting Game...");
             m_GameManager.BallReset();
             m_GameManager.WallReset();
             m_GameBoard.SetShowPauseMenu(false);

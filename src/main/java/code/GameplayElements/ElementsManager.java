@@ -8,8 +8,6 @@ import java.awt.*;
 public class ElementsManager
 {
     private static final int THREE = 3;
-    private static final int FIVE = 5;
-    private static final int TWO = 2;
     private static final int PADDLE_X = 150;
     private static final int PADDLE_Y = 10;
     private static final int START_POINT_X = 300;

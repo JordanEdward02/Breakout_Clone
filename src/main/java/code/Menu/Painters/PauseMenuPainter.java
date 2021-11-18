@@ -1,9 +1,9 @@
-package code.Menu;
+package code.Menu.Painters;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 
-public class PauseMenu{
+public class PauseMenuPainter {
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -38,7 +38,7 @@ public class PauseMenu{
         return m_restartButtonRect;
     }
 
-    public PauseMenu()
+    public PauseMenuPainter()
     {
         m_MenuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
     }

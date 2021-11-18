@@ -3,6 +3,7 @@ package code.Controllers;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
 import code.Menu.*;
+import code.Menu.Painters.GameBoardPainter;
 
 import java.awt.event.KeyEvent;
 
@@ -10,6 +11,7 @@ public class MainGameController {
     private static MainGameController m_GameController;
     private ElementsManager m_GameManager;
     private GameBoard m_GameBoard;
+    private GameBoardPainter m_GameBoardPainter;
 
     public static MainGameController GetGameController()
     {
@@ -28,6 +30,11 @@ public class MainGameController {
     public void SetGameBoard(GameBoard GameBoard)
     {
         m_GameBoard = GameBoard;
+    }
+
+    public void setGameBoardPainter(GameBoardPainter NewPainter)
+    {
+        m_GameBoardPainter = NewPainter;
     }
 
     public void MainGameInput(KeyEvent e)
