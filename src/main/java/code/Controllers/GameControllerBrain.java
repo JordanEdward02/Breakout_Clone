@@ -2,7 +2,8 @@ package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
 import code.Menu.GameBoard;
-import code.Menu.PauseMenu;
+import code.Menu.Painters.GameBoardPainter;
+import code.Menu.Painters.PauseMenuPainter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +15,8 @@ public class GameControllerBrain implements KeyListener, MouseListener, MouseMot
     private GameBoard m_GameBoard;
     private PauseMenuController m_PauseMenuController;
     private MainGameController m_GameController;
-    private PauseMenu m_PauseMenuFrame;
+    private PauseMenuPainter m_PauseMenuPainter;
+    private GameBoardPainter m_GameBoardPainter;
 
     public static GameControllerBrain getControllerBrain()
     {
@@ -25,11 +27,12 @@ public class GameControllerBrain implements KeyListener, MouseListener, MouseMot
         return m_ControllerBrain;
     }
 
-    public void SetGame(ElementsManager GameManager, GameBoard GameBoard, PauseMenu PauseFrame)
+    public void SetGame(ElementsManager GameManager, GameBoard GameBoard, PauseMenuPainter PauseFrame, GameBoardPainter BoardPainter)
     {
         m_GameManager = GameManager;
         m_GameBoard = GameBoard;
-        m_PauseMenuFrame = PauseFrame;
+        m_PauseMenuPainter = PauseFrame;
+        m_GameBoardPainter = BoardPainter;
         initialise();
     }
 
@@ -41,7 +44,8 @@ public class GameControllerBrain implements KeyListener, MouseListener, MouseMot
         m_PauseMenuController = PauseMenuController.GetPauseMenuController();
         m_PauseMenuController.SetGameManager(m_GameManager);
         m_PauseMenuController.SetGameBoard(m_GameBoard);
-        m_PauseMenuController.SetPauseMenuFrame(m_PauseMenuFrame);
+        m_PauseMenuController.SetPauseMenuFrame(m_PauseMenuPainter);
+        m_PauseMenuController.SetBoardPainter(m_GameBoardPainter);
         m_GameController = MainGameController.GetGameController();
         m_GameController.SetGameManager(m_GameManager);
         m_GameController.SetGameBoard(m_GameBoard);
