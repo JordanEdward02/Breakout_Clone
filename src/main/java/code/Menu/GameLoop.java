@@ -1,6 +1,7 @@
 package code.Menu;
 
 import code.GameplayElements.ElementsManager;
+import code.Menu.Frames.GameBoard;
 import code.Menu.Painters.GameBoardPainter;
 
 import javax.swing.*;

@@ -1,4 +1,6 @@
-package code.Menu;
+package code;
+
+import code.Menu.Frames.GameFrame;
 
 import java.awt.*;
 

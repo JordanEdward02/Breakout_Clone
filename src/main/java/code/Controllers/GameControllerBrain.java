@@ -1,7 +1,7 @@
 package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
-import code.Menu.GameBoard;
+import code.Menu.Frames.GameBoard;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.Painters.PauseMenuPainter;
 

@@ -4,9 +4,8 @@ import code.GameplayElements.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.Menu.GameBoard;
+import code.Menu.Frames.GameBoard;
 
-import javax.swing.text.Element;
 import java.awt.*;
 
 public class GameBoardPainter {

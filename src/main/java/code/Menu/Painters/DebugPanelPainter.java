@@ -1,14 +1,13 @@
-package code.Menu.Debug;
+package code.Menu.Painters;
 
 import code.GameplayElements.ElementsManager;
-import code.GameplayElements.Wall;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class DebugPanel extends JPanel {
+public class DebugPanelPainter extends JPanel {
     // Got to update the debug panel, as when it has many errors.
     // Skip level can overflow which breaks the game and throws an error
     // Skip level also doesn't reset the brick count as it should so makes the wall wrong and doesn't always end
@@ -23,12 +22,13 @@ public class DebugPanel extends JPanel {
 
     private ElementsManager m_gameManager;
 
-    public void SetValues(int x,int y){
+    public void SetValues(int x,int y)
+    {
         m_ballXSpeed.setValue(x);
         m_ballYSpeed.setValue(y);
     }
 
-    public DebugPanel(ElementsManager gameManager){
+    public DebugPanelPainter(ElementsManager gameManager){
 
         m_gameManager = gameManager;
 
@@ -40,17 +40,14 @@ public class DebugPanel extends JPanel {
         m_ballXSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallXSpeed(m_ballXSpeed.getValue()));
         m_ballYSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallYSpeed(m_ballYSpeed.getValue()));
 
-        this.add(m_skipLevel);
-        this.add(m_resetBalls);
-
-        this.add(m_ballXSpeed);
-        this.add(m_ballYSpeed);
+        this.add(makeButtonLayout());
+        this.add(makeSliderLayout());
 
     }
 
     private void initialize(){
         this.setBackground(DEF_BKG);
-        this.setLayout(new GridLayout(2,2));
+        this.setLayout(new GridLayout(2,1));
     }
 
     private JButton makeButton(String title, ActionListener e){
@@ -66,6 +63,24 @@ public class DebugPanel extends JPanel {
         out.setPaintTicks(true);
         out.addChangeListener(e);
         return out;
+    }
+    private JPanel makeButtonLayout()
+    {
+        JPanel newPanel = new JPanel();
+        newPanel.add(m_skipLevel);
+        newPanel.add(m_resetBalls);
+        newPanel.setLayout(new FlowLayout());
+        return newPanel;
+    }
+    private JPanel makeSliderLayout()
+    {
+        JPanel newPanel = new JPanel();
+        newPanel.add(new JLabel("X Speed", SwingConstants.CENTER));
+        newPanel.add(m_ballXSpeed);
+        newPanel.add(new JLabel("Y Speed", SwingConstants.CENTER));
+        newPanel.add(m_ballYSpeed);
+        newPanel.setLayout(new GridLayout(4,1));
+        return newPanel;
     }
 
 }
