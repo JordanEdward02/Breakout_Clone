@@ -30,6 +30,7 @@ public class DebugConsole extends JDialog{
         DebugPanelPainter m_debugPanelPainter = new DebugPanelPainter(m_gameManager);
         this.add(m_debugPanelPainter,BorderLayout.CENTER);
         m_DebugMenuController = new DebugMenuController(gameBoard, this, gameManager, m_debugPanelPainter);
+        m_debugPanelPainter.SetController(m_DebugMenuController);
         this.addWindowListener(m_DebugMenuController);
         this.pack();
     }

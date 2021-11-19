@@ -142,6 +142,14 @@ public class ElementsManager
         m_gameWall.RenderWall(m_levelManager, m_drawArea);
     }
 
+    public void LevelSkip()
+    {
+        if (m_levelManager.HasNextLevel()) {
+            BallReset();
+            NextLevel();
+        }
+    }
+
     public void StopPaddle()
     {
         m_gamePaddle.Stop();

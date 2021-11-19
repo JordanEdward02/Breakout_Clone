@@ -1,5 +1,6 @@
 package code.Menu.Painters;
 
+import code.Controllers.DebugMenuController;
 import code.GameplayElements.ElementsManager;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class DebugPanelPainter extends JPanel {
     private JSlider m_ballYSpeed;
 
     private ElementsManager m_gameManager;
+    private DebugMenuController m_DebugController;
 
     public void SetValues(int x,int y)
     {
@@ -28,21 +30,24 @@ public class DebugPanelPainter extends JPanel {
         m_ballYSpeed.setValue(y);
     }
 
-    public DebugPanelPainter(ElementsManager gameManager){
-
-        m_gameManager = gameManager;
-
+    public void SetController(DebugMenuController newController)
+    {
+        m_DebugController = newController;
         initialize();
 
-        m_skipLevel = makeButton("Skip Level",e -> m_gameManager.NextLevel());
-        m_resetBalls = makeButton("Reset Balls",e -> m_gameManager.ResetBallCount());
+        m_skipLevel = m_DebugController.makeButton("Skip Level",e -> m_DebugController.LevelSkipButton());
+        m_resetBalls = m_DebugController.makeButton("Reset Balls",e -> m_gameManager.ResetBallCount());
 
-        m_ballXSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallXSpeed(m_ballXSpeed.getValue()));
-        m_ballYSpeed = makeSlider(-4,4,e -> m_gameManager.SetBallYSpeed(m_ballYSpeed.getValue()));
+        m_ballXSpeed = m_DebugController.makeSlider(-4,4,e -> m_gameManager.SetBallXSpeed(m_ballXSpeed.getValue()));
+        m_ballYSpeed = m_DebugController.makeSlider(-4,4,e -> m_gameManager.SetBallYSpeed(m_ballYSpeed.getValue()));
 
         this.add(makeButtonLayout());
         this.add(makeSliderLayout());
+    }
 
+    public DebugPanelPainter(ElementsManager gameManager){
+
+        m_gameManager = gameManager;
     }
 
     private void initialize(){
@@ -50,20 +55,6 @@ public class DebugPanelPainter extends JPanel {
         this.setLayout(new GridLayout(2,1));
     }
 
-    private JButton makeButton(String title, ActionListener e){
-        JButton out = new JButton(title);
-        out.addActionListener(e);
-        return  out;
-    }
-
-    private JSlider makeSlider(int min, int max, ChangeListener e){
-        JSlider out = new JSlider(min,max);
-        out.setMajorTickSpacing(1);
-        out.setSnapToTicks(true);
-        out.setPaintTicks(true);
-        out.addChangeListener(e);
-        return out;
-    }
     private JPanel makeButtonLayout()
     {
         JPanel newPanel = new JPanel();
