@@ -47,7 +47,6 @@ public class GameBoardPainter {
         g2d.drawString(m_Message,TWOFIFTY,TWOTWENTYFIVE);
 
         drawBall(m_GameManager.GetBall(),g2d);
-
         for(Brick b : m_GameManager.GetWall().GetBricks())
             if(!b.IsBroken())
                 drawBrick(b,g2d);
