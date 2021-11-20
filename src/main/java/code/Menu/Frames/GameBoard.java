@@ -1,9 +1,9 @@
-package code.Menu;
+package code.Menu.Frames;
 
 import code.Controllers.GameControllerBrain;
 import code.GameplayElements.*;
-import code.GameplayElements.Bricks.Brick;
-import code.Menu.Debug.DebugConsole;
+import code.Menu.Frames.DebugConsole;
+import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.Painters.PauseMenuPainter;
 

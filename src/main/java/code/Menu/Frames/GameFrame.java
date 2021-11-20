@@ -1,4 +1,4 @@
-package code.Menu;
+package code.Menu.Frames;
 
 import javax.swing.*;
 import java.awt.*;

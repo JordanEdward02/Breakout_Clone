@@ -1,9 +1,11 @@
 package code.GameplayElements;
 
 import code.GameplayElements.Bricks.Brick;
+import code.GameplayElements.Levels.LevelManager;
 
 import java.awt.geom.Point2D;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class ElementsManager
 {
@@ -137,9 +139,17 @@ public class ElementsManager
         return m_levelManager.HasNextLevel();
     }
 
-    public void NextLevel(){
+    public void NextLevel() {
         m_levelManager.IncrementLevel();
         m_gameWall.RenderWall(m_levelManager, m_drawArea);
+    }
+
+    public void LevelSkip()
+    {
+        if (m_levelManager.HasNextLevel()) {
+            BallReset();
+            NextLevel();
+        }
     }
 
     public void StopPaddle()

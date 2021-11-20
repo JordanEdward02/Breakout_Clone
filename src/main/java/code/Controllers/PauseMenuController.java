@@ -4,7 +4,7 @@ import code.GameplayElements.ElementsManager;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import code.Menu.GameBoard;
+import code.Menu.Frames.GameBoard;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.Painters.PauseMenuPainter;
 

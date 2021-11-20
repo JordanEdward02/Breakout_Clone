@@ -3,6 +3,7 @@ package code.Controllers;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
 import code.Menu.*;
+import code.Menu.Frames.GameBoard;
 import code.Menu.Painters.GameBoardPainter;
 
 import java.awt.event.KeyEvent;
