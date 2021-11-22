@@ -4,7 +4,6 @@ module COMP2013.coursework {
     requires javafx.fxml;
     requires org.controlsfx.controls;
 
-    exports code;
-
-    opens code to javafx.fxml;
+    exports code.Menu.Frames;
+    exports code.Controllers;
 }

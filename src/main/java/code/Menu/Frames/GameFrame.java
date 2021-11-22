@@ -9,19 +9,23 @@ import java.awt.event.WindowFocusListener;
 public class GameFrame extends JFrame implements WindowFocusListener {
 
     public static final String DEF_TITLE = "Breakout Clone     space = start/pause   ←/→ = move left/right   esc = menu";
-    private GameBoard gameBoard;
-    private boolean gaming;
+    private GameBoard m_GameBoard;
+    private boolean m_Gaming;
 
     public GameFrame(){
         super();
-        gaming = false;
+        m_Gaming = false;
         this.setLayout(new BorderLayout());
-        gameBoard = new GameBoard(this);
-        this.add(gameBoard,BorderLayout.CENTER);
+        m_GameBoard = new GameBoard(this);
+        this.add(m_GameBoard,BorderLayout.CENTER);
         initialize();
         this.addWindowFocusListener(this);
     }
-
+    public GameFrame(int startLevel)
+    {
+        this();
+        m_GameBoard.startLevel(startLevel);
+    }
     public void initialize(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,13 +45,13 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         // the first time the frame loses focus is because it has been disposed to install the GameBoard, so went it regains the focus it's ready to play. of course calling a method such as 'onLostFocus' is useful only if the GameBoard as been displayed at least once
-        gaming = true;
+        m_Gaming = true;
     }
 
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
-        if(gaming)
-            gameBoard.OnLostFocus();
+        if(m_Gaming)
+            m_GameBoard.OnLostFocus();
 
     }
 }

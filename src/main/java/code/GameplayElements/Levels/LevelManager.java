@@ -74,21 +74,7 @@ public class LevelManager
     public Brick[] RenderWall(Rectangle drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);
-        /*
-        switch(level)
-        {
-            case 1:
-                return makeSingleTypeLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY);
-            case 2:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY,CEMENT);
-            case 3:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY,STEEL);
-            case 4:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,STEEL,CEMENT);
-            default :
-                return null;
-        }
-        */
+
     }
 
 }

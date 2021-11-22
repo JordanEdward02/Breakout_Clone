@@ -72,6 +72,12 @@ public class GameBoard extends JComponent{
         m_GameLoop.StartLoop();
 
     }
+    public void startLevel(int startLevel)
+    {
+        int i;
+        for (i=1; i<startLevel;i++)
+            m_GameManager.NextLevel();
+    }
 
     private void initialize(){
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
