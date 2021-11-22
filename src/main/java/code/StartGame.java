@@ -1,4 +1,4 @@
-package code;
+/*package code;
 
 import code.Menu.Frames.GameFrame;
 
@@ -15,3 +15,5 @@ public class StartGame {
     // use [esc] to enter/exit pause menu
     // use [alt+shift+f1] at any time to display debug panel1
 }
+
+ */

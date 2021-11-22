@@ -2,44 +2,23 @@ package code.Controllers;
 
 import code.GameplayElements.Ball;
 import code.GameplayElements.ElementsManager;
-import code.Menu.Frames.DebugConsole;
-import code.Menu.Painters.DebugPanelPainter;
-import code.Menu.Frames.GameBoard;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Slider;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+public class DebugMenuController implements Initializable {
 
-public class DebugMenuController implements WindowListener {
-
-    private DebugConsole m_DebugConsole;
-    private GameBoard m_GameBoard;
     private ElementsManager m_GameManager;
-    private DebugPanelPainter m_DebugPanelPainter;
+    @FXML
+    public Slider m_XSlider;
+    @FXML
+    public Slider m_YSlider;
 
-    public JButton makeButton(String title, ActionListener e){
-        JButton out = new JButton(title);
-        out.addActionListener(e);
-        return  out;
-    }
-
-    public JSlider makeSlider(int min, int max, ChangeListener e){
-        JSlider out = new JSlider(min,max);
-        out.setMajorTickSpacing(1);
-        out.setSnapToTicks(true);
-        out.setPaintTicks(true);
-        out.addChangeListener(e);
-        return out;
-    }
-
-    public DebugMenuController(GameBoard gameBoard, DebugConsole debugConsole, ElementsManager gameManager, DebugPanelPainter debugPanelPainter)
+    public DebugMenuController(ElementsManager gameManager)
     {
-        m_GameBoard = gameBoard;
-        m_DebugConsole = debugConsole;
         m_GameManager = gameManager;
-        m_DebugPanelPainter = debugPanelPainter;
     }
 
     public void LevelSkipButton()
@@ -47,51 +26,19 @@ public class DebugMenuController implements WindowListener {
         if (m_GameManager.NewLevel())
         {
             m_GameManager.LevelSkip();
-            m_GameBoard.repaint();
         }
     }
 
-    @Override
-    public void windowOpened(WindowEvent e)
+    public void ResetBalls()
     {
-
+        m_GameManager.ResetBallCount();
     }
 
     @Override
-    public void windowClosing(WindowEvent e)
+    public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e)
-    {
-        m_GameBoard.repaint();
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e)
-    {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e)
-    {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e)
-    {
-        m_DebugConsole.setLocation();
         Ball b = m_GameManager.GetBall();
-        m_DebugPanelPainter.SetValues(b.GetSpeedX(),b.GetSpeedY());
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e)
-    {
-
+        m_XSlider.adjustValue(b.GetSpeedX());
+        m_YSlider.adjustValue(b.GetSpeedY());
     }
 }

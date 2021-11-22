@@ -6,12 +6,13 @@ import code.Menu.Frames.DebugConsole;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.Painters.PauseMenuPainter;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
-import javax.swing.*;
 import java.awt.*;
 
 
-public class GameBoard extends JComponent{
+public class GameBoard extends Node {
 
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
@@ -26,7 +27,6 @@ public class GameBoard extends JComponent{
 
     private boolean m_ShowPauseMenu;
 
-    private DebugConsole m_debugConsole;
     private GameControllerBrain m_GameController;
     private PauseMenuPainter m_PausePainter;
     private GameBoardPainter m_BoardPainter;
@@ -46,12 +46,7 @@ public class GameBoard extends JComponent{
         m_ShowPauseMenu = newMenuState;
     }
 
-    public DebugConsole GetDebugConsole()
-    {
-        return m_debugConsole;
-    }
-
-    public GameBoard(JFrame owner){
+    public GameBoard(Pane owner){
         super();
         m_ShowPauseMenu = false;
         this.initialize();
@@ -61,7 +56,6 @@ public class GameBoard extends JComponent{
         m_BoardPainter.SetMessage("Press SPACE to start");
         m_BoardPainter.SetPauseMenuPainter(m_PausePainter);
         m_BoardPainter.SetGameManager(m_GameManager);
-        m_debugConsole = new DebugConsole(owner,m_GameManager,this);
         m_GameController = GameControllerBrain.getControllerBrain();
         m_GameController.SetGame(m_GameManager, this, m_PausePainter, m_BoardPainter);
         //initialize the first level
@@ -79,11 +73,6 @@ public class GameBoard extends JComponent{
             m_GameManager.NextLevel();
     }
 
-    private void initialize(){
-        this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-    }
 
     @Override
     public void paint(Graphics g){
