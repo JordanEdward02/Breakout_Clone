@@ -8,7 +8,7 @@ public class GameFrame extends BorderPane{
 
     public GameFrame(){
         super();
-        m_GameBoard = new GameBoard(this);
+        m_GameBoard = new GameBoard();
         this.getChildren().add(m_GameBoard);
         this.setVisible(true);
     }

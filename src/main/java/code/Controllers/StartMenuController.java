@@ -1,8 +1,6 @@
 package code.Controllers;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.event.ActionEvent;

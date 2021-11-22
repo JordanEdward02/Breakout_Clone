@@ -117,10 +117,14 @@ public class ElementsManager
 
     public void BallReset()
     {
-        m_gamePaddle.MoveTo(m_startPoint);
         m_gameBall.MoveTo(m_startPoint);
         m_gameBall.SetSpeedRandom();
         m_ballLost = false;
+    }
+
+    public void PaddleReset()
+    {
+        m_gamePaddle.MoveTo(m_startPoint);
     }
 
     private boolean impactBorder()

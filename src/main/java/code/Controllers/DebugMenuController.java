@@ -2,6 +2,7 @@ package code.Controllers;
 
 import code.GameplayElements.Ball;
 import code.GameplayElements.ElementsManager;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -32,6 +33,18 @@ public class DebugMenuController implements Initializable {
     public void ResetBalls()
     {
         m_GameManager.ResetBallCount();
+    }
+
+    public void SetXSpeed()
+    {
+        Ball b = m_GameManager.GetBall();
+        b.SetXSpeed((int) m_XSlider.getValue());
+    }
+
+    public void SetYSpeed()
+    {
+        Ball b = m_GameManager.GetBall();
+        b.SetYSpeed((int) m_YSlider.getValue());
     }
 
     @Override
