@@ -57,7 +57,7 @@ public class LevelManager
         try
         {
             File fileCheck = new File("src/main/java/code/GameplayElements/Levels/Level" +(m_level+1)+ ".txt");
-            Scanner fileCheckScanner = new Scanner(fileCheck);
+            new Scanner(fileCheck);
             return true;
         }
         catch(Exception e)
