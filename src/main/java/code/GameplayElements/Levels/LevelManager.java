@@ -3,6 +3,7 @@ package code.GameplayElements.Levels;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Bricks.BrickClay;
 import code.GameplayElements.Bricks.BrickFactory;
+import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
 import java.io.File;
@@ -12,7 +13,7 @@ public class LevelManager
 {
     private int m_level=0;
 
-    private Brick[] ReadLevelFile(String File, Rectangle drawArea) {
+    private Brick[] ReadLevelFile(String File, Canvas drawArea) {
         try {
             Brick[] out;
             int brickCount = 0, offSet=0, line=0;
@@ -71,7 +72,7 @@ public class LevelManager
         m_level++;
     }
 
-    public Brick[] RenderWall(Rectangle drawArea){
+    public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);
 

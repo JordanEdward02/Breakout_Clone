@@ -1,6 +1,7 @@
 package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
+import code.Menu.Painters.GameBoardPainter;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -23,8 +24,8 @@ public class MainGameController implements Initializable {
     private ElementsManager m_GameManager;
     private Stage m_Stage;
     private Scene m_Scene;
-    private boolean m_Paused;
     private DebugMenuController m_debugMenu;
+    private GameBoardPainter m_GameBoardPainter;
     @FXML
     public AnchorPane m_PauseMenuPane;
     @FXML
@@ -58,7 +59,6 @@ public class MainGameController implements Initializable {
                 //tempPaddle.MoveRight();
                 break;
             case SPACE:
-                togglePause();
                 //gameTimer.TimerStop();
                 break;
             case ESCAPE:
@@ -78,16 +78,6 @@ public class MainGameController implements Initializable {
     private void KeyRelease()
     {
         //m_GameManager.GetPaddle().Stop();
-    }
-
-    private void togglePause()
-    {
-        if (m_Paused) {
-            m_Paused = false;
-        }
-        else {
-            m_Paused = true;
-        }
     }
 
     private void showPauseMenu()
@@ -122,21 +112,14 @@ public class MainGameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        m_Paused=false;
         m_PauseMenuPane.setVisible(false);
         m_GameBoard.toFront();
         m_GameBoard.setFocusTraversable(true);
         m_GameBoard.requestFocus();
         m_GameBoard.setOnKeyPressed(event->KeyPress(event));
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
+        m_GameBoardPainter = new GameBoardPainter(m_GameBoard);
+        m_GameBoardPainter.Refresh();
     }
 
-    public void startLevel(int levelStart)
-    {
-        int i;
-        for(i=1; i<levelStart;i++)
-        {
-            m_GameManager.NextLevel();
-        }
-    }
 }

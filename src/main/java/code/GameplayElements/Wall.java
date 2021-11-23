@@ -2,9 +2,8 @@ package code.GameplayElements;
 
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
+import javafx.scene.canvas.Canvas;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class Wall {
 
@@ -32,10 +31,11 @@ public class Wall {
         m_BrickCount--;
     }
 
-    public void RenderWall(LevelManager levelManager, Rectangle drawArea){
+    public void RenderWall(LevelManager levelManager, Canvas drawArea){
         m_Bricks = levelManager.RenderWall(drawArea);
         m_BrickCount = m_Bricks.length;
     }
+    /*
     // Kept this in the wall class as it's about interactions with the wall, and this manages it with all the bricks
     public boolean ImpactWall(Ball ball){
         for(Brick b : m_Bricks){
@@ -59,6 +59,8 @@ public class Wall {
         }
         return false;
     }
+
+     */
 
 
     public boolean IsDone(){

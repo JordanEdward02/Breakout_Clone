@@ -16,7 +16,7 @@ public class GameFrame extends BorderPane{
     public GameFrame(int startLevel)
     {
         this();
-        m_GameBoard.startLevel(startLevel);
+//        m_GameBoard.startLevel(startLevel);
     }
 
 }

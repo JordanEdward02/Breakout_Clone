@@ -29,7 +29,7 @@ public class GameLoop {
         m_GameBoard = GameBoard;
         m_GameBoardPainter = GamePainter;
     }
-
+/*
     public void StartLoop()
     {
         m_Timer = new Timer(10,e ->{
@@ -74,4 +74,6 @@ public class GameLoop {
     {
         return m_Timer.isRunning();
     }
+
+ */
 }

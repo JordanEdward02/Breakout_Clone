@@ -1,5 +1,8 @@
 package code.GameplayElements;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
@@ -10,20 +13,36 @@ abstract public class Ball {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FIVE = 5;
-    private Shape ballFace;
-
-    private Point2D center;
 
     Point2D up;
     Point2D down;
     Point2D left;
     Point2D right;
 
-    private Color border;
-    private Color inner;
+    private Point m_TopCorner;
+    private int m_Radius;
+
+    private Color m_border;
+    private Color m_Inner;
 
     private int speedX;
     private int speedY;
+
+    public Point getLocation()
+    {
+        return m_TopCorner;
+    }
+
+    public void setLocation(Point newPoint)
+    {
+        m_TopCorner = newPoint;
+        CalculateBounds();
+    }
+
+    public void SetRadius(int radius)
+    {
+        m_Radius=radius;
+    }
 
     public Point2D GetUp()
     {
@@ -46,19 +65,21 @@ abstract public class Ball {
     }
 
     public Color GetBorderColor(){
-        return border;
+        return m_border;
     }
 
     public Color GetInnerColor(){
-        return inner;
+        return m_Inner;
     }
 
-    public Point2D GetPosition(){
-        return center;
+    public void SetBorderColor(Color color)
+    {
+        m_border = color;
     }
 
-    public Shape GetBallFace(){
-        return ballFace;
+    public void SetInnerColor(Color color)
+    {
+        m_Inner = color;
     }
 
     public void SetSpeed(int x,int y){
@@ -89,14 +110,6 @@ abstract public class Ball {
         speedY = s;
     }
 
-    private void setPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
-
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
-    }
-
     public int GetSpeedX(){
         return speedX;
     }
@@ -105,26 +118,22 @@ abstract public class Ball {
         return speedY;
     }
 
-    public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
-        this.center = center;
-
-        up = new Point2D.Double();
-        down = new Point2D.Double();
-        left = new Point2D.Double();
-        right = new Point2D.Double();
-
-        up.setLocation(center.getX(),center.getY()-(radiusB / TWO));
-        down.setLocation(center.getX(),center.getY()+(radiusB / TWO));
-
-        left.setLocation(center.getX()-(radiusA /TWO),center.getY());
-        right.setLocation(center.getX()+(radiusA /TWO),center.getY());
-
+    public Ball(Point startPoint, int radius, Color inner, Color border){
+        SetBorderColor(border);
+        SetInnerColor(inner);
+        SetRadius(radius);
+        MoveTo(startPoint);
         SetSpeedRandom();
-        ballFace = makeBall(center,radiusA,radiusB);
-        this.border = border;
-        this.inner  = inner;
     }
 
+    private void CalculateBounds()
+    {
+        up.setLocation(getLocation().getX()+m_Radius, getLocation().getY());
+        down.setLocation(getLocation().getX()+m_Radius, getLocation().getY()+(m_Radius*2));
+        left.setLocation(getLocation().getX(), getLocation().getY()+m_Radius);
+        right.setLocation(getLocation().getX()+(m_Radius*2), getLocation().getY()+m_Radius);
+    }
+/*
     protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
 
     public void Move(){
@@ -147,17 +156,9 @@ abstract public class Ball {
     public void ReverseY(){
         speedY *= -1;
     }
-
+*/
     public void MoveTo(Point p){
-        center.setLocation(p);
-
-        RectangularShape tmp = (RectangularShape) ballFace;
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
-
-        tmp.setFrame((center.getX() -(w / TWO)),(center.getY() - (h / TWO)),w,h);
-        ballFace = tmp;
+        m_TopCorner = new Point(((int)p.getX()-15), ((int) p.getY()-10));
     }
-
 
 }

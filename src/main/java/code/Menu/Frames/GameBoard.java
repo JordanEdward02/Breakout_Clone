@@ -42,9 +42,9 @@ public class GameBoard extends Node {
         m_ShowPauseMenu = newMenuState;
     }
 
-    public GameBoard(){
+    public GameBoard() {
         super();
-
+    }
         /*
         m_ShowPauseMenu = false;
         m_PausePainter = new PauseMenuPainter();
@@ -59,7 +59,7 @@ public class GameBoard extends Node {
         m_GameLoop = GameLoop.GetGameLoop();
         m_GameLoop.SetGameData(m_GameManager, this, m_BoardPainter);
         m_GameLoop.StartLoop();
-        */
+
 
     }
 
@@ -81,5 +81,5 @@ public class GameBoard extends Node {
         m_GameLoop.TimerStop();
         m_BoardPainter.SetMessage( "Focus Lost");
     }
-
+*/
 }

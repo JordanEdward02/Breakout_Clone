@@ -1,5 +1,9 @@
 package code.GameplayElements;
 
+
+import javafx.scene.canvas.Canvas;
+import javafx.scene.paint.Color;
+
 import java.awt.*;
 
 
@@ -8,28 +12,28 @@ public class Paddle {
 
     public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
     public static final Color INNER_COLOR = Color.GREEN;
+    private static final int PADDLE_WIDTH = 150;
+    private static final int PADDLE_HEIGHT = 10;
 
     public static final int DEF_MOVE_AMOUNT = 5;
 
     private Rectangle paddleFace;
-    private Point ballPoint;
+    private Point m_PaddlePoint;
     private int moveAmount;
-    private int min;
-    private int max;
+    private double min;
+    private double max;
 
-    public Shape GetPaddleFace(){
-        return paddleFace;
+    public Point getLocation()
+    {
+        return m_PaddlePoint;
     }
 
-    public Paddle(Point ballPoint, int width, int height, Rectangle container) {
-        this.ballPoint = ballPoint;
-        moveAmount = 0;
-        paddleFace = makeRectangle(width, height);
-        min = container.x + (width / 2);
-        max = min + container.width - width;
+
+    public Paddle(Point point) {
+        m_PaddlePoint = new Point((int) (point.getX()-(PADDLE_WIDTH/2)-15),(int) (point.getY()-(PADDLE_HEIGHT/2)));
 
     }
-
+/*
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
@@ -58,9 +62,8 @@ public class Paddle {
     public void Stop(){
         moveAmount = 0;
     }
-
+*/
     public void MoveTo(Point p){
-        ballPoint.setLocation(p);
-        paddleFace.setLocation(ballPoint.x - (int) paddleFace.getWidth()/2,ballPoint.y);
+        m_PaddlePoint.setLocation(p);
     }
 }
