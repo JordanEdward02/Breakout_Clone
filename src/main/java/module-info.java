@@ -6,4 +6,6 @@ module COMP2013.coursework {
 
     exports code.Menu.Frames;
     exports code.Controllers;
+
+    opens code.Controllers;
 }

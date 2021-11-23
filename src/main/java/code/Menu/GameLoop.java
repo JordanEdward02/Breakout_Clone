@@ -57,8 +57,6 @@ public class GameLoop {
                     TimerStop();
                 }
             }
-
-            m_GameBoard.repaint();
         });
     }
 

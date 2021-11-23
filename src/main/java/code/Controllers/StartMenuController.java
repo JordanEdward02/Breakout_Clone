@@ -4,12 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.event.ActionEvent;
-import java.util.Objects;
 import javafx.scene.Scene;
-import code.Menu.Frames.GameFrame;
-
-import javax.swing.*;
-
 public class StartMenuController {
 
     private Stage m_Stage;
@@ -21,14 +16,14 @@ public class StartMenuController {
         try
         {
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            m_Root = FXMLLoader.load(getClass().getResource(fxmlFile));
             m_Scene = new Scene(m_Root);
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -42,41 +37,29 @@ public class StartMenuController {
         loadScene(event,"/Menu/Frames/StartFrame.fxml");
     }
 
-    private void startLevelDefault(ActionEvent event)
-    {
-        m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        m_Stage.hide();
-    }
-
     public void startLevel1(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame());
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
     public void startLevel2(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame(2));
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
     public void startLevel3(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame(3));
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
     public void startLevel4(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame(4));
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
     public void startLevel5(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame(5));
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
     public void startLevel6(ActionEvent event)
     {
-        startLevelDefault(event);
-        SwingUtilities.invokeLater(()-> new GameFrame(6));
+        loadScene(event, "/Menu/Frames/GameBoard.fxml");
     }
 
     public void loadHighscoresMenu(ActionEvent event)

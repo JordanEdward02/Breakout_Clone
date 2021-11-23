@@ -24,7 +24,6 @@ public class GameBoard extends Node {
 
     private boolean m_ShowPauseMenu;
 
-    private GameControllerBrain m_GameController;
     private PauseMenuPainter m_PausePainter;
     private GameBoardPainter m_BoardPainter;
 
@@ -45,6 +44,8 @@ public class GameBoard extends Node {
 
     public GameBoard(){
         super();
+
+        /*
         m_ShowPauseMenu = false;
         m_PausePainter = new PauseMenuPainter();
         m_GameManager = new ElementsManager(new Wall(), new Point(DEF_BALL_X,DEF_BALL_Y),new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT));
@@ -52,14 +53,13 @@ public class GameBoard extends Node {
         m_BoardPainter.SetMessage("Press SPACE to start");
         m_BoardPainter.SetPauseMenuPainter(m_PausePainter);
         m_BoardPainter.SetGameManager(m_GameManager);
-        m_GameController = GameControllerBrain.getControllerBrain();
-        m_GameController.SetGame(m_GameManager, this, m_PausePainter, m_BoardPainter);
         //initialize the first level
         m_GameManager.NextLevel();
 
         m_GameLoop = GameLoop.GetGameLoop();
         m_GameLoop.SetGameData(m_GameManager, this, m_BoardPainter);
         m_GameLoop.StartLoop();
+        */
 
     }
 
