@@ -20,8 +20,8 @@ public class Paddle {
     private Rectangle paddleFace;
     private Point m_PaddlePoint;
     private int moveAmount;
-    private double min;
-    private double max;
+    private double min=0;
+    private double max=450;
 
     public Point getLocation()
     {
@@ -42,13 +42,12 @@ public class Paddle {
     public boolean Impact(Ball b){
         return paddleFace.contains(b.GetPosition()) && paddleFace.contains(b.down) ;
     }
-
+*/
     public void Move(){
-        double x = ballPoint.getX() + moveAmount;
+        double x = getLocation().getX() + moveAmount;
         if(x < min || x > max)
             return;
-        ballPoint.setLocation(x,ballPoint.getY());
-        paddleFace.setLocation(ballPoint.x - (int) paddleFace.getWidth()/2,ballPoint.y);
+        m_PaddlePoint.setLocation(x, getLocation().getY());
     }
 
     public void MoveLeft(){
@@ -62,7 +61,7 @@ public class Paddle {
     public void Stop(){
         moveAmount = 0;
     }
-*/
+
     public void MoveTo(Point p){
         m_PaddlePoint.setLocation(p);
     }

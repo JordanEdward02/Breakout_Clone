@@ -69,13 +69,13 @@ public class ElementsManager
         m_ballCount = THREE;
         m_ballLost = false;
     }
-/*
+
     public void Move()
     {
         m_gamePaddle.Move();
-        m_gameBall.Move();
+        //m_gameBall.Move();
     }
-
+/*
     public void FindImpacts()
     {
         if(m_gamePaddle.Impact(m_gameBall)){

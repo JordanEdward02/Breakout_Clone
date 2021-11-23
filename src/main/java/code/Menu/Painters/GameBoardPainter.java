@@ -28,10 +28,10 @@ public class GameBoardPainter {
         m_Message = newMessage;
     }
 
-    public GameBoardPainter(Canvas GameBoard)
+    public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager)
     {
         m_GameBoard = GameBoard;
-        m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
+        m_GameManager = gameManager;
     }
 
     public void Refresh() {

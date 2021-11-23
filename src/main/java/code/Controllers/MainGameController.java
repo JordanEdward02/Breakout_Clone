@@ -1,6 +1,8 @@
 package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
+import code.GameplayElements.Paddle;
+import code.GameplayElements.Wall;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -49,14 +51,15 @@ public class MainGameController implements Initializable {
 
     private void KeyPress(KeyEvent event)
     {
+        Paddle tempPaddle = m_GameManager.GetPaddle();
         KeyCode code=event.getCode();
         switch(code)
         {
-            case KP_LEFT:
-                //tempPaddle.MoveLeft();
+            case LEFT:
+                tempPaddle.MoveLeft();
                 break;
-            case KP_RIGHT:
-                //tempPaddle.MoveRight();
+            case RIGHT:
+                tempPaddle.MoveRight();
                 break;
             case SPACE:
                 //gameTimer.TimerStop();
@@ -73,11 +76,15 @@ public class MainGameController implements Initializable {
                 break;
             default:
         }
+        m_GameManager.Move();
+        m_GameBoardPainter.Refresh();
     }
 
     private void KeyRelease()
     {
-        //m_GameManager.GetPaddle().Stop();
+        m_GameManager.GetPaddle().Stop();
+        m_GameManager.Move();
+        m_GameBoardPainter.Refresh();
     }
 
     private void showPauseMenu()
@@ -118,7 +125,8 @@ public class MainGameController implements Initializable {
         m_GameBoard.requestFocus();
         m_GameBoard.setOnKeyPressed(event->KeyPress(event));
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
-        m_GameBoardPainter = new GameBoardPainter(m_GameBoard);
+        m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
+        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager);
         m_GameBoardPainter.Refresh();
     }
 
