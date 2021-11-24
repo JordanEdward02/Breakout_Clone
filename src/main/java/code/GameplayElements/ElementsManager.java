@@ -5,13 +5,10 @@ import code.GameplayElements.Levels.LevelManager;
 import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public class ElementsManager
 {
     private static final int THREE = 3;
-    private static final int PADDLE_X = 150;
-    private static final int PADDLE_Y = 10;
     private static final int START_POINT_X = 300;
     private static final int START_POINT_Y = 350;
 
@@ -145,6 +142,11 @@ public class ElementsManager
 
     public void NextLevel() {
         m_levelManager.IncrementLevel();
+        m_gameWall.RenderWall(m_levelManager, m_drawArea);
+    }
+
+    public void RenderLevel()
+    {
         m_gameWall.RenderWall(m_levelManager, m_drawArea);
     }
 

@@ -4,24 +4,15 @@ import code.GameplayElements.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.GameplayElements.Wall;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
-
-import java.awt.*;
 
 
 public class GameBoardPainter {
-
-    private static final int TWOFIFTY = 250;
-    private static final int TWOTWENTYFIVE = 225;
-
     private Canvas m_GameBoard;
-    private PauseMenuPainter m_PauseMenuPainter;
     private ElementsManager m_GameManager;
     private String m_Message;
 
@@ -55,14 +46,6 @@ public class GameBoardPainter {
                 drawBrick(b, graphics);
         }
     }
-/*
-        if(m_GameBoard.GetShowPauseMenu())
-            m_PauseMenuPainter.DrawMenu(g2d);
-
-        Toolkit.getDefaultToolkit().sync();
-
-    }
-*/
 
     private void drawBrick(Brick brick,GraphicsContext g2d){
 
