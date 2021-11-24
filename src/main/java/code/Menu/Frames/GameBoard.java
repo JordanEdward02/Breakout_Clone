@@ -11,13 +11,6 @@ import java.awt.*;
 
 public class GameBoard extends Node {
 
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
-    private static final int DEF_BALL_X = 300;
-    private static final int DEF_BALL_Y = 420;
-
-    private static final Color BG_COLOR = Color.WHITE;
-
     private GameLoop m_GameLoop;
 
     private ElementsManager m_GameManager;

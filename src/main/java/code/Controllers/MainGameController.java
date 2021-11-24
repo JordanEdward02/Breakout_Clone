@@ -3,6 +3,7 @@ package code.Controllers;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
 import code.GameplayElements.Wall;
+import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -12,15 +13,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-// Look into making static function to return the controller. If this is a singleton then you will be able to call functions
-// on it to start from select levels
-
 
 public class MainGameController implements Initializable {
     private ElementsManager m_GameManager;
@@ -28,6 +23,8 @@ public class MainGameController implements Initializable {
     private Scene m_Scene;
     private DebugMenuController m_debugMenu;
     private GameBoardPainter m_GameBoardPainter;
+    private GameLoop m_GameTimer;
+    private boolean m_Pause = true;
     @FXML
     public AnchorPane m_PauseMenuPane;
     @FXML
@@ -62,28 +59,46 @@ public class MainGameController implements Initializable {
                 tempPaddle.MoveRight();
                 break;
             case SPACE:
-                //gameTimer.TimerStop();
+                togglePause();
                 break;
             case ESCAPE:
+                setPaused();
                 showPauseMenu();
-                //gameTimer.TimerStop();
                 break;
             case F1:
                 if(event.isAltDown() && event.isShiftDown()) {
                     Stage newStage = new Stage();
-                    m_debugMenu = new DebugMenuController(newStage);
+                    m_debugMenu = new DebugMenuController(newStage, m_GameManager, m_GameBoardPainter);
                 }
                 break;
             default:
         }
-        m_GameManager.Move();
-        m_GameBoardPainter.Refresh();
     }
 
     private void KeyRelease()
     {
         m_GameManager.GetPaddle().Stop();
-        m_GameManager.Move();
+    }
+
+    private void togglePause()
+    {
+        if (m_Pause) {
+            m_Pause = false;
+            m_GameTimer.start();
+        }
+        else {
+            m_Pause = true;
+            m_GameTimer.stop();
+            m_GameBoardPainter.SetMessage("PAUSED");
+            m_GameBoardPainter.Refresh();
+        }
+    }
+
+    private void setPaused()
+    {
+        m_Pause = true;
+        m_GameTimer.stop();
+        m_GameBoardPainter.SetMessage("PAUSED");
         m_GameBoardPainter.Refresh();
     }
 
@@ -126,8 +141,11 @@ public class MainGameController implements Initializable {
         m_GameBoard.setOnKeyPressed(event->KeyPress(event));
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
         m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
+        m_GameManager.NextLevel();
         m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager);
         m_GameBoardPainter.Refresh();
+        m_GameTimer = GameLoop.GetGameLoop();
+        m_GameTimer.SetGameData(m_GameManager, m_GameBoard, m_GameBoardPainter);
     }
 
 }

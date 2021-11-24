@@ -32,9 +32,10 @@ public class LevelManager
             while (myScanner.hasNextLine()) {
                 String BrickLine = myScanner.nextLine();
                 Dimension brickSize = new Dimension((int) BrickLn, (int) BrickHgt);
-                Point p = new Point();
+
                 int i;
                 for (i = 0; i < BrickLine.length(); i++) {
+                    Point p = new Point();
                     double x = (i % BrickLine.length()) * BrickLn;
                     x = (line % 2 == 0) ? x : (x - (BrickLn / 2));
                     double y = (line) * BrickHgt;

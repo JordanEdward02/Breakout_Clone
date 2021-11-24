@@ -132,7 +132,7 @@ public class ElementsManager
         Point2D p = m_gameBall.GetPosition();
         return ((p.getX() < m_drawArea.getHeight()) ||(p.getX() > (m_drawArea.getWidth() + m_drawArea.getWidth())));
     }
-
+*/
     public void ResetBallCount()
     {
         m_ballCount = THREE;
@@ -161,5 +161,4 @@ public class ElementsManager
         m_gamePaddle.Stop();
     }
 
- */
 }
