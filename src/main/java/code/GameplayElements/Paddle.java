@@ -1,7 +1,6 @@
 package code.GameplayElements;
 
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
@@ -38,11 +37,17 @@ public class Paddle {
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
-
-    public boolean Impact(Ball b){
-        return paddleFace.contains(b.GetPosition()) && paddleFace.contains(b.down) ;
-    }
 */
+    public boolean Impact(Ball b){
+        double ballCollision = b.getLocation().getX()+b.GetRadius();
+        if (b.getLocation().getY() >= getLocation().getY() && b.getLocation().getY()-10 <= getLocation().getY()){
+            if (ballCollision >= getLocation().getX() && ballCollision <= getLocation().getX() + 150) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void Move(){
         double x = getLocation().getX() + moveAmount;
         if(x < min || x > max)

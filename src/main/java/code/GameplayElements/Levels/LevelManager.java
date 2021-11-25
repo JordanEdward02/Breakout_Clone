@@ -18,6 +18,7 @@ public class LevelManager
     {
         m_level = m_StartLevel;
     }
+
     private Brick[] ReadLevelFile(String File, Canvas drawArea) {
         try {
             Brick[] out;
@@ -82,6 +83,7 @@ public class LevelManager
     {
         m_StartLevel=level;
     }
+
     public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);

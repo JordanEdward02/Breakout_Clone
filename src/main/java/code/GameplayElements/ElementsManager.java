@@ -70,25 +70,26 @@ public class ElementsManager
     public void Move()
     {
         m_gamePaddle.Move();
-        //m_gameBall.Move();
+        m_gameBall.Move();
     }
-/*
+
     public void FindImpacts()
     {
         if(m_gamePaddle.Impact(m_gameBall)){
             m_gameBall.ReverseY();
         }
-        else if(m_gameWall.ImpactWall(m_gameBall)){
+        if(m_gameWall.ImpactWall(m_gameBall)){
             // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
             m_gameWall.ReduceBrickCount();
         }
-        else if(impactBorder()) {
+
+        if(impactBorder()) {
             m_gameBall.ReverseX();
         }
-        else if(m_gameBall.GetPosition().getY() < m_drawArea.getWidth()){
+        if(m_gameBall.getLocation().getY() < 0){
             m_gameBall.ReverseY();
         }
-        else if(m_gameBall.GetPosition().getY() > m_drawArea.getHeight() + m_drawArea.getHeight()){
+        if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){
             m_ballCount--;
             m_ballLost = true;
         }
@@ -103,7 +104,7 @@ public class ElementsManager
     {
         return m_ballCount == 0;
     }
-
+/*
     public void WallReset()
     {
         for(Brick b : m_gameWall.GetBricks())
@@ -121,15 +122,15 @@ public class ElementsManager
 
     public void PaddleReset()
     {
-        m_gamePaddle.MoveTo(m_startPoint);
+        m_gamePaddle.MoveTo(new Point((int) m_startPoint.getX()-90,(int) m_startPoint.getY()-5));
     }
-/*
+
     private boolean impactBorder()
     {
-        Point2D p = m_gameBall.GetPosition();
-        return ((p.getX() < m_drawArea.getHeight()) ||(p.getX() > (m_drawArea.getWidth() + m_drawArea.getWidth())));
+        Point p = m_gameBall.getLocation();
+        return ((p.getX() < 0) || ( p.getX()+(m_gameBall.GetRadius()*2) > (m_drawArea.getWidth())));
     }
-*/
+
     public void ResetBallCount()
     {
         m_ballCount = THREE;

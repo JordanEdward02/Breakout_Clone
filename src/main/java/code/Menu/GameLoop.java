@@ -36,8 +36,18 @@ public class GameLoop extends AnimationTimer {
     public void handle(long l)
     {
         m_GameManager.Move();
-        //m_GameManager.FindImpacts();
+        m_GameManager.FindImpacts();
         m_GameBoardPainter.SetMessage("Bricks: " + m_GameManager.GetBrickCount() + " Balls: " + m_GameManager.GetBallCount());
+        if (m_GameManager.IsBallLost())
+        {
+            if(m_GameManager.BallEnd())
+            {
+                m_GameBoardPainter.SetMessage("Game Over");
+            }
+            m_GameManager.BallReset();
+            m_GameManager.PaddleReset();
+            stop();
+        }
         m_GameBoardPainter.Refresh();
     }
 /*

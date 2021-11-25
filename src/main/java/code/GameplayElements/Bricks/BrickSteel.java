@@ -17,11 +17,7 @@ public class BrickSteel extends Brick {
     private Shape brickFace;
 
     @Override
-    public Shape GetBrick() {
-        return brickFace;
-    }
-
-    public boolean SetImpact(Point2D point , int dir){
+    public boolean SetImpact(){
         if(super.IsBroken())
             return false;
         impact();

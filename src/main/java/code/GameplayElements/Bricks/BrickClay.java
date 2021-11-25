@@ -11,11 +11,6 @@ public class BrickClay extends Brick {
     private static final Color DEF_BORDER = Color.GRAY;
     private static final int CLAY_STRENGTH = 1;
 
-    @Override
-    public Shape GetBrick() {
-        return super.m_brickFace;
-    }
-
     public BrickClay(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }

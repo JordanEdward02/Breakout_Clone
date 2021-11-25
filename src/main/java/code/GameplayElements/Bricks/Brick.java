@@ -44,14 +44,12 @@ abstract public class Brick  {
         return m_border;
     }
 
-    public  boolean SetImpact(Point2D point , int dir){
+    public  boolean SetImpact(){
         if(m_broken)
             return false;
         Impact();
         return  m_broken;
     }
-
-    public abstract Shape GetBrick();
 
     public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
         m_rnd = new Random();
@@ -80,19 +78,27 @@ abstract public class Brick  {
         if(m_broken)
             return 0;
         int out  = 0;
-        if(m_brickFace.contains(b.GetRight()))
+        if(contains(b.GetRight()))
             out = LEFT_IMPACT;
-        else if(m_brickFace.contains(b.GetLeft()))
+        else if(contains(b.GetLeft()))
             out = RIGHT_IMPACT;
-        else if(m_brickFace.contains(b.GetUp()))
+        else if(contains(b.GetUp()))
             out = DOWN_IMPACT;
-        else if(m_brickFace.contains(b.GetDown()))
+        else if(contains(b.GetDown()))
             out = UP_IMPACT;
         return out;
     }
 
     public final boolean IsBroken(){
         return m_broken;
+    }
+
+    private boolean contains(Point point)
+    {
+        if (point.getX() >= this.getLocation().getX() && point.getX() <= this.getLocation().getX()+60)
+            if (point.getY() >= this.getLocation().getY() && point.getY() <= this.getLocation().getY()+20)
+                return true;
+        return false;
     }
 
     public void Repair() {

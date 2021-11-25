@@ -14,7 +14,7 @@ public class BrickCement extends Brick {
     private Shape brickFace;
 
     @Override
-    public boolean SetImpact(Point2D point, int dir) {
+    public boolean SetImpact() {
         if(super.IsBroken())
             return false;
         super.Impact();
@@ -25,11 +25,6 @@ public class BrickCement extends Brick {
         return true;
     }
 
-
-    @Override
-    public Shape GetBrick() {
-        return brickFace;
-    }
 
     public BrickCement(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
