@@ -1,11 +1,9 @@
 package code.GameplayElements.Bricks;
 
-import code.GameplayElements.Ball;
+import code.GameplayElements.Balls.Ball;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
 abstract public class Brick  {
@@ -17,8 +15,6 @@ abstract public class Brick  {
 
     private static Random m_rnd;
 
-    Shape m_brickFace;
-
     private Point m_BrickPoint;
 
     private Color m_border;
@@ -27,11 +23,24 @@ abstract public class Brick  {
     private int m_fullStrength;
     private int m_strength;
 
+    private double m_Width;
+    private double m_Height;
+
     private boolean m_broken;
 
     public Point getLocation()
     {
         return m_BrickPoint;
+    }
+
+    public double GetHeight()
+    {
+        return m_Height;
+    }
+
+    public double GetWidth()
+    {
+        return m_Width;
     }
 
     public Color GetInnerColor()
@@ -54,15 +63,14 @@ abstract public class Brick  {
     public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
         m_rnd = new Random();
         m_BrickPoint = pos;
+        m_Width = size.width;
+        m_Height = size.height;
         m_broken = false;
-        m_brickFace = makeBrickFace(pos,size);
         m_border = border;
         m_inner = inner;
         m_fullStrength = m_strength = strength;
 
     }
-
-    protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
     public void Crack()
     {

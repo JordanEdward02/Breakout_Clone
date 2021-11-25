@@ -1,4 +1,4 @@
-package code.Menu.Frames;
+package code;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

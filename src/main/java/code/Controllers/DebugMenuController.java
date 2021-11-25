@@ -1,6 +1,6 @@
 package code.Controllers;
 
-import code.GameplayElements.Ball;
+import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.Objects;
@@ -53,9 +52,6 @@ public class DebugMenuController implements Initializable {
         }
     }
 
-    private void unlockMain(WindowEvent newEvent) {
-    }
-
     public void LevelSkipButton()
     {
         if (m_GameManager.NewLevel())
@@ -73,14 +69,12 @@ public class DebugMenuController implements Initializable {
 
     public void SetXSpeed()
     {
-        Ball b = m_GameManager.GetBall();
-        b.SetXSpeed((int) m_XSlider.getValue());
+        m_GameManager.SetBallXSpeed((int)m_XSlider.getValue());
     }
 
     public void SetYSpeed()
     {
-        Ball b = m_GameManager.GetBall();
-        b.SetYSpeed((int) m_YSlider.getValue());
+        m_GameManager.SetBallYSpeed((int)m_YSlider.getValue());
     }
 
     @Override

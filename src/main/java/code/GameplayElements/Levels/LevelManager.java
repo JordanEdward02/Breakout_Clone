@@ -42,9 +42,9 @@ public class LevelManager
                 int i;
                 for (i = 0; i < BrickLine.length(); i++) {
                     Point p = new Point();
-                    double x = (i % BrickLine.length()) * BrickLn;
+                    double x = ((i) % BrickLine.length()) * BrickLn;
                     x = (line % 2 == 0) ? x : (x - (BrickLn / 2));
-                    double y = (line) * BrickHgt;
+                    double y = ((line)+2) * BrickHgt;
                     p.setLocation(x, y);
                     out[i + offSet] = BrickFactory.GetBrick(p, brickSize, BrickLine.charAt(i)-'0');
                 }

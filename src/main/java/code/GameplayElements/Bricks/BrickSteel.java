@@ -14,7 +14,6 @@ public class BrickSteel extends Brick {
     private static final double STEEL_PROBABILITY = 0.4;
 
     private Random rnd;
-    private Shape brickFace;
 
     @Override
     public boolean SetImpact(){
@@ -27,12 +26,6 @@ public class BrickSteel extends Brick {
     public BrickSteel(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         rnd = new Random();
-        brickFace = super.m_brickFace;
-    }
-
-    @Override
-    protected Shape makeBrickFace(Point pos, Dimension size) {
-        return new Rectangle(pos,size);
     }
 
     private void impact(){

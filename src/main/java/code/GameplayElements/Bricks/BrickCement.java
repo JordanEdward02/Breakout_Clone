@@ -11,8 +11,6 @@ public class BrickCement extends Brick {
     private static final Color DEF_BORDER = Color.GREY.darker().darker();
     private static final int CEMENT_STRENGTH = 2;
 
-    private Shape brickFace;
-
     @Override
     public boolean SetImpact() {
         if(super.IsBroken())
@@ -28,18 +26,10 @@ public class BrickCement extends Brick {
 
     public BrickCement(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
-        brickFace = super.m_brickFace;
     }
-
-    @Override
-    protected Shape makeBrickFace(Point pos, Dimension size) {
-        return new Rectangle(pos,size);
-    }
-
 
     public void Repair(){
         super.Repair();
         AntiCrack();
-        brickFace = super.m_brickFace;
     }
 }

@@ -1,9 +1,8 @@
-package code.GameplayElements;
+package code.GameplayElements.Balls;
 
 import javafx.scene.paint.Color;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Random;
 
 abstract public class Ball {
@@ -18,8 +17,8 @@ abstract public class Ball {
     private Color m_border;
     private Color m_Inner;
 
-    private int speedX;
-    private int speedY;
+    private int m_speedX;
+    private int m_speedY;
 
     public Point getLocation()
     {
@@ -60,8 +59,8 @@ abstract public class Ball {
     }
 
     public void SetSpeed(int x,int y){
-        speedX = x;
-        speedY = y;
+        m_speedX = x;
+        m_speedY = y;
     }
 
     public void SetSpeedRandom()
@@ -80,19 +79,19 @@ abstract public class Ball {
     }
 
     public void SetXSpeed(int s){
-        speedX = s;
+        m_speedX = s;
     }
 
     public void SetYSpeed(int s){
-        speedY = s;
+        m_speedY = s;
     }
 
     public int GetSpeedX(){
-        return speedX;
+        return m_speedX;
     }
 
     public int GetSpeedY(){
-        return speedY;
+        return m_speedY;
     }
 
     public Point GetRight()
@@ -130,11 +129,11 @@ abstract public class Ball {
     }
 
     public void ReverseX(){
-        speedX *= -1;
+        m_speedX *= -1;
     }
 
     public void ReverseY(){
-        speedY *= -1;
+        m_speedY *= -1;
     }
 
     public void MoveTo(Point p){

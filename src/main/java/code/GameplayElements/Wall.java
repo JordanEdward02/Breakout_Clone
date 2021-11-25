@@ -1,5 +1,6 @@
 package code.GameplayElements;
 
+import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
 import javafx.scene.canvas.Canvas;

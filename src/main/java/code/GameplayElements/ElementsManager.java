@@ -1,5 +1,7 @@
 package code.GameplayElements;
 
+import code.GameplayElements.Balls.Ball;
+import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
 import javafx.scene.canvas.Canvas;
@@ -9,8 +11,8 @@ import java.awt.*;
 public class ElementsManager
 {
     private static final int THREE = 3;
-    private static final int START_POINT_X = 300;
-    private static final int START_POINT_Y = 350;
+    private int m_StartX;
+    private int m_StartY;
 
     private Wall m_gameWall;
     private Ball m_gameBall;
@@ -59,7 +61,9 @@ public class ElementsManager
     {
         m_gameWall = gameWall;
         m_drawArea = drawArea;
-        m_startPoint = new Point(START_POINT_X,START_POINT_Y);
+        m_StartX = (int) (m_drawArea.getHeight()*0.5);
+        m_StartY = (int) (drawArea.getWidth()*0.8);
+        m_startPoint = new Point(m_StartX,m_StartY);
         m_gameBall = new BallRubber(m_startPoint);
         m_gamePaddle = new Paddle(m_startPoint);
         m_levelManager = new LevelManager();
@@ -104,7 +108,7 @@ public class ElementsManager
     {
         return m_ballCount == 0;
     }
-/*
+
     public void WallReset()
     {
         for(Brick b : m_gameWall.GetBricks())
@@ -112,7 +116,7 @@ public class ElementsManager
         m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
         m_ballCount = THREE;
     }
-*/
+
     public void BallReset()
     {
         m_gameBall.MoveTo(m_startPoint);
@@ -155,13 +159,8 @@ public class ElementsManager
     {
         if (m_levelManager.HasNextLevel()) {
             BallReset();
+            PaddleReset();
             NextLevel();
         }
     }
-
-    public void StopPaddle()
-    {
-        m_gamePaddle.Stop();
-    }
-
 }

@@ -67,6 +67,7 @@ public class MainGameController implements Initializable {
                 break;
             case F1:
                 if(event.isAltDown() && event.isShiftDown()) {
+                    setPaused();
                     Stage newStage = new Stage();
                     m_debugMenu = new DebugMenuController(newStage, m_GameManager, m_GameBoardPainter);
                 }
@@ -94,7 +95,7 @@ public class MainGameController implements Initializable {
         }
     }
 
-    private void setPaused()
+    public void setPaused()
     {
         m_Pause = true;
         m_GameTimer.stop();
@@ -118,12 +119,11 @@ public class MainGameController implements Initializable {
 
     public void GameRestart()
     {
-        /*
         m_GameManager.BallReset();
         m_GameManager.PaddleReset();
         m_GameManager.WallReset();
-
-         */
+        m_GameTimer.stop();
+        setPaused();
     }
 
     public void GameExit(ActionEvent event)
@@ -145,7 +145,7 @@ public class MainGameController implements Initializable {
         m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager);
         m_GameBoardPainter.Refresh();
         m_GameTimer = GameLoop.GetGameLoop();
-        m_GameTimer.SetGameData(m_GameManager, m_GameBoard, m_GameBoardPainter);
+        m_GameTimer.SetGameData(m_GameManager, m_GameBoardPainter, this);
     }
 
 }
