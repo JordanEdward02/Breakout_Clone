@@ -2,18 +2,15 @@ package code.GameplayElements;
 
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
+import javafx.scene.canvas.Canvas;
 
-import java.awt.geom.Point2D;
 import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class ElementsManager
 {
     private static final int THREE = 3;
-    private static final int PADDLE_X = 150;
-    private static final int PADDLE_Y = 10;
     private static final int START_POINT_X = 300;
-    private static final int START_POINT_Y = 430;
+    private static final int START_POINT_Y = 350;
 
     private Wall m_gameWall;
     private Ball m_gameBall;
@@ -22,7 +19,7 @@ public class ElementsManager
     private int m_ballCount;
     private boolean m_ballLost;
     private Point m_startPoint ;
-    private Rectangle m_drawArea;
+    private Canvas m_drawArea;
 
     public Wall GetWall()
     {
@@ -58,16 +55,16 @@ public class ElementsManager
         m_gameBall.SetYSpeed(s);
     }
 
-    public ElementsManager(Wall gameWall, Point ballPos, Rectangle drawArea)
+    public ElementsManager(Wall gameWall, Canvas drawArea)
     {
         m_gameWall = gameWall;
         m_drawArea = drawArea;
-        m_gameBall = new BallRubber((ballPos));
-        m_gamePaddle = new Paddle((Point) ballPos.clone(),PADDLE_X,PADDLE_Y, m_drawArea);
+        m_startPoint = new Point(START_POINT_X,START_POINT_Y);
+        m_gameBall = new BallRubber(m_startPoint);
+        m_gamePaddle = new Paddle(m_startPoint);
         m_levelManager = new LevelManager();
         m_ballCount = THREE;
         m_ballLost = false;
-        m_startPoint = new Point(START_POINT_X,START_POINT_Y);
     }
 
     public void Move()
@@ -81,17 +78,18 @@ public class ElementsManager
         if(m_gamePaddle.Impact(m_gameBall)){
             m_gameBall.ReverseY();
         }
-        else if(m_gameWall.ImpactWall(m_gameBall)){
+        if(m_gameWall.ImpactWall(m_gameBall)){
             // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
             m_gameWall.ReduceBrickCount();
         }
-        else if(impactBorder()) {
+
+        if(impactBorder()) {
             m_gameBall.ReverseX();
         }
-        else if(m_gameBall.GetPosition().getY() < m_drawArea.getY()){
+        if(m_gameBall.getLocation().getY() < 0){
             m_gameBall.ReverseY();
         }
-        else if(m_gameBall.GetPosition().getY() > m_drawArea.getY() + m_drawArea.getHeight()){
+        if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){
             m_ballCount--;
             m_ballLost = true;
         }
@@ -106,7 +104,7 @@ public class ElementsManager
     {
         return m_ballCount == 0;
     }
-
+/*
     public void WallReset()
     {
         for(Brick b : m_gameWall.GetBricks())
@@ -114,19 +112,23 @@ public class ElementsManager
         m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
         m_ballCount = THREE;
     }
-
+*/
     public void BallReset()
     {
-        m_gamePaddle.MoveTo(m_startPoint);
         m_gameBall.MoveTo(m_startPoint);
         m_gameBall.SetSpeedRandom();
         m_ballLost = false;
     }
 
+    public void PaddleReset()
+    {
+        m_gamePaddle.MoveTo(new Point((int) m_startPoint.getX()-90,(int) m_startPoint.getY()-5));
+    }
+
     private boolean impactBorder()
     {
-        Point2D p = m_gameBall.GetPosition();
-        return ((p.getX() < m_drawArea.getX()) ||(p.getX() > (m_drawArea.getX() + m_drawArea.getWidth())));
+        Point p = m_gameBall.getLocation();
+        return ((p.getX() < 0) || ( p.getX()+(m_gameBall.GetRadius()*2) > (m_drawArea.getWidth())));
     }
 
     public void ResetBallCount()
@@ -144,6 +146,11 @@ public class ElementsManager
         m_gameWall.RenderWall(m_levelManager, m_drawArea);
     }
 
+    public void RenderLevel()
+    {
+        m_gameWall.RenderWall(m_levelManager, m_drawArea);
+    }
+
     public void LevelSkip()
     {
         if (m_levelManager.HasNextLevel()) {
@@ -156,4 +163,5 @@ public class ElementsManager
     {
         m_gamePaddle.Stop();
     }
+
 }

@@ -16,10 +16,7 @@ public class StartFrame extends Application {
         launch(args);
     }
     
-    public StartFrame ()
-    {
-
-    }
+    public StartFrame (){}
 
     @Override
     public void start(Stage stage) throws Exception {

@@ -3,14 +3,16 @@ package code.Menu;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Frames.GameBoard;
 import code.Menu.Painters.GameBoardPainter;
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.Canvas;
 
 import javax.swing.*;
 
-public class GameLoop {
+public class GameLoop extends AnimationTimer {
     private static GameLoop m_GameTimer;
     private Timer m_Timer;
     private ElementsManager m_GameManager;
-    private GameBoard m_GameBoard;
+    private Canvas m_GameBoard;
     private GameBoardPainter m_GameBoardPainter;
 
 
@@ -23,13 +25,32 @@ public class GameLoop {
         return m_GameTimer;
     }
 
-    public void SetGameData(ElementsManager GameManager, GameBoard GameBoard, GameBoardPainter GamePainter)
+    public void SetGameData(ElementsManager GameManager, Canvas GameBoard, GameBoardPainter GamePainter)
     {
         m_GameManager = GameManager;
         m_GameBoard = GameBoard;
         m_GameBoardPainter = GamePainter;
     }
 
+    @Override
+    public void handle(long l)
+    {
+        m_GameManager.Move();
+        m_GameManager.FindImpacts();
+        m_GameBoardPainter.SetMessage("Bricks: " + m_GameManager.GetBrickCount() + " Balls: " + m_GameManager.GetBallCount());
+        if (m_GameManager.IsBallLost())
+        {
+            if(m_GameManager.BallEnd())
+            {
+                m_GameBoardPainter.SetMessage("Game Over");
+            }
+            m_GameManager.BallReset();
+            m_GameManager.PaddleReset();
+            stop();
+        }
+        m_GameBoardPainter.Refresh();
+    }
+/*
     public void StartLoop()
     {
         m_Timer = new Timer(10,e ->{
@@ -57,8 +78,6 @@ public class GameLoop {
                     TimerStop();
                 }
             }
-
-            m_GameBoard.repaint();
         });
     }
 
@@ -76,4 +95,6 @@ public class GameLoop {
     {
         return m_Timer.isRunning();
     }
+
+ */
 }

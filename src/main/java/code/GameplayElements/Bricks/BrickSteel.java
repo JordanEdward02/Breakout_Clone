@@ -1,5 +1,6 @@
 package code.GameplayElements.Bricks;
 
+import javafx.scene.paint.Color;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -7,8 +8,8 @@ import java.util.Random;
 
 public class BrickSteel extends Brick {
 
-    private static final Color DEF_INNER = new Color(203, 203, 201);
-    private static final Color DEF_BORDER = Color.BLACK;
+    private static final Color DEF_INNER = Color.SILVER;
+    private static final Color DEF_BORDER = Color.SILVER.darker().darker();
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
@@ -16,11 +17,7 @@ public class BrickSteel extends Brick {
     private Shape brickFace;
 
     @Override
-    public Shape GetBrick() {
-        return brickFace;
-    }
-
-    public boolean SetImpact(Point2D point , int dir){
+    public boolean SetImpact(){
         if(super.IsBroken())
             return false;
         impact();

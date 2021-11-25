@@ -1,8 +1,9 @@
 package code.GameplayElements;
 
+import javafx.scene.paint.Color;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.RectangularShape;
 import java.util.Random;
 
 abstract public class Ball {
@@ -10,55 +11,52 @@ abstract public class Ball {
     private static final int TWO = 2;
     private static final int THREE = 3;
     private static final int FIVE = 5;
-    private Shape ballFace;
 
-    private Point2D center;
+    private Point m_TopCorner;
+    private int m_Radius;
 
-    Point2D up;
-    Point2D down;
-    Point2D left;
-    Point2D right;
-
-    private Color border;
-    private Color inner;
+    private Color m_border;
+    private Color m_Inner;
 
     private int speedX;
     private int speedY;
 
-    public Point2D GetUp()
+    public Point getLocation()
     {
-        return up;
+        return m_TopCorner;
     }
 
-    public Point2D GetDown()
+    public void setLocation(Point newPoint)
     {
-        return down;
+        m_TopCorner = newPoint;
     }
 
-    public Point2D GetRight()
+    public void SetRadius(int radius)
     {
-        return right;
+        m_Radius=radius;
     }
 
-    public Point2D GetLeft()
+    public int GetRadius()
     {
-        return left;
+        return m_Radius;
     }
 
     public Color GetBorderColor(){
-        return border;
+        return m_border;
     }
 
     public Color GetInnerColor(){
-        return inner;
+        return m_Inner;
     }
 
-    public Point2D GetPosition(){
-        return center;
+    public void SetBorderColor(Color color)
+    {
+        m_border = color;
     }
 
-    public Shape GetBallFace(){
-        return ballFace;
+    public void SetInnerColor(Color color)
+    {
+        m_Inner = color;
     }
 
     public void SetSpeed(int x,int y){
@@ -89,14 +87,6 @@ abstract public class Ball {
         speedY = s;
     }
 
-    private void setPoints(double width,double height){
-        up.setLocation(center.getX(),center.getY()-(height / 2));
-        down.setLocation(center.getX(),center.getY()+(height / 2));
-
-        left.setLocation(center.getX()-(width / 2),center.getY());
-        right.setLocation(center.getX()+(width / 2),center.getY());
-    }
-
     public int GetSpeedX(){
         return speedX;
     }
@@ -105,39 +95,38 @@ abstract public class Ball {
         return speedY;
     }
 
-    public Ball(Point2D center,int radiusA,int radiusB,Color inner,Color border){
-        this.center = center;
-
-        up = new Point2D.Double();
-        down = new Point2D.Double();
-        left = new Point2D.Double();
-        right = new Point2D.Double();
-
-        up.setLocation(center.getX(),center.getY()-(radiusB / TWO));
-        down.setLocation(center.getX(),center.getY()+(radiusB / TWO));
-
-        left.setLocation(center.getX()-(radiusA /TWO),center.getY());
-        right.setLocation(center.getX()+(radiusA /TWO),center.getY());
-
-        SetSpeedRandom();
-        ballFace = makeBall(center,radiusA,radiusB);
-        this.border = border;
-        this.inner  = inner;
+    public Point GetRight()
+    {
+        return (new Point((int) getLocation().getX()+m_Radius*2,(int) getLocation().getY()+m_Radius));
     }
 
-    protected abstract Shape makeBall(Point2D center,int radiusA,int radiusB);
+    public Point GetUp()
+    {
+        return (new Point((int) getLocation().getX()+m_Radius, (int) getLocation().getY()));
+    }
+
+    public Point GetLeft()
+    {
+        return(new Point((int) getLocation().getX(), (int) getLocation().getY()+m_Radius));
+    }
+
+    public Point GetDown()
+    {
+        return (new Point((int) getLocation().getX()+m_Radius, (int) getLocation().getY()+(m_Radius*2)));
+    }
+
+    public Ball(Point startPoint, int radius, Color inner, Color border){
+        SetBorderColor(border);
+        SetInnerColor(inner);
+        SetRadius(radius);
+        MoveTo(startPoint);
+        SetSpeedRandom();
+    }
 
     public void Move(){
-        RectangularShape tmp = (RectangularShape) ballFace;
-        center.setLocation((center.getX() + speedX),(center.getY() + speedY));
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
-
-        tmp.setFrame((center.getX() -(w / TWO)),(center.getY() - (h / TWO)),w,h);
-        setPoints(w,h);
-
-
-        ballFace = tmp;
+        int x = (int) getLocation().getX() + GetSpeedX();
+        int y = (int) getLocation().getY() + GetSpeedY();
+        setLocation(new Point(x,y));
     }
 
     public void ReverseX(){
@@ -149,15 +138,7 @@ abstract public class Ball {
     }
 
     public void MoveTo(Point p){
-        center.setLocation(p);
-
-        RectangularShape tmp = (RectangularShape) ballFace;
-        double w = tmp.getWidth();
-        double h = tmp.getHeight();
-
-        tmp.setFrame((center.getX() -(w / TWO)),(center.getY() - (h / TWO)),w,h);
-        ballFace = tmp;
+        m_TopCorner = new Point(((int)p.getX()-15), ((int) p.getY()-10));
     }
-
 
 }
