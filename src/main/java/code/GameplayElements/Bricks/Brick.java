@@ -28,9 +28,21 @@ abstract public class Brick  {
 
     private boolean m_broken;
 
+    private double m_SourceX, m_SourceY;
+
     public Point getLocation()
     {
         return m_BrickPoint;
+    }
+
+    public double GetSourceX()
+    {
+        return m_SourceX;
+    }
+
+    public double GetSourceY()
+    {
+        return m_SourceY;
     }
 
     public double GetHeight()
@@ -43,21 +55,17 @@ abstract public class Brick  {
         return m_Width;
     }
 
-    public Color GetInnerColor()
-    {
-        return m_inner;
-    }
-
-    public Color GetBorderColor()
-    {
-        return m_border;
-    }
-
     public  boolean SetImpact(){
         if(m_broken)
             return false;
         Impact();
         return  m_broken;
+    }
+
+    protected void SetImageSource(double sourceX, double sourceY)
+    {
+        m_SourceX = sourceX;
+        m_SourceY = sourceY;
     }
 
     public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
@@ -118,9 +126,6 @@ abstract public class Brick  {
         m_strength--;
         m_broken = (m_strength == 0);
     }
-
-
-
 }
 
 

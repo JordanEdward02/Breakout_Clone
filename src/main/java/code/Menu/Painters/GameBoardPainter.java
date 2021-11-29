@@ -7,19 +7,26 @@ import code.GameplayElements.Paddle;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+
+import java.io.File;
 
 
 public class GameBoardPainter {
 
     private static double TEXT_RATIO_X = 0.475, TEXT_RATIO_Y = 0.5;
     private static double BALL_PADDLE_RATIO=60, PADDLE_RATIO_X = 4;
+    private static double BRICK_X = 30, BRICK_Y = 10;
+    private static double PADDLE_X = 60, PADDLE_Y = 4;
+    private static double BALL_SIZE = 10;
 
     private double m_CanvasSize;
     private Canvas m_GameBoard;
     private ElementsManager m_GameManager;
     private String m_Message;
+    private Image m_Textures;
 
     public void SetMessage(String newMessage)
     {
@@ -32,6 +39,7 @@ public class GameBoardPainter {
         m_CanvasSize = m_GameBoard.getWidth();
         m_GameManager = gameManager;
         m_Message = "Press SPACE to start";
+        m_Textures = new Image(new File("src/main/java/code/Assets/SimpleTextures.png").toURI().toString());
     }
 
     public void Refresh() {
@@ -53,34 +61,26 @@ public class GameBoardPainter {
                 drawBrick(b, graphics);
         }
     }
-
-    private void drawBrick(Brick brick,GraphicsContext g2d){
-
-        g2d.setFill(brick.GetInnerColor());
-        g2d.setStroke(brick.GetBorderColor());
-        g2d.fillRect(brick.getLocation().getX(), brick.getLocation().getY(),
-                brick.GetWidth(),brick.GetHeight());
-        g2d.strokeRect(brick.getLocation().getX(), brick.getLocation().getY(),
-                brick.GetWidth(),brick.GetHeight());
+    private void drawBrick(Brick brick,GraphicsContext g2d)
+    {
+        g2d.drawImage(m_Textures, brick.GetSourceX(), brick.GetSourceY(),
+                BRICK_X, BRICK_Y, brick.getLocation().getX(),
+                brick.getLocation().getY(), brick.GetWidth(), brick.GetHeight());
     }
 
     private void drawBall(Ball ball, GraphicsContext g2d)
     {
-        g2d.setFill(ball.GetInnerColor());
-        g2d.setStroke(ball.GetBorderColor());
-        g2d.fillOval(ball.getLocation().getX(), ball.getLocation().getY(),
-                m_CanvasSize/BALL_PADDLE_RATIO,m_CanvasSize/BALL_PADDLE_RATIO);
-        g2d.strokeOval(ball.getLocation().getX(), ball.getLocation().getY(),
-                m_CanvasSize/BALL_PADDLE_RATIO,m_CanvasSize/BALL_PADDLE_RATIO);
+        g2d.drawImage(m_Textures, ball.GetSourceX(), ball.GetSourceY(),
+                BALL_SIZE, BALL_SIZE, ball.getLocation().getX(),
+                ball.getLocation().getY(), ball.GetRadius(), ball.GetRadius());
+
     }
 
-    private void drawPaddle(Paddle paddle, GraphicsContext g2d){
-        g2d.setFill(paddle.INNER_COLOR);
-        g2d.setStroke(paddle.BORDER_COLOR);
-        g2d.fillRect(paddle.getLocation().getX(), paddle.getLocation().getY(),
-                m_CanvasSize/PADDLE_RATIO_X,m_CanvasSize/BALL_PADDLE_RATIO);
-        g2d.strokeRect(paddle.getLocation().getX(), paddle.getLocation().getY(),
-                m_CanvasSize/PADDLE_RATIO_X,m_CanvasSize/BALL_PADDLE_RATIO);
+    private void drawPaddle(Paddle paddle, GraphicsContext g2d)
+    {
+        g2d.drawImage(m_Textures, paddle.GetSourceX(), paddle.GetSourceY(),
+                BALL_SIZE, BALL_SIZE, paddle.getLocation().getX(),
+                paddle.getLocation().getY(), paddle.GetWidth(), paddle.GetHeight());
     }
 
 

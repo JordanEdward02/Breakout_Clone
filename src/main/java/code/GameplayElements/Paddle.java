@@ -2,43 +2,57 @@ package code.GameplayElements;
 
 
 import code.GameplayElements.Balls.Ball;
-import javafx.scene.paint.Color;
-
+import javafx.scene.canvas.Canvas;
 import java.awt.*;
 
 
 public class Paddle {
 
-
-    public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    public static final Color INNER_COLOR = Color.GREEN;
-    private static final int PADDLE_WIDTH = 150;
-    private static final int PADDLE_HEIGHT = 10;
-
+    private static final int PADDLE_WIDTH = 4;
+    private static final int PADDLE_HEIGHT = 60;
+    private static final int PADDLE_X_OFFSET = 15;
     public static final int DEF_MOVE_AMOUNT = 5;
+    private static final double SOURCE_X = 0.0, SOURCE_Y = 60.0;
 
-    private Rectangle paddleFace;
     private Point m_PaddlePoint;
     private int moveAmount;
     private double min=0;
     private double max=450;
+    private double m_PaddleWidth, m_PaddleHeight;
 
     public Point getLocation()
     {
         return m_PaddlePoint;
     }
 
+    public double GetSourceX()
+    {
+        return SOURCE_X;
+    }
 
-    public Paddle(Point point) {
-        m_PaddlePoint = new Point((int) (point.getX()-(PADDLE_WIDTH/2)-15),(int) (point.getY()-(PADDLE_HEIGHT/2)));
+    public double GetSourceY()
+    {
+        return SOURCE_Y;
+    }
+
+    public double GetHeight()
+    {
+        return m_PaddleHeight;
+    }
+
+    public double GetWidth()
+    {
+        return m_PaddleWidth;
+    }
+
+    public Paddle(Point point, Canvas drawArea) {
+        m_PaddleWidth = drawArea.getWidth()/PADDLE_WIDTH;
+        m_PaddleHeight = drawArea.getWidth()/PADDLE_HEIGHT;
+        m_PaddlePoint = new Point((int) (point.getX()-(m_PaddleWidth/2)-PADDLE_X_OFFSET),
+                (int) (point.getY()-(m_PaddleHeight/2)));
 
     }
-/*
-    private Rectangle makeRectangle(int width,int height){
-        Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
-        return  new Rectangle(p,new Dimension(width,height));
-    }
-*/
+
     public boolean Impact(Ball b){
         double ballCollision = b.getLocation().getX()+b.GetRadius();
         if (b.getLocation().getY() >= getLocation().getY() && b.getLocation().getY()-10 <= getLocation().getY()){

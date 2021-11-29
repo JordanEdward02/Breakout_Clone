@@ -123,7 +123,10 @@ public class MainGameController implements Initializable {
         m_GameManager.PaddleReset();
         m_GameManager.WallReset();
         m_GameTimer.stop();
-        setPaused();
+        m_PauseMenuPane.setVisible(false);
+        m_GameBoard.requestFocus();
+        m_GameBoard.toFront();
+        m_GameBoardPainter.Refresh();
     }
 
     public void GameExit(ActionEvent event)

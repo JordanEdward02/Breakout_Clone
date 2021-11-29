@@ -5,7 +5,6 @@ import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
 import javafx.scene.canvas.Canvas;
-
 import java.awt.*;
 
 public class ElementsManager
@@ -64,8 +63,8 @@ public class ElementsManager
         m_StartX = (int) (m_drawArea.getHeight()*0.5);
         m_StartY = (int) (drawArea.getWidth()*0.8);
         m_startPoint = new Point(m_StartX,m_StartY);
-        m_gameBall = new BallRubber(m_startPoint);
-        m_gamePaddle = new Paddle(m_startPoint);
+        m_gameBall = new BallRubber(m_startPoint, drawArea);
+        m_gamePaddle = new Paddle(m_startPoint, drawArea);
         m_levelManager = new LevelManager();
         m_ballCount = THREE;
         m_ballLost = false;

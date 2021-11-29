@@ -10,6 +10,7 @@ public class BrickCement extends Brick {
     private static final Color DEF_INNER = Color.GREY;
     private static final Color DEF_BORDER = Color.GREY.darker().darker();
     private static final int CEMENT_STRENGTH = 2;
+    private static final double SOURCE_X = 0.0, SOURCE_Y = 20.0;
 
     @Override
     public boolean SetImpact() {
@@ -26,6 +27,7 @@ public class BrickCement extends Brick {
 
     public BrickCement(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
+        SetImageSource(SOURCE_X, SOURCE_Y);
     }
 
     public void Repair(){
