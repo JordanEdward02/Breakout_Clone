@@ -1,45 +1,55 @@
 package code.Controllers;
 
-import code.GameplayElements.Ball;
+import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
-import code.Menu.Frames.DebugConsole;
-import code.Menu.Painters.DebugPanelPainter;
-import code.Menu.Frames.GameBoard;
+import code.Menu.Painters.GameBoardPainter;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Slider;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class DebugMenuController implements WindowListener {
+public class DebugMenuController implements Initializable {
 
-    private DebugConsole m_DebugConsole;
-    private GameBoard m_GameBoard;
-    private ElementsManager m_GameManager;
-    private DebugPanelPainter m_DebugPanelPainter;
+    private static ElementsManager m_GameManager;
+    private static GameBoardPainter m_GameBoardPainter;
+    @FXML
+    public Slider m_XSlider;
+    @FXML
+    public Slider m_YSlider;
 
-    public JButton makeButton(String title, ActionListener e){
-        JButton out = new JButton(title);
-        out.addActionListener(e);
-        return  out;
-    }
-
-    public JSlider makeSlider(int min, int max, ChangeListener e){
-        JSlider out = new JSlider(min,max);
-        out.setMajorTickSpacing(1);
-        out.setSnapToTicks(true);
-        out.setPaintTicks(true);
-        out.addChangeListener(e);
-        return out;
-    }
-
-    public DebugMenuController(GameBoard gameBoard, DebugConsole debugConsole, ElementsManager gameManager, DebugPanelPainter debugPanelPainter)
+    public DebugMenuController()
     {
-        m_GameBoard = gameBoard;
-        m_DebugConsole = debugConsole;
+
+    }
+
+    public DebugMenuController(Stage stage, ElementsManager gameManager, GameBoardPainter gameBoardPainter)
+    {
         m_GameManager = gameManager;
-        m_DebugPanelPainter = debugPanelPainter;
+        m_GameBoardPainter = gameBoardPainter;
+        try
+        {
+            String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
+            Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            Scene Scene = new Scene(m_Root);
+            stage.setScene(Scene);
+            stage.setResizable(false);
+            stage.setTitle("Debug Menu");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void LevelSkipButton()
@@ -47,51 +57,31 @@ public class DebugMenuController implements WindowListener {
         if (m_GameManager.NewLevel())
         {
             m_GameManager.LevelSkip();
-            m_GameBoard.repaint();
         }
+        m_GameBoardPainter.Refresh();
+    }
+
+    public void ResetBalls()
+    {
+        m_GameManager.ResetBallCount();
+        m_GameBoardPainter.Refresh();
+    }
+
+    public void SetXSpeed()
+    {
+        m_GameManager.SetBallXSpeed((int)m_XSlider.getValue());
+    }
+
+    public void SetYSpeed()
+    {
+        m_GameManager.SetBallYSpeed((int)m_YSlider.getValue());
     }
 
     @Override
-    public void windowOpened(WindowEvent e)
+    public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e)
-    {
-
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e)
-    {
-        m_GameBoard.repaint();
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e)
-    {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e)
-    {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e)
-    {
-        m_DebugConsole.setLocation();
         Ball b = m_GameManager.GetBall();
-        m_DebugPanelPainter.SetValues(b.GetSpeedX(),b.GetSpeedY());
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e)
-    {
-
+        m_XSlider.adjustValue(b.GetSpeedX());
+        m_YSlider.adjustValue(b.GetSpeedY());
     }
 }

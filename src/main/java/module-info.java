@@ -5,6 +5,7 @@ module COMP2013.coursework {
     requires org.controlsfx.controls;
 
     exports code;
+    exports code.Controllers;
 
-    opens code to javafx.fxml;
+    opens code.Controllers;
 }

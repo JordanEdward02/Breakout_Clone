@@ -3,6 +3,7 @@ package code.GameplayElements.Levels;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Bricks.BrickClay;
 import code.GameplayElements.Bricks.BrickFactory;
+import javafx.scene.canvas.Canvas;
 
 import java.awt.*;
 import java.io.File;
@@ -10,9 +11,15 @@ import java.util.Scanner;
 
 public class LevelManager
 {
-    private int m_level=0;
+    private int m_level;
+    private static int m_StartLevel;
 
-    private Brick[] ReadLevelFile(String File, Rectangle drawArea) {
+    public LevelManager()
+    {
+        m_level = m_StartLevel;
+    }
+
+    private Brick[] ReadLevelFile(String File, Canvas drawArea) {
         try {
             Brick[] out;
             int brickCount = 0, offSet=0, line=0;
@@ -31,12 +38,13 @@ public class LevelManager
             while (myScanner.hasNextLine()) {
                 String BrickLine = myScanner.nextLine();
                 Dimension brickSize = new Dimension((int) BrickLn, (int) BrickHgt);
-                Point p = new Point();
+
                 int i;
                 for (i = 0; i < BrickLine.length(); i++) {
-                    double x = (i % BrickLine.length()) * BrickLn;
+                    Point p = new Point();
+                    double x = ((i) % BrickLine.length()) * BrickLn;
                     x = (line % 2 == 0) ? x : (x - (BrickLn / 2));
-                    double y = (line) * BrickHgt;
+                    double y = ((line)+2) * BrickHgt;
                     p.setLocation(x, y);
                     out[i + offSet] = BrickFactory.GetBrick(p, brickSize, BrickLine.charAt(i)-'0');
                 }
@@ -57,7 +65,7 @@ public class LevelManager
         try
         {
             File fileCheck = new File("src/main/java/code/GameplayElements/Levels/Level" +(m_level+1)+ ".txt");
-            Scanner fileCheckScanner = new Scanner(fileCheck);
+            new Scanner(fileCheck);
             return true;
         }
         catch(Exception e)
@@ -71,24 +79,15 @@ public class LevelManager
         m_level++;
     }
 
-    public Brick[] RenderWall(Rectangle drawArea){
+    public static void setStartLevel(int level)
+    {
+        m_StartLevel=level;
+    }
+
+    public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);
-        /*
-        switch(level)
-        {
-            case 1:
-                return makeSingleTypeLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY);
-            case 2:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY,CEMENT);
-            case 3:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,CLAY,STEEL);
-            case 4:
-                return makeChessboardLevel(drawArea,brickCount,lineCount,m_brickDimensionRatio,STEEL,CEMENT);
-            default :
-                return null;
-        }
-        */
+
     }
 
 }

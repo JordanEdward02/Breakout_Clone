@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<DialogPane prefHeight="227.0" prefWidth="265.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.Controllers.DebugMenuController">
+   <content>
+      <AnchorPane prefHeight="200.0" prefWidth="250.0">
+         <children>
+            <Button layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onAction="#LevelSkipButton" text="Skip Level" />
+            <Button layoutX="150.0" layoutY="30.0" mnemonicParsing="false" onAction="#ResetBalls" text="Reset Balls" />
+            <Slider fx:id="m_XSlider" layoutX="60.0" layoutY="100.0" max="4.0" min="-4.0" blockIncrement="1.0" onMouseReleased="#SetXSpeed"/>
+            <Slider fx:id="m_YSlider" layoutX="60.0" layoutY="170.0" max="4.0" min="-4.0" blockIncrement="1.0" onMouseReleased="#SetYSpeed"/>
+            <Label layoutX="110.0" layoutY="67.0" text="X Speed" />
+            <Label layoutX="110.0" layoutY="137.0" text="Y Speed" />
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>
