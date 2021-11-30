@@ -1,8 +1,8 @@
-package code.Controllers;
+package code.Menu;
 
 public class ThemeMaintainer {
 
-    private static String m_Theme;
+    private static String m_Theme = "/CSS/Classic.css";
 
     public static void SetTheme(String newTheme)
     {

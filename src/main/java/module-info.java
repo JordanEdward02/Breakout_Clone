@@ -8,4 +8,6 @@ module COMP2013.coursework {
     exports code.Controllers;
 
     opens code.Controllers;
+    exports code.Menu;
+    opens code.Menu;
 }

@@ -3,6 +3,7 @@ package code.Controllers;
 import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,7 +40,7 @@ public class DebugMenuController implements Initializable {
             String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
-            Scene.getStylesheets().add(ThemeMaintainer.GetTheme());
+            Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
             stage.setScene(Scene);
             stage.setResizable(false);
             stage.setTitle("Debug Menu");

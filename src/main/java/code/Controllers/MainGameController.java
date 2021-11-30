@@ -5,6 +5,7 @@ import code.GameplayElements.Paddle;
 import code.GameplayElements.Wall;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.ThemeMaintainer;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -37,7 +38,7 @@ public class MainGameController implements Initializable {
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
-            m_Scene.getStylesheets().add(ThemeMaintainer.GetTheme());
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }

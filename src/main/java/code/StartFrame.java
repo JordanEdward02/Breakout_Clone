@@ -1,5 +1,6 @@
 package code;
 
+import code.Menu.ThemeMaintainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ public class StartFrame extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Menu/Frames/StartFrame.fxml")));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle(DEF_TITLE);
