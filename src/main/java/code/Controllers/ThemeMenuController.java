@@ -35,7 +35,7 @@ public class ThemeMenuController implements  Initializable{
     }
 
     public void SetThemeSimple(ActionEvent event) {
-        SetTheme(event, "/CSS/Simple.css");
+        SetTheme(event, "/CSS/Smooth.css");
     }
 
     public void SetThemeNeon(ActionEvent event) {
