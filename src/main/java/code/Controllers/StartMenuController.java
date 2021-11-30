@@ -19,6 +19,7 @@ public class StartMenuController {
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(getClass().getResource(fxmlFile));
             m_Scene = new Scene(m_Root);
+            m_Scene.getStylesheets().add(ThemeMaintainer.GetTheme());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
@@ -72,5 +73,10 @@ public class StartMenuController {
     public void loadHighscoresMenu(ActionEvent event)
     {
         loadScene(event, "/Menu/Frames/HighscoresMenu.fxml");
+    }
+
+    public void LoadThemeMenu(ActionEvent event)
+    {
+        loadScene(event, "/Menu/Frames/ThemeMenu.fxml");
     }
 }

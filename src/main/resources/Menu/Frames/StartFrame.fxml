@@ -13,7 +13,7 @@
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="174.0" mnemonicParsing="false" onAction="#loadLevels" text="Levels" />
-      <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" text="Themes" />
+      <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#LoadThemeMenu" text="Themes" />
       <Button layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onAction="#loadHighscoresMenu" text="High Scores" />
    </children>
 </AnchorPane>

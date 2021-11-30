@@ -39,7 +39,7 @@ public class GameBoardPainter {
         m_CanvasSize = m_GameBoard.getWidth();
         m_GameManager = gameManager;
         m_Message = "Press SPACE to start";
-        m_Textures = new Image(new File("src/main/java/code/Assets/SimpleTextures.png").toURI().toString());
+        m_Textures = new Image(new File("src/main/resources/Assets/NeonTextures.png").toURI().toString());
     }
 
     public void Refresh() {

@@ -39,6 +39,7 @@ public class DebugMenuController implements Initializable {
             String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
+            Scene.getStylesheets().add(ThemeMaintainer.GetTheme());
             stage.setScene(Scene);
             stage.setResizable(false);
             stage.setTitle("Debug Menu");
