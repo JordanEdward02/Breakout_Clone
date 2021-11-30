@@ -4,9 +4,13 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
+import code.Menu.ThemeMaintainer;
+import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
@@ -25,33 +29,25 @@ public class GameBoardPainter {
     private double m_CanvasSize;
     private Canvas m_GameBoard;
     private ElementsManager m_GameManager;
-    private String m_Message;
-    private Image m_Textures;
+    public Label m_GameInfo;
 
     public void SetMessage(String newMessage)
     {
-        m_Message = newMessage;
+        m_GameInfo.setText(newMessage);
     }
 
-    public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager)
+    public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager, Label GameInfo)
     {
         m_GameBoard = GameBoard;
+        m_GameInfo = GameInfo;
         m_CanvasSize = m_GameBoard.getWidth();
         m_GameManager = gameManager;
-        m_Message = "Press SPACE to start";
-        m_Textures = new Image(new File("src/main/resources/Assets/NeonTextures.png").toURI().toString());
+        SetMessage("Press SPACE to start");
     }
 
     public void Refresh() {
         GraphicsContext graphics = m_GameBoard.getGraphicsContext2D();
         graphics.clearRect(0, 0, m_CanvasSize, m_CanvasSize);
-
-        graphics.setFill(Color.BLACK);
-        graphics.setStroke(Color.BLACK);
-        graphics.setTextAlign(TextAlignment.CENTER);
-        graphics.setTextBaseline(VPos.CENTER);
-        graphics.fillText(m_Message, m_CanvasSize*TEXT_RATIO_X,
-                m_CanvasSize*TEXT_RATIO_Y);
 
         drawBall(m_GameManager.GetBall(), graphics);
         drawPaddle(m_GameManager.GetPaddle(),graphics);
@@ -61,16 +57,17 @@ public class GameBoardPainter {
                 drawBrick(b, graphics);
         }
     }
+
     private void drawBrick(Brick brick,GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, brick.GetSourceX(), brick.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), brick.GetSourceX(), brick.GetSourceY(),
                 BRICK_X, BRICK_Y, brick.getLocation().getX(),
                 brick.getLocation().getY(), brick.GetWidth(), brick.GetHeight());
     }
 
     private void drawBall(Ball ball, GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, ball.GetSourceX(), ball.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), ball.GetSourceX(), ball.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, ball.getLocation().getX(),
                 ball.getLocation().getY(), ball.GetRadius(), ball.GetRadius());
 
@@ -78,7 +75,7 @@ public class GameBoardPainter {
 
     private void drawPaddle(Paddle paddle, GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, paddle.GetSourceX(), paddle.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), paddle.GetSourceX(), paddle.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, paddle.getLocation().getX(),
                 paddle.getLocation().getY(), paddle.GetWidth(), paddle.GetHeight());
     }

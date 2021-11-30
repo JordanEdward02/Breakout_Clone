@@ -24,7 +24,6 @@ public class BrickCement extends Brick {
         return true;
     }
 
-
     public BrickCement(Point point, Dimension size){
         super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
         SetImageSource(SOURCE_X, SOURCE_Y);

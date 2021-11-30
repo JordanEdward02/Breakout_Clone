@@ -10,6 +10,7 @@ import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyEvent;
@@ -27,9 +28,11 @@ public class MainGameController implements Initializable {
     private GameLoop m_GameTimer;
     private boolean m_Pause = true;
     @FXML
-    public AnchorPane m_PauseMenuPane;
+    private AnchorPane m_PauseMenuPane;
     @FXML
     private Canvas m_GameBoard;
+    @FXML
+    private Label m_GameInfo;
 
     private void loadScene(Event event, String fxmlFile)
     {
@@ -147,7 +150,7 @@ public class MainGameController implements Initializable {
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
         m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
         m_GameManager.RenderLevel();
-        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager);
+        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo);
         m_GameBoardPainter.Refresh();
         m_GameTimer = GameLoop.GetGameLoop();
         m_GameTimer.SetGameData(m_GameManager, m_GameBoardPainter, this);

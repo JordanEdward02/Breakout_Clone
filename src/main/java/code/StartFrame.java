@@ -3,9 +3,11 @@ package code;
 import code.Menu.ThemeMaintainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.*;
 
+import java.io.File;
 import java.util.Objects;
 
 public class StartFrame extends Application {
@@ -28,5 +30,7 @@ public class StartFrame extends Application {
         stage.setResizable(false);
         stage.setTitle(DEF_TITLE);
         stage.show();
+        ThemeMaintainer.SetTexture(new Image(new File(
+                "src/main/resources/Assets/ClassicTextures.png").toURI().toString()));
     }
 }
