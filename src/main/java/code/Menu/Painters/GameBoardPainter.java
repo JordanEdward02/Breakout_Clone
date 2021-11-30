@@ -4,6 +4,7 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
+import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
@@ -28,7 +29,6 @@ public class GameBoardPainter {
     private double m_CanvasSize;
     private Canvas m_GameBoard;
     private ElementsManager m_GameManager;
-    private Image m_Textures;
     public Label m_GameInfo;
 
     public void SetMessage(String newMessage)
@@ -43,7 +43,6 @@ public class GameBoardPainter {
         m_CanvasSize = m_GameBoard.getWidth();
         m_GameManager = gameManager;
         SetMessage("Press SPACE to start");
-        m_Textures = new Image(new File("src/main/resources/Assets/NeonTextures.png").toURI().toString());
     }
 
     public void Refresh() {
@@ -61,14 +60,14 @@ public class GameBoardPainter {
 
     private void drawBrick(Brick brick,GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, brick.GetSourceX(), brick.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), brick.GetSourceX(), brick.GetSourceY(),
                 BRICK_X, BRICK_Y, brick.getLocation().getX(),
                 brick.getLocation().getY(), brick.GetWidth(), brick.GetHeight());
     }
 
     private void drawBall(Ball ball, GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, ball.GetSourceX(), ball.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), ball.GetSourceX(), ball.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, ball.getLocation().getX(),
                 ball.getLocation().getY(), ball.GetRadius(), ball.GetRadius());
 
@@ -76,7 +75,7 @@ public class GameBoardPainter {
 
     private void drawPaddle(Paddle paddle, GraphicsContext g2d)
     {
-        g2d.drawImage(m_Textures, paddle.GetSourceX(), paddle.GetSourceY(),
+        g2d.drawImage(ThemeMaintainer.GetTexture(), paddle.GetSourceX(), paddle.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, paddle.getLocation().getX(),
                 paddle.getLocation().getY(), paddle.GetWidth(), paddle.GetHeight());
     }

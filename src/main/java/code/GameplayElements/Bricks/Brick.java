@@ -16,18 +16,11 @@ abstract public class Brick  {
     private static Random m_rnd;
 
     private Point m_BrickPoint;
-
-    private Color m_border;
-    private Color m_inner;
-
     private int m_fullStrength;
     private int m_strength;
-
     private double m_Width;
     private double m_Height;
-
     private boolean m_broken;
-
     private double m_SourceX, m_SourceY;
 
     public Point getLocation()
@@ -74,20 +67,19 @@ abstract public class Brick  {
         m_Width = size.width;
         m_Height = size.height;
         m_broken = false;
-        m_border = border;
-        m_inner = inner;
         m_fullStrength = m_strength = strength;
 
     }
 
     public void Crack()
     {
-        m_inner = m_inner.darker().darker();
+        m_SourceY+=10.0;
     }
 
     public void AntiCrack()
     {
-        m_inner.brighter().brighter();
+        if(m_SourceY!=20.0)
+            m_SourceY-=10.0;
     }
 
     public final int FindImpact(Ball b){

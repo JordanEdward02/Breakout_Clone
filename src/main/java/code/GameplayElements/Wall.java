@@ -26,7 +26,6 @@ public class Wall {
         return m_BrickCount;
     }
 
-
     public void ReduceBrickCount()
     {
         m_BrickCount--;

@@ -9,8 +9,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -32,14 +34,20 @@ public class ThemeMenuController implements  Initializable{
 
     public void SetThemeClassic(ActionEvent event) {
         SetTheme(event, "/CSS/Classic.css");
+        ThemeMaintainer.SetTexture(new Image(new File(
+                "src/main/resources/Assets/ClassicTextures.png").toURI().toString()));
     }
 
     public void SetThemeSimple(ActionEvent event) {
         SetTheme(event, "/CSS/Smooth.css");
+        ThemeMaintainer.SetTexture(new Image(new File(
+                "src/main/resources/Assets/SmoothTextures.png").toURI().toString()));
     }
 
     public void SetThemeNeon(ActionEvent event) {
         SetTheme(event, "/CSS/Neon.css");
+        ThemeMaintainer.SetTexture(new Image(new File(
+                "src/main/resources/Assets/NeonTextures.png").toURI().toString()));
     }
 
     private void loadScene(ActionEvent event, String fxmlFile)
