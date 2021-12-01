@@ -12,6 +12,7 @@ abstract public class Ball {
     private int m_speedX;
     private int m_speedY;
     private double m_SourceX, m_SourceY;
+    private Random m_Rnd;
 
     public double GetSourceX()
     {
@@ -49,24 +50,26 @@ abstract public class Ball {
         return m_Radius;
     }
 
-    public void SetSpeed(int x,int y){
-        m_speedX = x;
-        m_speedY = y;
+    public void RandomSpeedUp()
+    {
+        if (m_Rnd.nextBoolean())
+            if (m_speedX<0 && m_speedX>-5)
+                m_speedX-=1;
+            else if (m_speedX<5 && m_speedX>0)
+                m_speedX+=1;
+        else
+            if (m_speedY>0 && m_speedY < 5)
+                m_speedY += 1;
+            else if (m_speedY <0 && m_speedY>-5)
+                m_speedY -= 1;
     }
 
-    public void SetSpeedRandom()
+    public void SetSpeedDefault()
     {
-        Random rnd = new Random();
-
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        SetSpeed(speedX,speedY);
+        m_speedY = -2;
+        do {
+            m_speedX = (m_Rnd.nextInt(2) - 1) * 2;
+        } while (m_speedX==0);
     }
 
     public void SetXSpeed(int s){
@@ -110,7 +113,8 @@ abstract public class Ball {
     public Ball(Point startPoint, int radius){
         SetRadius(radius);
         MoveTo(startPoint);
-        SetSpeedRandom();
+        m_Rnd = new Random();
+        SetSpeedDefault();
     }
 
     public void Move(){
