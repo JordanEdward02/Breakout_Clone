@@ -1,5 +1,5 @@
 .root{
-    -fx-background-color: linear-gradient(to left, #b55e33 , #780808);
+    -fx-background-color: linear-gradient(to bottom, white , #780808);
 }
 
 .button {
