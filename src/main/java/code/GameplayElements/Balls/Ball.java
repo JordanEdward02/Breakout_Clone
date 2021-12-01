@@ -54,19 +54,12 @@ abstract public class Ball {
         m_speedY = y;
     }
 
-    public void SetSpeedRandom()
+    public void SetSpeedDefault()
     {
         Random rnd = new Random();
-
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(5) - 2;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(3);
-        }while(speedY == 0);
-
-        SetSpeed(speedX,speedY);
+        m_speedY = -2;
+        while (m_speedX==0)
+            m_speedX = (rnd.nextInt(3)-1)*2;
     }
 
     public void SetXSpeed(int s){
@@ -110,7 +103,7 @@ abstract public class Ball {
     public Ball(Point startPoint, int radius){
         SetRadius(radius);
         MoveTo(startPoint);
-        SetSpeedRandom();
+        SetSpeedDefault();
     }
 
     public void Move(){

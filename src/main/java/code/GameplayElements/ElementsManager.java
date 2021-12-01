@@ -119,7 +119,7 @@ public class ElementsManager
     public void BallReset()
     {
         m_gameBall.MoveTo(m_startPoint);
-        m_gameBall.SetSpeedRandom();
+        m_gameBall.SetSpeedDefault();
         m_ballLost = false;
     }
 
