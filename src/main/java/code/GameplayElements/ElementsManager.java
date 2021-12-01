@@ -82,8 +82,9 @@ public class ElementsManager
             m_gameBall.ReverseY();
         }
         if(m_gameWall.ImpactWall(m_gameBall)){
-            // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
             m_gameWall.ReduceBrickCount();
+            if (m_gameWall.GetPowerupCounter() % 2 == 0)
+                m_gameBall.RandomSpeedUp();
         }
 
         if(impactBorder()) {

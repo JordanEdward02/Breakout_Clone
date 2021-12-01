@@ -10,7 +10,8 @@ public class Wall {
 
     Brick[] m_Bricks;
 
-    private int m_BrickCount = 30;
+    private int m_BrickCount ;
+    private int m_PowerupCounter=0;
 
     public Brick[] GetBricks()
     {
@@ -26,9 +27,15 @@ public class Wall {
         return m_BrickCount;
     }
 
+    public int GetPowerupCounter()
+    {
+        return m_PowerupCounter;
+    }
+
     public void ReduceBrickCount()
     {
         m_BrickCount--;
+        m_PowerupCounter++;
     }
 
     public void RenderWall(LevelManager levelManager, Canvas drawArea){
@@ -39,18 +46,18 @@ public class Wall {
     // Kept this in the wall class as it's about interactions with the wall, and this manages it with all the bricks
     public boolean ImpactWall(Ball ball){
         for(Brick b : m_Bricks){
-            switch(b.FindImpact(ball)) {
+            switch(b.FindImpact(ball)) {//Horizontal Impact
+                case Brick.LEFT_IMPACT:
+                case Brick.RIGHT_IMPACT:
+                    ball.ReverseX();
+                    return b.SetImpact();
+
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                 case Brick.DOWN_IMPACT:
                     ball.ReverseY();
                     return b.SetImpact();
 
-                //Horizontal Impact
-                case Brick.LEFT_IMPACT:
-                case Brick.RIGHT_IMPACT:
-                    ball.ReverseX();
-                    return b.SetImpact();
             }
         }
         return false;
@@ -59,6 +66,5 @@ public class Wall {
     public boolean IsDone(){
         return m_BrickCount == 0;
     }
-
 
 }
