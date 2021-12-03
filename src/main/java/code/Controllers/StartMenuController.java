@@ -1,6 +1,7 @@
 package code.Controllers;
 
 import code.GameplayElements.Levels.LevelManager;
+import code.Menu.SFXPlayer;
 import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ public class StartMenuController {
     {
         try
         {
+            SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(getClass().getResource(fxmlFile));
             m_Scene = new Scene(m_Root);

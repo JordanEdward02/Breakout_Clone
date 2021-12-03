@@ -1,5 +1,6 @@
 package code.Controllers;
 
+import code.Menu.SFXPlayer;
 import code.Menu.ThemeMaintainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ public class ThemeMenuController implements  Initializable{
     public RadioButton m_ClassicButton, m_SmoothButton, m_NeonButton;
 
     public void SetTheme(ActionEvent event, String newCSS) {
+        SFXPlayer.ButtonSFX();
         Scene scene = ((Node) event.getSource()).getScene();
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource(newCSS).toExternalForm());
@@ -54,6 +56,7 @@ public class ThemeMenuController implements  Initializable{
     {
         try
         {
+            SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);

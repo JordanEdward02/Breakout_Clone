@@ -1,5 +1,6 @@
 package code.GameplayElements.Bricks;
 
+import code.Menu.SFXPlayer;
 import javafx.scene.paint.Color;
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -34,6 +35,8 @@ public class BrickSteel extends Brick {
         if(rnd.nextDouble() < STEEL_PROBABILITY){
             super.Impact();
         }
+        else
+            SFXPlayer.CollisionSFX();
     }
 
 }
