@@ -124,7 +124,7 @@ abstract public class Brick  {
         m_strength--;
         m_broken = (m_strength == 0);
         if (m_broken)
-            m_ScoreManager.IncreaseScore(this, m_Type);
+            m_ScoreManager.IncreaseScore(m_Type);
     }
 }
 

@@ -1,19 +1,19 @@
 package code.Menu;
 
+import code.Controllers.GameFinishController;
 import code.Controllers.MainGameController;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-
-import javax.swing.*;
+import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 public class GameLoop extends AnimationTimer {
     private static GameLoop m_GameTimer;
     private ElementsManager m_GameManager;
     private GameBoardPainter m_GameBoardPainter;
     private MainGameController m_GameController;
-
+    private ScoreManager m_ScoreManager;
 
     public static GameLoop GetGameLoop()
     {
@@ -29,6 +29,7 @@ public class GameLoop extends AnimationTimer {
         m_GameManager = GameManager;
         m_GameBoardPainter = GamePainter;
         m_GameController = GameController;
+        m_ScoreManager = ScoreManager.GetScoreManager();
     }
 
     @Override
@@ -41,8 +42,11 @@ public class GameLoop extends AnimationTimer {
         {
             if(m_GameManager.BallEnd())
             {
-                m_GameBoardPainter.SetMessage("Game Over");
+                // HERE FOR OUT OF LIVES
+                int total = m_ScoreManager.GetScoreTotal();
+                GameFinish(total, "Game Over");
             }
+            m_ScoreManager.BallLost();
             m_GameManager.BallReset();
             m_GameManager.PaddleReset();
             m_GameController.setPaused();
@@ -62,11 +66,18 @@ public class GameLoop extends AnimationTimer {
             }
             else
             {
-                m_GameBoardPainter.SetMessage("ALL WALLS DESTROYED");
+                // HERE FOR GAME FINISHED
+                GameFinish(m_ScoreManager.GetScoreTotal(), "ALL WALLS DESTROYED");
                 stop();
             }
         }
 
         m_GameBoardPainter.Refresh();
+    }
+
+    private void GameFinish(int Score, String Message)
+    {
+        Stage stage = new Stage();
+        new GameFinishController(Score, stage, Message);
     }
 }

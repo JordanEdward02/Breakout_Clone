@@ -53,6 +53,22 @@ public class MainGameController implements Initializable {
         }
     }
 
+    private void loadScene(String fxmlFile)
+    {
+        try
+        {
+            SFXPlayer.ButtonSFX();
+            Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            m_Scene = new Scene(m_Root);
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            m_Stage.setScene(m_Scene);
+            m_Stage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     private void KeyPress(KeyEvent event)
     {
         Paddle tempPaddle = m_GameManager.GetPaddle();
@@ -141,6 +157,11 @@ public class MainGameController implements Initializable {
     public void GameExit(ActionEvent event)
     {
         loadScene(event, "/Menu/Frames/StartFrame.fxml");
+    }
+
+    public void GameExit()
+    {
+        loadScene("/Menu/Frames/StartFrame.fxml");
     }
 
     @Override

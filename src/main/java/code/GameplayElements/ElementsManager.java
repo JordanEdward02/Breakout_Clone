@@ -103,7 +103,6 @@ public class ElementsManager
         if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){
             m_ballCount--;
             m_ballLost = true;
-            m_ScoreManager.BallLost();
         }
     }
 
