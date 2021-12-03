@@ -3,6 +3,7 @@ package code.Controllers;
 import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.SFXPlayer;
 import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +57,7 @@ public class DebugMenuController implements Initializable {
 
     public void LevelSkipButton()
     {
+        SFXPlayer.ButtonSFX();
         if (m_GameManager.NewLevel())
         {
             m_GameManager.LevelSkip();
@@ -65,6 +67,7 @@ public class DebugMenuController implements Initializable {
 
     public void ResetBalls()
     {
+        SFXPlayer.ButtonSFX();
         m_GameManager.ResetBallCount();
         m_GameBoardPainter.Refresh();
     }

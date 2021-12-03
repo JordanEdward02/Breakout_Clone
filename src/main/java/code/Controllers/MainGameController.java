@@ -5,6 +5,7 @@ import code.GameplayElements.Paddle;
 import code.GameplayElements.Wall;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.SFXPlayer;
 import code.Menu.ThemeMaintainer;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -38,6 +39,7 @@ public class MainGameController implements Initializable {
     {
         try
         {
+            SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
@@ -117,6 +119,7 @@ public class MainGameController implements Initializable {
 
     public void GameContinue()
     {
+        SFXPlayer.ButtonSFX();
         m_PauseMenuPane.setVisible(false);
         m_GameBoard.requestFocus();
         m_GameBoard.toFront();
@@ -124,6 +127,7 @@ public class MainGameController implements Initializable {
 
     public void GameRestart()
     {
+        SFXPlayer.ButtonSFX();
         m_GameManager.BallReset();
         m_GameManager.PaddleReset();
         m_GameManager.WallReset();

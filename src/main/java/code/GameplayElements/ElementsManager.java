@@ -4,6 +4,7 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
+import code.Menu.SFXPlayer;
 import javafx.scene.canvas.Canvas;
 import java.awt.*;
 
@@ -79,6 +80,7 @@ public class ElementsManager
     public void FindImpacts()
     {
         if(m_gamePaddle.Impact(m_gameBall)){
+            SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameWall.ImpactWall(m_gameBall)){
@@ -88,9 +90,11 @@ public class ElementsManager
         }
 
         if(impactBorder()) {
+            SFXPlayer.CollisionSFX();
             m_gameBall.ReverseX();
         }
         if(m_gameBall.getLocation().getY() < 0){
+            SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){

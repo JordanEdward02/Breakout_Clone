@@ -1,6 +1,7 @@
 package code.GameplayElements.Bricks;
 
 import code.GameplayElements.Balls.Ball;
+import code.Menu.SFXPlayer;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
@@ -115,6 +116,7 @@ abstract public class Brick  {
     }
 
     public void Impact(){
+        SFXPlayer.CollisionSFX();
         m_strength--;
         m_broken = (m_strength == 0);
     }
