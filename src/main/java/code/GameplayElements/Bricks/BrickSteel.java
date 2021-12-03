@@ -9,9 +9,7 @@ import java.util.Random;
 
 public class BrickSteel extends Brick {
 
-    private static final Color DEF_INNER = Color.SILVER;
-    private static final Color DEF_BORDER = Color.SILVER.darker().darker();
-    private static final int STEEL_STRENGTH = 1;
+    private static final int STEEL_STRENGTH = 1, BRICK_TYPE=3;
     private static final double STEEL_PROBABILITY = 0.4;
     private static final double SOURCE_X = 0.0, SOURCE_Y = 10.0;
 
@@ -26,7 +24,7 @@ public class BrickSteel extends Brick {
     }
 
     public BrickSteel(Point point, Dimension size){
-        super(point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
+        super(point,size,STEEL_STRENGTH, BRICK_TYPE);
         SetImageSource(SOURCE_X, SOURCE_Y);
         rnd = new Random();
     }

@@ -2,6 +2,7 @@ package code.GameplayElements.Bricks;
 
 import code.GameplayElements.Balls.Ball;
 import code.Menu.SFXPlayer;
+import code.Menu.ScoreManager;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
@@ -23,6 +24,8 @@ abstract public class Brick  {
     private double m_Height;
     private boolean m_broken;
     private double m_SourceX, m_SourceY;
+    private ScoreManager m_ScoreManager;
+    private int m_Type;
 
     public Point getLocation()
     {
@@ -62,14 +65,15 @@ abstract public class Brick  {
         m_SourceY = sourceY;
     }
 
-    public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
+    public Brick( Point pos,Dimension size,int strength, int type){
         m_rnd = new Random();
+        m_Type = type;
         m_BrickPoint = pos;
         m_Width = size.width;
         m_Height = size.height;
         m_broken = false;
         m_fullStrength = m_strength = strength;
-
+        m_ScoreManager = ScoreManager.GetScoreManager();
     }
 
     public void Crack()
@@ -119,6 +123,8 @@ abstract public class Brick  {
         SFXPlayer.CollisionSFX();
         m_strength--;
         m_broken = (m_strength == 0);
+        if (m_broken)
+            m_ScoreManager.IncreaseScore(this, m_Type);
     }
 }
 
