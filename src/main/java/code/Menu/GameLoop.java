@@ -45,6 +45,7 @@ public class GameLoop extends AnimationTimer {
                 // HERE FOR OUT OF LIVES
                 int total = m_ScoreManager.GetScoreTotal();
                 GameFinish(total, "Game Over");
+                m_GameController.GameExit();
             }
             m_ScoreManager.BallLost();
             m_GameManager.BallReset();
@@ -54,6 +55,8 @@ public class GameLoop extends AnimationTimer {
         }
         else if (m_GameManager.GetWall().IsDone())
         {
+            ScoreManager myManager = ScoreManager.GetScoreManager();
+            myManager.IncreaseScore(4);
             if(m_GameManager.NewLevel())
             {
                 m_GameBoardPainter.SetMessage("Go to Next Level");

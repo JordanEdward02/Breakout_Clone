@@ -58,6 +58,7 @@ public class MainGameController implements Initializable {
         try
         {
             SFXPlayer.ButtonSFX();
+            m_Stage = (Stage) m_GameBoard.getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
             m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
