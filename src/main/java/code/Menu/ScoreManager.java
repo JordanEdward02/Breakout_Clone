@@ -42,6 +42,6 @@ public class ScoreManager {
 
     public void BallLost()
     {
-        m_TotalScore -= 2;
+        m_TotalScore -= 1000;
     }
 }

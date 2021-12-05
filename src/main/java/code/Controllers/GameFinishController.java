@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -29,6 +30,8 @@ public class GameFinishController implements Initializable {
     private Label m_ScoreField;
     @FXML
     private TextField m_NameInput;
+    @FXML
+    private Button m_SubmitButton;
 
     public GameFinishController()
     {
@@ -70,6 +73,8 @@ public class GameFinishController implements Initializable {
         {
             e.printStackTrace();
         }
+        Stage stage = (Stage) m_SubmitButton.getScene().getWindow();
+        stage.close();
     }
 
     private void RewriteHighscores(String[] HighScoresContents, String name)
