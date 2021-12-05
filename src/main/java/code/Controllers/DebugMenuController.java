@@ -29,7 +29,6 @@ public class DebugMenuController implements Initializable {
 
     public DebugMenuController()
     {
-
     }
 
     public DebugMenuController(Stage stage, ElementsManager gameManager, GameBoardPainter gameBoardPainter)

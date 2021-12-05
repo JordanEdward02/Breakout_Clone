@@ -87,7 +87,6 @@ public class LevelManager
     public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);
-
     }
 
 }

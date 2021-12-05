@@ -7,9 +7,7 @@ import java.awt.geom.Point2D;
 
 
 public class BrickCement extends Brick {
-    private static final Color DEF_INNER = Color.GREY;
-    private static final Color DEF_BORDER = Color.GREY.darker().darker();
-    private static final int CEMENT_STRENGTH = 2;
+    private static final int CEMENT_STRENGTH = 2, BRICK_TYPE=2;
     private static final double SOURCE_X = 0.0, SOURCE_Y = 20.0;
 
     @Override
@@ -25,7 +23,7 @@ public class BrickCement extends Brick {
     }
 
     public BrickCement(Point point, Dimension size){
-        super(point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
+        super(point,size,CEMENT_STRENGTH, BRICK_TYPE);
         SetImageSource(SOURCE_X, SOURCE_Y);
     }
 

@@ -5,6 +5,7 @@ import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
 import code.Menu.SFXPlayer;
+import code.Menu.ScoreManager;
 import javafx.scene.canvas.Canvas;
 import java.awt.*;
 
@@ -22,6 +23,7 @@ public class ElementsManager
     private boolean m_ballLost;
     private Point m_startPoint ;
     private Canvas m_drawArea;
+    private ScoreManager m_ScoreManager;
 
     public Wall GetWall()
     {
@@ -69,6 +71,7 @@ public class ElementsManager
         m_levelManager = new LevelManager();
         m_ballCount = THREE;
         m_ballLost = false;
+        m_ScoreManager = ScoreManager.GetScoreManager();
     }
 
     public void Move()
