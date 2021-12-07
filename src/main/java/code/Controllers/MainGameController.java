@@ -58,6 +58,7 @@ public class MainGameController implements Initializable {
         try
         {
             SFXPlayer.ButtonSFX();
+            //Stage is null for all bricks destroyed ending. This seems odd so i'll try returning this kind of thing
             m_Stage = (Stage) m_GameBoard.getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);

@@ -53,13 +53,15 @@ public class GameBoardPainter {
         drawPaddle(m_GameManager.GetPaddle(),graphics);
 
         for(Brick b : m_GameManager.GetWall().GetBricks()) {
-            if (!b.IsBroken())
+            if (b!=null && !b.IsBroken())
                 drawBrick(b, graphics);
         }
     }
 
     private void drawBrick(Brick brick,GraphicsContext g2d)
     {
+        if (brick == null)
+            return;
         g2d.drawImage(ThemeMaintainer.GetTexture(), brick.GetSourceX(), brick.GetSourceY(),
                 BRICK_X, BRICK_Y, brick.getLocation().getX(),
                 brick.getLocation().getY(), brick.GetWidth(), brick.GetHeight());

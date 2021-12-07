@@ -80,7 +80,6 @@ public class GameFinishController implements Initializable {
     private void RewriteHighscores(String[] HighScoresContents, String name)
     {
         try {
-            FileWriter myWriter = new FileWriter(HIGHSCORES_PATH);
             int count=0;
             for (String item : HighScoresContents){
                 String[] contents = item.split("\\s+");
@@ -94,6 +93,7 @@ public class GameFinishController implements Initializable {
                         HighScoresContents[count++] = temp;
                         temp = nextLine;
                     }
+                    FileWriter myWriter = new FileWriter(HIGHSCORES_PATH);
                     for (String line : HighScoresContents){
                         myWriter.write(line + System.lineSeparator());
                     }

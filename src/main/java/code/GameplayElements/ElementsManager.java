@@ -118,9 +118,12 @@ public class ElementsManager
 
     public void WallReset()
     {
+        m_gameWall.SetBrickCount(0);
         for(Brick b : m_gameWall.GetBricks())
-            b.Repair();
-        m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
+            if (b!=null) {
+                b.Repair();
+                m_gameWall.IncrementBrickCount();
+            }
         m_ballCount = THREE;
     }
 

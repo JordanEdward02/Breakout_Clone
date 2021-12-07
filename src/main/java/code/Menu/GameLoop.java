@@ -42,7 +42,6 @@ public class GameLoop extends AnimationTimer {
         {
             if(m_GameManager.BallEnd())
             {
-                // HERE FOR OUT OF LIVES
                 int total = m_ScoreManager.GetScoreTotal();
                 GameFinish(total, "Game Over");
                 m_GameController.GameExit();
@@ -70,7 +69,9 @@ public class GameLoop extends AnimationTimer {
             else
             {
                 // HERE FOR GAME FINISHED
-                GameFinish(m_ScoreManager.GetScoreTotal(), "ALL WALLS DESTROYED");
+                int total = m_ScoreManager.GetScoreTotal();
+                GameFinish(total, "ALL WALLS DESTROYED");
+                m_GameController.GameExit();
                 stop();
             }
         }
