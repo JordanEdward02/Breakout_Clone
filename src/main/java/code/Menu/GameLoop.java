@@ -9,11 +9,15 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 public class GameLoop extends AnimationTimer {
+    private static final int LEVEL_COMPLETE=4;
+
     private static GameLoop m_GameTimer;
     private ElementsManager m_GameManager;
     private GameBoardPainter m_GameBoardPainter;
     private MainGameController m_GameController;
     private ScoreManager m_ScoreManager;
+    private Stage m_OutputStage;
+    private int COUNT=0;
 
     public static GameLoop GetGameLoop()
     {
@@ -30,11 +34,13 @@ public class GameLoop extends AnimationTimer {
         m_GameBoardPainter = GamePainter;
         m_GameController = GameController;
         m_ScoreManager = ScoreManager.GetScoreManager();
+        m_OutputStage = new Stage();
     }
 
     @Override
     public void handle(long l)
     {
+        COUNT+=1;
         m_GameManager.Move();
         m_GameManager.FindImpacts();
         m_GameBoardPainter.SetMessage("Bricks: " + m_GameManager.GetBrickCount() + " Balls: " + m_GameManager.GetBallCount());
@@ -50,17 +56,17 @@ public class GameLoop extends AnimationTimer {
             m_GameManager.BallReset();
             m_GameManager.PaddleReset();
             m_GameController.setPaused();
-            stop();
+            this.stop();
         }
         else if (m_GameManager.GetWall().IsDone())
         {
             ScoreManager myManager = ScoreManager.GetScoreManager();
-            myManager.IncreaseScore(4);
+            myManager.IncreaseScore(LEVEL_COMPLETE);
             if(m_GameManager.NewLevel())
             {
-                m_GameBoardPainter.SetMessage("Go to Next Level");
                 m_GameController.setPaused();
-                stop();
+                m_GameBoardPainter.SetMessage("Go to Next Level");
+                this.stop();
                 m_GameManager.BallReset();
                 m_GameManager.PaddleReset();
                 m_GameManager.WallReset();
@@ -71,17 +77,22 @@ public class GameLoop extends AnimationTimer {
                 // HERE FOR GAME FINISHED
                 int total = m_ScoreManager.GetScoreTotal();
                 GameFinish(total, "ALL WALLS DESTROYED");
+                m_GameManager.BallReset();
+                m_GameManager.PaddleReset();
+                m_GameController.setPaused();
                 m_GameController.GameExit();
-                stop();
+                m_ScoreManager.SetDefault();
+                this.stop();
             }
         }
-
         m_GameBoardPainter.Refresh();
     }
 
     private void GameFinish(int Score, String Message)
     {
-        Stage stage = new Stage();
-        new GameFinishController(Score, stage, Message);
+        // THIS IS WORKING BETTER AS ONLY 1 STAGE IS VISIBLE, HOWEVER IT STILL CALLS THE MODALITY THING WHICH MEANS BIG FUCKY WUCKY
+        GameFinishController finished = GameFinishController.GetGameFinishController();
+        finished.SetData(Score, Message);
+        finished.load(m_OutputStage);
     }
 }

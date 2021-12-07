@@ -4,6 +4,7 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
+import code.Menu.ScoreManager;
 import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
@@ -30,27 +31,32 @@ public class GameBoardPainter {
     private Canvas m_GameBoard;
     private ElementsManager m_GameManager;
     private ThemeMaintainer m_ThemeMaintainer;
+    private Label m_ScoreLabel;
+    private ScoreManager m_ScoreManager;
     public Label m_GameInfo;
+
 
     public void SetMessage(String newMessage)
     {
         m_GameInfo.setText(newMessage);
     }
 
-    public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager, Label GameInfo)
+    public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager, Label GameInfo, Label ScoreLabel)
     {
         m_ThemeMaintainer = ThemeMaintainer.GetThemeMaintainer();
         m_GameBoard = GameBoard;
         m_GameInfo = GameInfo;
+        m_ScoreLabel = ScoreLabel;
         m_CanvasSize = m_GameBoard.getWidth();
         m_GameManager = gameManager;
+        m_ScoreManager = ScoreManager.GetScoreManager();
         SetMessage("Press SPACE to start");
     }
 
     public void Refresh() {
         GraphicsContext graphics = m_GameBoard.getGraphicsContext2D();
         graphics.clearRect(0, 0, m_CanvasSize, m_CanvasSize);
-
+        m_ScoreLabel.setText(""+m_ScoreManager.GetScoreTotal());
         drawBall(m_GameManager.GetBall(), graphics);
         drawPaddle(m_GameManager.GetPaddle(),graphics);
 

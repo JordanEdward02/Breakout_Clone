@@ -35,6 +35,8 @@ public class MainGameController implements Initializable {
     private Canvas m_GameBoard;
     @FXML
     private Label m_GameInfo;
+    @FXML
+    private Label m_ScoreLabel;
 
     public MainGameController()
     {
@@ -76,6 +78,7 @@ public class MainGameController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void KeyPress(KeyEvent event)
     {
         Paddle tempPaddle = m_GameManager.GetPaddle();
@@ -182,7 +185,7 @@ public class MainGameController implements Initializable {
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
         m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
         m_GameManager.RenderLevel();
-        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo);
+        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo, m_ScoreLabel);
         m_GameBoardPainter.Refresh();
         m_GameTimer = GameLoop.GetGameLoop();
         m_GameTimer.SetGameData(m_GameManager, m_GameBoardPainter, this);

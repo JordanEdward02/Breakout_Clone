@@ -19,6 +19,7 @@
          <children>
             <Canvas fx:id="m_GameBoard" height="600.0" width="600.0" />
             <Label fx:id="m_GameInfo" alignment="CENTER" layoutX="162.0" layoutY="233.0" prefHeight="134.0" prefWidth="258.0" text="Label" />
+            <Label fx:id="m_ScoreLabel" alignment="CENTER" layoutX="246.0" layoutY="567.0" prefHeight="18.0" prefWidth="89.0" text="Label" />
          </children>
       </AnchorPane>
    </children>

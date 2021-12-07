@@ -21,9 +21,11 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class GameFinishController implements Initializable {
-    private static final String HIGHSCORES_PATH = "src/main/java/code/HighScores.txt";
+    private final String HIGHSCORES_PATH = "src/main/java/code/HighScores.txt";
     private static int m_Score;
     private static String m_Message;
+    private static GameFinishController m_GameFinishController;
+
     @FXML
     private Label m_Title;
     @FXML
@@ -33,13 +35,23 @@ public class GameFinishController implements Initializable {
     @FXML
     private Button m_SubmitButton;
 
+    public static GameFinishController GetGameFinishController()
+    {
+        if (m_GameFinishController == null)
+            m_GameFinishController = new GameFinishController();
+        return m_GameFinishController;
+    }
     public GameFinishController()
     {
     }
 
-    public GameFinishController(int Score, Stage stage, String Message) {
+    public void SetData(int Score, String Message)
+    {
         m_Score=Score;
         m_Message=Message;
+    }
+
+    public void load(Stage stage) {
         try {
             String fxmlFile = "/Menu/Frames/GameFinish.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));

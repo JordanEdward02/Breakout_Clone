@@ -8,6 +8,11 @@ public class ScoreManager {
     private static ScoreManager m_ScoreManager;
     private int m_TotalScore=0;
 
+    public void SetDefault()
+    {
+        m_TotalScore=0;
+    }
+
     public int GetScoreTotal()
     {
         return m_TotalScore;
