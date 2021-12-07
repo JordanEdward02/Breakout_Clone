@@ -28,6 +28,7 @@ public class MainGameController implements Initializable {
     private GameBoardPainter m_GameBoardPainter;
     private GameLoop m_GameTimer;
     private boolean m_Pause = true;
+    private SFXPlayer m_SFXPlayer;
     @FXML
     private AnchorPane m_PauseMenuPane;
     @FXML
@@ -35,15 +36,19 @@ public class MainGameController implements Initializable {
     @FXML
     private Label m_GameInfo;
 
+    public MainGameController()
+    {
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+    }
     private void loadScene(Event event, String fxmlFile)
     {
         try
         {
-            SFXPlayer.ButtonSFX();
+            m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
-            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
@@ -57,12 +62,12 @@ public class MainGameController implements Initializable {
     {
         try
         {
-            SFXPlayer.ButtonSFX();
+            m_SFXPlayer.ButtonSFX();
             //Stage is null for all bricks destroyed ending. This seems odd so i'll try returning this kind of thing
             m_Stage = (Stage) m_GameBoard.getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
-            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
@@ -137,7 +142,7 @@ public class MainGameController implements Initializable {
 
     public void GameContinue()
     {
-        SFXPlayer.ButtonSFX();
+        m_SFXPlayer.ButtonSFX();
         m_PauseMenuPane.setVisible(false);
         m_GameBoard.requestFocus();
         m_GameBoard.toFront();
@@ -145,7 +150,7 @@ public class MainGameController implements Initializable {
 
     public void GameRestart()
     {
-        SFXPlayer.ButtonSFX();
+        m_SFXPlayer.ButtonSFX();
         m_GameManager.BallReset();
         m_GameManager.PaddleReset();
         m_GameManager.WallReset();

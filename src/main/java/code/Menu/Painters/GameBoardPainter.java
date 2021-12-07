@@ -29,6 +29,7 @@ public class GameBoardPainter {
     private double m_CanvasSize;
     private Canvas m_GameBoard;
     private ElementsManager m_GameManager;
+    private ThemeMaintainer m_ThemeMaintainer;
     public Label m_GameInfo;
 
     public void SetMessage(String newMessage)
@@ -38,6 +39,7 @@ public class GameBoardPainter {
 
     public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager, Label GameInfo)
     {
+        m_ThemeMaintainer = ThemeMaintainer.GetThemeMaintainer();
         m_GameBoard = GameBoard;
         m_GameInfo = GameInfo;
         m_CanvasSize = m_GameBoard.getWidth();
@@ -62,14 +64,14 @@ public class GameBoardPainter {
     {
         if (brick == null)
             return;
-        g2d.drawImage(ThemeMaintainer.GetTexture(), brick.GetSourceX(), brick.GetSourceY(),
+        g2d.drawImage(m_ThemeMaintainer.GetTexture(), brick.GetSourceX(), brick.GetSourceY(),
                 BRICK_X, BRICK_Y, brick.getLocation().getX(),
                 brick.getLocation().getY(), brick.GetWidth(), brick.GetHeight());
     }
 
     private void drawBall(Ball ball, GraphicsContext g2d)
     {
-        g2d.drawImage(ThemeMaintainer.GetTexture(), ball.GetSourceX(), ball.GetSourceY(),
+        g2d.drawImage(m_ThemeMaintainer.GetTexture(), ball.GetSourceX(), ball.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, ball.getLocation().getX(),
                 ball.getLocation().getY(), ball.GetRadius(), ball.GetRadius());
 
@@ -77,7 +79,7 @@ public class GameBoardPainter {
 
     private void drawPaddle(Paddle paddle, GraphicsContext g2d)
     {
-        g2d.drawImage(ThemeMaintainer.GetTexture(), paddle.GetSourceX(), paddle.GetSourceY(),
+        g2d.drawImage(m_ThemeMaintainer.GetTexture(), paddle.GetSourceX(), paddle.GetSourceY(),
                 BALL_SIZE, BALL_SIZE, paddle.getLocation().getX(),
                 paddle.getLocation().getY(), paddle.GetWidth(), paddle.GetHeight());
     }

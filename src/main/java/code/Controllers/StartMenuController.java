@@ -15,16 +15,22 @@ public class StartMenuController {
     private Stage m_Stage;
     private Scene m_Scene;
     private Parent m_Root;
+    private SFXPlayer m_SFXPlayer;
+
+    public StartMenuController()
+    {
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+    }
 
     private void loadScene(ActionEvent event, String fxmlFile)
     {
         try
         {
-            SFXPlayer.ButtonSFX();
+            m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(getClass().getResource(fxmlFile));
             m_Scene = new Scene(m_Root);
-            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }

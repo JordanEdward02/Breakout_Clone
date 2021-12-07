@@ -23,44 +23,52 @@ public class ThemeMenuController implements  Initializable{
     private Stage m_Stage;
     private Parent m_Root;
     private Scene m_Scene;
+    private SFXPlayer m_SFXPlayer;
+    private ThemeMaintainer m_ThemeMaintainer;
     @FXML
     public RadioButton m_ClassicButton, m_SmoothButton, m_NeonButton;
 
     public void SetTheme(ActionEvent event, String newCSS) {
-        SFXPlayer.ButtonSFX();
+        m_SFXPlayer.ButtonSFX();
         Scene scene = ((Node) event.getSource()).getScene();
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource(newCSS).toExternalForm());
-        ThemeMaintainer.SetTheme(newCSS);
+        m_ThemeMaintainer.SetTheme(newCSS);
     }
 
     public void SetThemeClassic(ActionEvent event) {
         SetTheme(event, "/CSS/Classic.css");
-        ThemeMaintainer.SetTexture(new Image(new File(
+        m_ThemeMaintainer.SetTexture(new Image(new File(
                 "src/main/resources/Assets/ClassicTextures.png").toURI().toString()));
     }
 
     public void SetThemeSimple(ActionEvent event) {
         SetTheme(event, "/CSS/Smooth.css");
-        ThemeMaintainer.SetTexture(new Image(new File(
+        m_ThemeMaintainer.SetTexture(new Image(new File(
                 "src/main/resources/Assets/SmoothTextures.png").toURI().toString()));
     }
 
     public void SetThemeNeon(ActionEvent event) {
         SetTheme(event, "/CSS/Neon.css");
-        ThemeMaintainer.SetTexture(new Image(new File(
+        m_ThemeMaintainer.SetTexture(new Image(new File(
                 "src/main/resources/Assets/NeonTextures.png").toURI().toString()));
+    }
+
+    public ThemeMenuController()
+    {
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+        m_ThemeMaintainer = ThemeMaintainer.GetThemeMaintainer();
     }
 
     private void loadScene(ActionEvent event, String fxmlFile)
     {
         try
         {
-            SFXPlayer.ButtonSFX();
+            m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
-            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            m_Scene.getStylesheets().add(getClass().getResource(m_ThemeMaintainer.GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
@@ -77,10 +85,10 @@ public class ThemeMenuController implements  Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(ThemeMaintainer.GetTheme().contains("Classic")){
+        if(m_ThemeMaintainer.GetTheme().contains("Classic")){
             m_ClassicButton.setSelected(true);
         }
-        else if (ThemeMaintainer.GetTheme().contains("Smooth")){
+        else if (m_ThemeMaintainer.GetTheme().contains("Smooth")){
             m_SmoothButton.setSelected(true);
         }
         else{

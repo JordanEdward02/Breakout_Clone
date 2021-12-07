@@ -44,7 +44,7 @@ public class GameFinishController implements Initializable {
             String fxmlFile = "/Menu/Frames/GameFinish.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
-            Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetTheme()).toExternalForm());
+            Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             stage.setScene(Scene);
             stage.setResizable(false);
             stage.setTitle("GAME FINISHED");

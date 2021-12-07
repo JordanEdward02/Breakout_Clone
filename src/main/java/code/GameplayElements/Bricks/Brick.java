@@ -120,7 +120,7 @@ abstract public class Brick  {
     }
 
     public void Impact(){
-        SFXPlayer.CollisionSFX();
+        SFXPlayer.GetSFXPlayer().CollisionSFX();
         m_strength--;
         m_broken = (m_strength == 0);
         if (m_broken)

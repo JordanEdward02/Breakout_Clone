@@ -34,7 +34,7 @@ public class BrickSteel extends Brick {
             super.Impact();
         }
         else
-            SFXPlayer.CollisionSFX();
+            SFXPlayer.GetSFXPlayer().CollisionSFX();
     }
 
 }

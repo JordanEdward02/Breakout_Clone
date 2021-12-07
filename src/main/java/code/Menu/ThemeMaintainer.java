@@ -4,25 +4,32 @@ import javafx.scene.image.Image;
 
 public class ThemeMaintainer {
 
-    private static String m_Theme = "/CSS/Classic.css";
-    private static Image m_Textures;
+    private static ThemeMaintainer m_ThemeMaintainer;
+    private String m_Theme = "/CSS/Classic.css";
+    private Image m_Textures;
 
-    public static void SetTheme(String newTheme)
+    public static ThemeMaintainer GetThemeMaintainer()
+    {
+        if (m_ThemeMaintainer==null)
+            m_ThemeMaintainer = new ThemeMaintainer();
+        return m_ThemeMaintainer;
+    }
+    public void SetTheme(String newTheme)
     {
         m_Theme = newTheme;
     }
 
-    public static String GetTheme()
+    public String GetTheme()
     {
         return m_Theme;
     }
 
-    public static void SetTexture(Image newTexture)
+    public void SetTexture(Image newTexture)
     {
         m_Textures = newTexture;
     }
 
-    public static Image GetTexture()
+    public Image GetTexture()
     {
         return m_Textures;
     }

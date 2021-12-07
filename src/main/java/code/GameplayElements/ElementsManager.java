@@ -24,6 +24,7 @@ public class ElementsManager
     private Point m_startPoint ;
     private Canvas m_drawArea;
     private ScoreManager m_ScoreManager;
+    private SFXPlayer m_SFXPlayer;
 
     public Wall GetWall()
     {
@@ -72,6 +73,7 @@ public class ElementsManager
         m_ballCount = THREE;
         m_ballLost = false;
         m_ScoreManager = ScoreManager.GetScoreManager();
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
     }
 
     public void Move()
@@ -83,7 +85,7 @@ public class ElementsManager
     public void FindImpacts()
     {
         if(m_gamePaddle.Impact(m_gameBall)){
-            SFXPlayer.CollisionSFX();
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameWall.ImpactWall(m_gameBall)){
@@ -93,11 +95,11 @@ public class ElementsManager
         }
 
         if(impactBorder()) {
-            SFXPlayer.CollisionSFX();
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseX();
         }
         if(m_gameBall.getLocation().getY() < 0){
-            SFXPlayer.CollisionSFX();
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){

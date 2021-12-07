@@ -5,17 +5,26 @@ import javafx.scene.media.MediaPlayer;
 
 public class SFXPlayer {
 
-    private static final String BUTTON_SFX = "/SFX/Button.wav";
-    private static final String COLLISION_SFX = "/SFX/Collision.wav";
+    private final String BUTTON_SFX = "/SFX/Button.wav";
+    private final String COLLISION_SFX = "/SFX/Collision.wav";
 
-    public static void ButtonSFX()
+    private static SFXPlayer m_SFXPlayer;
+
+    public static SFXPlayer GetSFXPlayer()
+    {
+        if (m_SFXPlayer==null)
+            m_SFXPlayer= new SFXPlayer();
+        return m_SFXPlayer;
+    }
+
+    public void ButtonSFX()
     {
         Media pick = new Media(SFXPlayer.class.getResource(BUTTON_SFX).toExternalForm());
         MediaPlayer player = new MediaPlayer(pick);
         player.play();
     }
 
-    public static void CollisionSFX()
+    public void CollisionSFX()
     {
         Media pick = new Media(SFXPlayer.class.getResource(COLLISION_SFX).toExternalForm());
         MediaPlayer player = new MediaPlayer(pick);
