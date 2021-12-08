@@ -9,7 +9,6 @@ module COMP2013.coursework {
     exports code.Controllers;
     exports code.GameplayElements;
     exports code.Menu;
-    exports code.Menu.Painters;
 
     opens code.Controllers;
     opens code.Menu;

@@ -26,6 +26,7 @@ abstract public class Brick  {
     private double m_SourceX, m_SourceY;
     private ScoreManager m_ScoreManager;
     private int m_Type;
+    private SFXPlayer m_SFXPlayer;
 
     public Point getLocation()
     {
@@ -74,6 +75,7 @@ abstract public class Brick  {
         m_broken = false;
         m_fullStrength = m_strength = strength;
         m_ScoreManager = ScoreManager.GetScoreManager();
+        m_SFXPlayer = new SFXPlayer();
     }
 
     public void Crack()
@@ -120,7 +122,7 @@ abstract public class Brick  {
     }
 
     public void Impact(){
-        SFXPlayer.GetSFXPlayer().CollisionSFX();
+        m_SFXPlayer.CollisionSFX();
         m_strength--;
         m_broken = (m_strength == 0);
         if (m_broken)

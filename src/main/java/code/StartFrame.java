@@ -13,7 +13,7 @@ import java.util.Objects;
 public class StartFrame extends Application {
 
     private static ThemeMaintainer m_ThemeMaintainer;
-    private final String DEF_TITLE = "Breakout Clone     space = start/pause   ←/→ = move left/right   esc = menu";
+    private final String DEF_TITLE = "Breakout Clone     space = start/pause   <-/-> = move left/right   esc = menu";
 
     public static void main(String[] args)
     {

@@ -17,23 +17,38 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * Controller for the Highscores section of the start menu
+ * @@author Jordan Lovett
+ */
 public class HighMenuController implements Initializable {
 
     private static final int FOUR = 4;
     private Stage m_Stage;
     private Scene m_Scene;
     private Parent m_Root;
+    private SFXPlayer m_SFXPlayer;
     @FXML
-    public Label m_ScoreOne;
+    private Label m_ScoreOne;
     @FXML
-    public Label m_ScoreTwo;
+    private Label m_ScoreTwo;
     @FXML
-    public Label m_ScoreThree;
+    private Label m_ScoreThree;
     @FXML
-    public Label m_ScoreFour;
+    private Label m_ScoreFour;
     @FXML
-    public Label m_ScoreFive;
+    private Label m_ScoreFive;
 
+    /**
+     * Default constructor for the controller. This initialises the sound effects player
+     */
+    public HighMenuController()
+    {
+        m_SFXPlayer = new SFXPlayer();
+    }
+    /**
+     * Reads the content of the highscores file to display them in the menu
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -68,7 +83,7 @@ public class HighMenuController implements Initializable {
     {
         try
         {
-            SFXPlayer.GetSFXPlayer().ButtonSFX();
+            m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
@@ -82,6 +97,10 @@ public class HighMenuController implements Initializable {
         }
     }
 
+    /**
+     * Returns the user to the start menu
+     * @param event Action event caused by the button press
+     */
     public void returnToStart(ActionEvent event)
     {
         loadScene(event,"/Menu/Frames/StartFrame.fxml");

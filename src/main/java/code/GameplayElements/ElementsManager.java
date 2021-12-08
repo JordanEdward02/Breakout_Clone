@@ -73,7 +73,7 @@ public class ElementsManager
         m_ballCount = THREE;
         m_ballLost = false;
         m_ScoreManager = ScoreManager.GetScoreManager();
-        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+        m_SFXPlayer = new SFXPlayer();
     }
 
     public void Move()

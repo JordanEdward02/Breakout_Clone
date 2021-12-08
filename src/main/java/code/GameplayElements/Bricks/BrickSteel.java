@@ -14,6 +14,7 @@ public class BrickSteel extends Brick {
     private static final double SOURCE_X = 0.0, SOURCE_Y = 10.0;
 
     private Random rnd;
+    private SFXPlayer m_SFXPlayer;
 
     @Override
     public boolean SetImpact(){
@@ -27,6 +28,7 @@ public class BrickSteel extends Brick {
         super(point,size,STEEL_STRENGTH, BRICK_TYPE);
         SetImageSource(SOURCE_X, SOURCE_Y);
         rnd = new Random();
+        m_SFXPlayer = new SFXPlayer();
     }
 
     private void impact(){
@@ -34,7 +36,7 @@ public class BrickSteel extends Brick {
             super.Impact();
         }
         else
-            SFXPlayer.GetSFXPlayer().CollisionSFX();
+            m_SFXPlayer.CollisionSFX();
     }
 
 }
