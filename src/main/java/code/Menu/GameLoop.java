@@ -5,7 +5,6 @@ import code.Controllers.MainGameController;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 public class GameLoop extends AnimationTimer {
@@ -17,7 +16,6 @@ public class GameLoop extends AnimationTimer {
     private MainGameController m_GameController;
     private ScoreManager m_ScoreManager;
     private Stage m_OutputStage;
-    private int COUNT=0;
 
     public static GameLoop GetGameLoop()
     {
@@ -40,7 +38,6 @@ public class GameLoop extends AnimationTimer {
     @Override
     public void handle(long l)
     {
-        COUNT+=1;
         m_GameManager.Move();
         m_GameManager.FindImpacts();
         m_GameBoardPainter.SetMessage("Bricks: " + m_GameManager.GetBrickCount() + " Balls: " + m_GameManager.GetBallCount());
@@ -90,7 +87,6 @@ public class GameLoop extends AnimationTimer {
 
     private void GameFinish(int Score, String Message)
     {
-        // THIS IS WORKING BETTER AS ONLY 1 STAGE IS VISIBLE, HOWEVER IT STILL CALLS THE MODALITY THING WHICH MEANS BIG FUCKY WUCKY
         GameFinishController finished = GameFinishController.GetGameFinishController();
         finished.SetData(Score, Message);
         finished.load(m_OutputStage);

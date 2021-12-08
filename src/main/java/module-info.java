@@ -7,8 +7,10 @@ module COMP2013.coursework {
 
     exports code;
     exports code.Controllers;
+    exports code.GameplayElements;
+    exports code.Menu;
+    exports code.Menu.Painters;
 
     opens code.Controllers;
-    exports code.Menu;
     opens code.Menu;
 }
