@@ -38,7 +38,6 @@ public class LevelManager
             while (myScanner.hasNextLine()) {
                 String BrickLine = myScanner.nextLine();
                 Dimension brickSize = new Dimension((int) BrickLn, (int) BrickHgt);
-
                 int i;
                 for (i = 0; i < BrickLine.length(); i++) {
                     Point p = new Point();
@@ -87,7 +86,6 @@ public class LevelManager
     public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);
-
     }
 
 }

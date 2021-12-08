@@ -1,19 +1,21 @@
 package code.Menu;
 
+import code.Controllers.GameFinishController;
 import code.Controllers.MainGameController;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-
-import javax.swing.*;
+import javafx.stage.Stage;
 
 public class GameLoop extends AnimationTimer {
+    private static final int LEVEL_COMPLETE=4;
+
     private static GameLoop m_GameTimer;
     private ElementsManager m_GameManager;
     private GameBoardPainter m_GameBoardPainter;
     private MainGameController m_GameController;
-
+    private ScoreManager m_ScoreManager;
+    private Stage m_OutputStage;
 
     public static GameLoop GetGameLoop()
     {
@@ -29,6 +31,8 @@ public class GameLoop extends AnimationTimer {
         m_GameManager = GameManager;
         m_GameBoardPainter = GamePainter;
         m_GameController = GameController;
+        m_ScoreManager = ScoreManager.GetScoreManager();
+        m_OutputStage = new Stage();
     }
 
     @Override
@@ -41,20 +45,25 @@ public class GameLoop extends AnimationTimer {
         {
             if(m_GameManager.BallEnd())
             {
-                m_GameBoardPainter.SetMessage("Game Over");
+                int total = m_ScoreManager.GetScoreTotal();
+                GameFinish(total, "Game Over");
+                m_GameController.GameExit();
             }
+            m_ScoreManager.BallLost();
             m_GameManager.BallReset();
             m_GameManager.PaddleReset();
             m_GameController.setPaused();
-            stop();
+            this.stop();
         }
         else if (m_GameManager.GetWall().IsDone())
         {
+            ScoreManager myManager = ScoreManager.GetScoreManager();
+            myManager.IncreaseScore(LEVEL_COMPLETE);
             if(m_GameManager.NewLevel())
             {
-                m_GameBoardPainter.SetMessage("Go to Next Level");
                 m_GameController.setPaused();
-                stop();
+                m_GameBoardPainter.SetMessage("Go to Next Level");
+                this.stop();
                 m_GameManager.BallReset();
                 m_GameManager.PaddleReset();
                 m_GameManager.WallReset();
@@ -62,11 +71,24 @@ public class GameLoop extends AnimationTimer {
             }
             else
             {
-                m_GameBoardPainter.SetMessage("ALL WALLS DESTROYED");
-                stop();
+                // HERE FOR GAME FINISHED
+                int total = m_ScoreManager.GetScoreTotal();
+                GameFinish(total, "ALL WALLS DESTROYED");
+                m_GameManager.BallReset();
+                m_GameManager.PaddleReset();
+                m_GameController.setPaused();
+                m_GameController.GameExit();
+                m_ScoreManager.SetDefault();
+                this.stop();
             }
         }
-
         m_GameBoardPainter.Refresh();
+    }
+
+    private void GameFinish(int Score, String Message)
+    {
+        GameFinishController finished = GameFinishController.GetGameFinishController();
+        finished.SetData(Score, Message);
+        finished.load(m_OutputStage);
     }
 }

@@ -5,10 +5,13 @@ import code.GameplayElements.Paddle;
 import code.GameplayElements.Wall;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.SFXPlayer;
+import code.Menu.ThemeMaintainer;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.KeyEvent;
@@ -25,18 +28,48 @@ public class MainGameController implements Initializable {
     private GameBoardPainter m_GameBoardPainter;
     private GameLoop m_GameTimer;
     private boolean m_Pause = true;
+    private SFXPlayer m_SFXPlayer;
     @FXML
-    public AnchorPane m_PauseMenuPane;
+    private AnchorPane m_PauseMenuPane;
     @FXML
     private Canvas m_GameBoard;
+    @FXML
+    private Label m_GameInfo;
+    @FXML
+    private Label m_ScoreLabel;
 
+    public MainGameController()
+    {
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+    }
     private void loadScene(Event event, String fxmlFile)
     {
         try
         {
+            m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
+            m_Stage.setScene(m_Scene);
+            m_Stage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadScene(String fxmlFile)
+    {
+        try
+        {
+            m_SFXPlayer.ButtonSFX();
+            //Stage is null for all bricks destroyed ending. This seems odd so i'll try returning this kind of thing
+            m_Stage = (Stage) m_GameBoard.getScene().getWindow();
+            Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            m_Scene = new Scene(m_Root);
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }
@@ -112,6 +145,7 @@ public class MainGameController implements Initializable {
 
     public void GameContinue()
     {
+        m_SFXPlayer.ButtonSFX();
         m_PauseMenuPane.setVisible(false);
         m_GameBoard.requestFocus();
         m_GameBoard.toFront();
@@ -119,16 +153,25 @@ public class MainGameController implements Initializable {
 
     public void GameRestart()
     {
+        m_SFXPlayer.ButtonSFX();
         m_GameManager.BallReset();
         m_GameManager.PaddleReset();
         m_GameManager.WallReset();
         m_GameTimer.stop();
-        setPaused();
+        m_PauseMenuPane.setVisible(false);
+        m_GameBoard.requestFocus();
+        m_GameBoard.toFront();
+        m_GameBoardPainter.Refresh();
     }
 
     public void GameExit(ActionEvent event)
     {
         loadScene(event, "/Menu/Frames/StartFrame.fxml");
+    }
+
+    public void GameExit()
+    {
+        loadScene("/Menu/Frames/StartFrame.fxml");
     }
 
     @Override
@@ -142,7 +185,7 @@ public class MainGameController implements Initializable {
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
         m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
         m_GameManager.RenderLevel();
-        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager);
+        m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo, m_ScoreLabel);
         m_GameBoardPainter.Refresh();
         m_GameTimer = GameLoop.GetGameLoop();
         m_GameTimer.SetGameData(m_GameManager, m_GameBoardPainter, this);

@@ -1,6 +1,7 @@
 package code.Controllers;
 
-import javafx.application.Platform;
+import code.Menu.SFXPlayer;
+import code.Menu.ThemeMaintainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,9 +68,11 @@ public class HighMenuController implements Initializable {
     {
         try
         {
+            SFXPlayer.GetSFXPlayer().ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             m_Scene = new Scene(m_Root);
+            m_Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             m_Stage.setScene(m_Scene);
             m_Stage.show();
         }

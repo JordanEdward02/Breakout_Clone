@@ -1,6 +1,8 @@
 package code.GameplayElements.Bricks;
 
 import code.GameplayElements.Balls.Ball;
+import code.Menu.SFXPlayer;
+import code.Menu.ScoreManager;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
@@ -16,21 +18,28 @@ abstract public class Brick  {
     private static Random m_rnd;
 
     private Point m_BrickPoint;
-
-    private Color m_border;
-    private Color m_inner;
-
     private int m_fullStrength;
     private int m_strength;
-
     private double m_Width;
     private double m_Height;
-
     private boolean m_broken;
+    private double m_SourceX, m_SourceY;
+    private ScoreManager m_ScoreManager;
+    private int m_Type;
 
     public Point getLocation()
     {
         return m_BrickPoint;
+    }
+
+    public double GetSourceX()
+    {
+        return m_SourceX;
+    }
+
+    public double GetSourceY()
+    {
+        return m_SourceY;
     }
 
     public double GetHeight()
@@ -43,16 +52,6 @@ abstract public class Brick  {
         return m_Width;
     }
 
-    public Color GetInnerColor()
-    {
-        return m_inner;
-    }
-
-    public Color GetBorderColor()
-    {
-        return m_border;
-    }
-
     public  boolean SetImpact(){
         if(m_broken)
             return false;
@@ -60,26 +59,32 @@ abstract public class Brick  {
         return  m_broken;
     }
 
-    public Brick( Point pos,Dimension size,Color border,Color inner,int strength){
+    protected void SetImageSource(double sourceX, double sourceY)
+    {
+        m_SourceX = sourceX;
+        m_SourceY = sourceY;
+    }
+
+    public Brick( Point pos,Dimension size,int strength, int type){
         m_rnd = new Random();
+        m_Type = type;
         m_BrickPoint = pos;
         m_Width = size.width;
         m_Height = size.height;
         m_broken = false;
-        m_border = border;
-        m_inner = inner;
         m_fullStrength = m_strength = strength;
-
+        m_ScoreManager = ScoreManager.GetScoreManager();
     }
 
     public void Crack()
     {
-        m_inner = m_inner.darker().darker();
+        m_SourceY+=10.0;
     }
 
     public void AntiCrack()
     {
-        m_inner.brighter().brighter();
+        if(m_SourceY!=20.0)
+            m_SourceY-=10.0;
     }
 
     public final int FindImpact(Ball b){
@@ -115,12 +120,12 @@ abstract public class Brick  {
     }
 
     public void Impact(){
+        SFXPlayer.GetSFXPlayer().CollisionSFX();
         m_strength--;
         m_broken = (m_strength == 0);
+        if (m_broken)
+            m_ScoreManager.IncreaseScore(m_Type);
     }
-
-
-
 }
 
 

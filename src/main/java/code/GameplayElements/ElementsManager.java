@@ -4,8 +4,9 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
+import code.Menu.SFXPlayer;
+import code.Menu.ScoreManager;
 import javafx.scene.canvas.Canvas;
-
 import java.awt.*;
 
 public class ElementsManager
@@ -22,6 +23,8 @@ public class ElementsManager
     private boolean m_ballLost;
     private Point m_startPoint ;
     private Canvas m_drawArea;
+    private ScoreManager m_ScoreManager;
+    private SFXPlayer m_SFXPlayer;
 
     public Wall GetWall()
     {
@@ -64,11 +67,13 @@ public class ElementsManager
         m_StartX = (int) (m_drawArea.getHeight()*0.5);
         m_StartY = (int) (drawArea.getWidth()*0.8);
         m_startPoint = new Point(m_StartX,m_StartY);
-        m_gameBall = new BallRubber(m_startPoint);
-        m_gamePaddle = new Paddle(m_startPoint);
+        m_gameBall = new BallRubber(m_startPoint, drawArea);
+        m_gamePaddle = new Paddle(m_startPoint, drawArea);
         m_levelManager = new LevelManager();
         m_ballCount = THREE;
         m_ballLost = false;
+        m_ScoreManager = ScoreManager.GetScoreManager();
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
     }
 
     public void Move()
@@ -80,17 +85,21 @@ public class ElementsManager
     public void FindImpacts()
     {
         if(m_gamePaddle.Impact(m_gameBall)){
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameWall.ImpactWall(m_gameBall)){
-            // for efficiency reverse is done into method impactWall because for every brick program checks for horizontal and vertical impacts
             m_gameWall.ReduceBrickCount();
+            if (m_gameWall.GetPowerupCounter() % 2 == 0)
+                m_gameBall.RandomSpeedUp();
         }
 
         if(impactBorder()) {
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseX();
         }
         if(m_gameBall.getLocation().getY() < 0){
+            m_SFXPlayer.CollisionSFX();
             m_gameBall.ReverseY();
         }
         if(m_gameBall.getLocation().getY() > m_drawArea.getHeight()){
@@ -111,16 +120,19 @@ public class ElementsManager
 
     public void WallReset()
     {
+        m_gameWall.SetBrickCount(0);
         for(Brick b : m_gameWall.GetBricks())
-            b.Repair();
-        m_gameWall.SetBrickCount(m_gameWall.GetBricks().length);
+            if (b!=null) {
+                b.Repair();
+                m_gameWall.IncrementBrickCount();
+            }
         m_ballCount = THREE;
     }
 
     public void BallReset()
     {
         m_gameBall.MoveTo(m_startPoint);
-        m_gameBall.SetSpeedRandom();
+        m_gameBall.SetSpeedDefault();
         m_ballLost = false;
     }
 

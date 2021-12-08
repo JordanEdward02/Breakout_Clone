@@ -9,6 +9,8 @@ public class BrickFactory {
         Brick newBrick;
         switch(type)
         {
+            case 0:
+                return null;
             case 1:
                 newBrick = new BrickClay(point,size);
                 break;

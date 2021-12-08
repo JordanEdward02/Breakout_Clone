@@ -1,24 +1,34 @@
 package code.GameplayElements.Balls;
 
-import javafx.scene.paint.Color;
-
 import java.awt.*;
 import java.util.Random;
 
 abstract public class Ball {
 
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FIVE = 5;
+    private static final int X_OFFSET = 15, Y_OFFSET = 10;
 
     private Point m_TopCorner;
     private int m_Radius;
-
-    private Color m_border;
-    private Color m_Inner;
-
     private int m_speedX;
     private int m_speedY;
+    private double m_SourceX, m_SourceY;
+    private Random m_Rnd;
+
+    public double GetSourceX()
+    {
+        return m_SourceX;
+    }
+
+    public double GetSourceY()
+    {
+        return m_SourceY;
+    }
+
+    protected void SetImageSource(double sourceX, double sourceY)
+    {
+        m_SourceX = sourceX;
+        m_SourceY = sourceY;
+    }
 
     public Point getLocation()
     {
@@ -40,42 +50,26 @@ abstract public class Ball {
         return m_Radius;
     }
 
-    public Color GetBorderColor(){
-        return m_border;
-    }
-
-    public Color GetInnerColor(){
-        return m_Inner;
-    }
-
-    public void SetBorderColor(Color color)
+    public void RandomSpeedUp()
     {
-        m_border = color;
+        if (m_Rnd.nextBoolean())
+            if (m_speedX<0 && m_speedX>-5)
+                m_speedX-=1;
+            else if (m_speedX<5 && m_speedX>0)
+                m_speedX+=1;
+        else
+            if (m_speedY>0 && m_speedY < 5)
+                m_speedY += 1;
+            else if (m_speedY <0 && m_speedY>-5)
+                m_speedY -= 1;
     }
 
-    public void SetInnerColor(Color color)
+    public void SetSpeedDefault()
     {
-        m_Inner = color;
-    }
-
-    public void SetSpeed(int x,int y){
-        m_speedX = x;
-        m_speedY = y;
-    }
-
-    public void SetSpeedRandom()
-    {
-        Random rnd = new Random();
-
-        int speedX,speedY;
-        do{
-            speedX = rnd.nextInt(FIVE) - TWO;
-        }while(speedX == 0);
-        do{
-            speedY = -rnd.nextInt(THREE);
-        }while(speedY == 0);
-
-        SetSpeed(speedX,speedY);
+        m_speedY = -2;
+        do {
+            m_speedX = (m_Rnd.nextInt(2) - 1) * 2;
+        } while (m_speedX==0);
     }
 
     public void SetXSpeed(int s){
@@ -101,12 +95,14 @@ abstract public class Ball {
 
     public Point GetUp()
     {
-        return (new Point((int) getLocation().getX()+m_Radius, (int) getLocation().getY()));
+        return (new Point((int) getLocation().getX()+m_Radius,
+                (int) getLocation().getY()));
     }
 
     public Point GetLeft()
     {
-        return(new Point((int) getLocation().getX(), (int) getLocation().getY()+m_Radius));
+        return(new Point((int) getLocation().getX(),
+                (int) getLocation().getY()+m_Radius));
     }
 
     public Point GetDown()
@@ -114,12 +110,11 @@ abstract public class Ball {
         return (new Point((int) getLocation().getX()+m_Radius, (int) getLocation().getY()+(m_Radius*2)));
     }
 
-    public Ball(Point startPoint, int radius, Color inner, Color border){
-        SetBorderColor(border);
-        SetInnerColor(inner);
+    public Ball(Point startPoint, int radius){
         SetRadius(radius);
         MoveTo(startPoint);
-        SetSpeedRandom();
+        m_Rnd = new Random();
+        SetSpeedDefault();
     }
 
     public void Move(){
@@ -137,7 +132,8 @@ abstract public class Ball {
     }
 
     public void MoveTo(Point p){
-        m_TopCorner = new Point(((int)p.getX()-15), ((int) p.getY()-10));
+        m_TopCorner = new Point(((int)p.getX()-X_OFFSET),
+                ((int) p.getY()-Y_OFFSET));
     }
 
 }

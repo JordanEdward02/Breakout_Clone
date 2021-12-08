@@ -7,13 +7,19 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.Controllers.MainGameController">
    <children>
-      <Canvas fx:id="m_GameBoard" height="600.0" width="600.0" />
       <AnchorPane fx:id="m_PauseMenuPane" prefHeight="600.0" prefWidth="600.0">
          <children>
             <Button layoutX="258.0" layoutY="230.0" mnemonicParsing="false" onAction="#GameContinue" text="Continue" />
             <Button layoutX="264.0" layoutY="318.0" mnemonicParsing="false" onAction="#GameRestart" text="Restart" />
             <Button layoutX="273.0" layoutY="414.0" mnemonicParsing="false" onAction="#GameExit" text="Exit" />
-            <Label layoutX="275.0" layoutY="142.0" text="Pause" />
+            <Label alignment="CENTER" layoutX="166.0" layoutY="96.0" prefHeight="88.0" prefWidth="249.0" styleClass="Title" text="Pause" />
+         </children>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <Canvas fx:id="m_GameBoard" height="600.0" width="600.0" />
+            <Label fx:id="m_GameInfo" alignment="CENTER" layoutX="162.0" layoutY="233.0" prefHeight="134.0" prefWidth="258.0" text="Label" />
+            <Label fx:id="m_ScoreLabel" alignment="CENTER" layoutX="246.0" layoutY="567.0" prefHeight="18.0" prefWidth="89.0" text="Label" />
          </children>
       </AnchorPane>
    </children>

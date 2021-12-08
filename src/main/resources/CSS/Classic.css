@@ -1,0 +1,25 @@
+.root{
+    -fx-background-color: linear-gradient(to left, #243a52, white);
+}
+
+.button {
+    -fx-background-color:black;
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-effect: dropshadow(gaussian,dimgrey,2,0.7,2,2);
+}
+.button:pressed{
+    -fx-translate-x:2;
+    -fx-translate-y:2;
+}
+.label{
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(gaussian,white,2,0.7,0,2);
+}
+.Title{
+    -fx-font-size:40;
+}
+.radio-button{
+    -fx-font-size:16;
+}

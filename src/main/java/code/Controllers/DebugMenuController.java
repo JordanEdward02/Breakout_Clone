@@ -3,6 +3,8 @@ package code.Controllers;
 import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
+import code.Menu.SFXPlayer;
+import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +22,7 @@ public class DebugMenuController implements Initializable {
 
     private static ElementsManager m_GameManager;
     private static GameBoardPainter m_GameBoardPainter;
+    private SFXPlayer m_SFXPlayer;
     @FXML
     public Slider m_XSlider;
     @FXML
@@ -27,7 +30,7 @@ public class DebugMenuController implements Initializable {
 
     public DebugMenuController()
     {
-
+        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
     }
 
     public DebugMenuController(Stage stage, ElementsManager gameManager, GameBoardPainter gameBoardPainter)
@@ -39,6 +42,7 @@ public class DebugMenuController implements Initializable {
             String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
+            Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
             stage.setScene(Scene);
             stage.setResizable(false);
             stage.setTitle("Debug Menu");
@@ -54,6 +58,7 @@ public class DebugMenuController implements Initializable {
 
     public void LevelSkipButton()
     {
+        m_SFXPlayer.ButtonSFX();
         if (m_GameManager.NewLevel())
         {
             m_GameManager.LevelSkip();
@@ -63,6 +68,7 @@ public class DebugMenuController implements Initializable {
 
     public void ResetBalls()
     {
+        m_SFXPlayer.ButtonSFX();
         m_GameManager.ResetBallCount();
         m_GameBoardPainter.Refresh();
     }

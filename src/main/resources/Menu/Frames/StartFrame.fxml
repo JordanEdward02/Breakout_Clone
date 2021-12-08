@@ -7,13 +7,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="code.Controllers.StartMenuController">
    <children>
-      <Label layoutX="14.0" layoutY="83.0" prefHeight="58.0" prefWidth="123.0" text="Breakout">
+      <Label layoutX="14.0" layoutY="83.0" prefHeight="58.0" prefWidth="314.0" styleClass="Title" text="Breakout">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Button layoutX="14.0" layoutY="174.0" mnemonicParsing="false" onAction="#loadLevels" text="Levels" />
-      <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" text="Themes" />
+      <Button layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#LoadThemeMenu" text="Themes" />
       <Button layoutX="14.0" layoutY="294.0" mnemonicParsing="false" onAction="#loadHighscoresMenu" text="High Scores" />
    </children>
 </AnchorPane>
