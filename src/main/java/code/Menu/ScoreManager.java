@@ -1,7 +1,5 @@
 package code.Menu;
 
-import code.GameplayElements.Bricks.Brick;
-
 public class ScoreManager {
     private static final int CLAY_BRICK=1, CEMENT_BRICK=2;
     private static final int STEEL_BRICK=3, LEVEL_COMPLETE=4;

@@ -209,7 +209,7 @@ public class MainGameController implements Initializable {
         m_GameBoard.requestFocus();
         m_GameBoard.setOnKeyPressed(event->KeyPress(event));
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
-        m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
+        m_GameManager = new ElementsManager(m_GameBoard);
         m_GameManager.RenderLevel();
         m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo, m_ScoreLabel);
         m_GameBoardPainter.Refresh();

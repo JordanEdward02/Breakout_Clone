@@ -48,6 +48,7 @@ public class GameLoop extends AnimationTimer {
                 int total = m_ScoreManager.GetScoreTotal();
                 GameFinish(total, "Game Over");
                 m_GameController.GameExit();
+                m_ScoreManager.SetDefault();
             }
             m_ScoreManager.BallLost();
             m_GameManager.BallReset();
