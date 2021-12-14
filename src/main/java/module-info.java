@@ -5,12 +5,11 @@ module COMP2013.coursework {
     requires javafx.media;
     requires org.controlsfx.controls;
 
-    exports code;
     exports code.Controllers;
     exports code.GameplayElements;
     exports code.Menu;
-    exports code.Menu.Painters;
 
     opens code.Controllers;
     opens code.Menu;
+    opens code.GameplayElements;
 }

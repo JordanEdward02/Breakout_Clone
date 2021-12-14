@@ -3,10 +3,15 @@ package code.Menu;
 import code.Controllers.GameFinishController;
 import code.Controllers.MainGameController;
 import code.GameplayElements.ElementsManager;
+import code.GameplayElements.ScoreManager;
 import code.Menu.Painters.GameBoardPainter;
 import javafx.animation.AnimationTimer;
 import javafx.stage.Stage;
 
+/**
+ * Loop to calculate logic and refresh the screen upon every frame
+ * @author Jordan Lovett
+ */
 public class GameLoop extends AnimationTimer {
     private static final int LEVEL_COMPLETE=4;
 
@@ -17,6 +22,10 @@ public class GameLoop extends AnimationTimer {
     private ScoreManager m_ScoreManager;
     private Stage m_OutputStage;
 
+    /**
+     * Gets (and sometimes creates) the 1 instance of gameloop
+     * @return GameLoop that will refresh the GUI
+     */
     public static GameLoop GetGameLoop()
     {
         if (m_GameTimer == null)
@@ -26,6 +35,12 @@ public class GameLoop extends AnimationTimer {
         return m_GameTimer;
     }
 
+    /**
+     * Sets the data required by the gameLoops logic
+     * @param GameManager ElementsManager that contains all the game elements and their data
+     * @param GamePainter Painter to redraw the screen upon every frame
+     * @param GameController MainGameController to set game states depending on collisions
+     */
     public void SetGameData(ElementsManager GameManager, GameBoardPainter GamePainter, MainGameController GameController)
     {
         m_GameManager = GameManager;
@@ -35,9 +50,13 @@ public class GameLoop extends AnimationTimer {
         m_OutputStage = new Stage();
     }
 
+    /**
+     * Runs every frame to move the elements and work out the consequences of this
+     */
     @Override
     public void handle(long l)
     {
+        ScoreManager myManager = ScoreManager.GetScoreManager();
         m_GameManager.Move();
         m_GameManager.FindImpacts();
         m_GameBoardPainter.SetMessage("Bricks: " + m_GameManager.GetBrickCount() + " Balls: " + m_GameManager.GetBallCount());
@@ -57,7 +76,6 @@ public class GameLoop extends AnimationTimer {
         }
         else if (m_GameManager.GetWall().IsDone())
         {
-            ScoreManager myManager = ScoreManager.GetScoreManager();
             myManager.IncreaseScore(LEVEL_COMPLETE);
             if(m_GameManager.NewLevel())
             {
@@ -78,7 +96,6 @@ public class GameLoop extends AnimationTimer {
                 m_GameManager.PaddleReset();
                 m_GameController.setPaused();
                 m_GameController.GameExit();
-                m_ScoreManager.SetDefault();
                 this.stop();
             }
         }

@@ -1,7 +1,6 @@
 package code.Controllers;
 
 import code.Menu.ThemeMaintainer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +19,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * Controller that manages IO for dialog box when the game finishes
+ * @author Jordan Lovett
+ */
 public class GameFinishController implements Initializable {
     private final String HIGHSCORES_PATH = "src/main/java/code/HighScores.txt";
     private static int m_Score;
@@ -35,25 +38,35 @@ public class GameFinishController implements Initializable {
     @FXML
     private Button m_SubmitButton;
 
+    /**
+     * Get class to return the singleton value
+     * @return The single instance of the game finish controller
+     */
     public static GameFinishController GetGameFinishController()
     {
         if (m_GameFinishController == null)
             m_GameFinishController = new GameFinishController();
         return m_GameFinishController;
     }
-    public GameFinishController()
-    {
-    }
 
+    /**
+     * Sets the data needed within the game finish dialog box
+     * @param Score The score of the player as an int
+     * @param Message A String displaying the cause of the game ending
+     */
     public void SetData(int Score, String Message)
     {
         m_Score=Score;
         m_Message=Message;
     }
 
+    /**
+     * Loads the dialog box
+     * @param stage The stage to display the game finish contents on
+     */
     public void load(Stage stage) {
         try {
-            String fxmlFile = "/Menu/Frames/GameFinish.fxml";
+            String fxmlFile = "/Controllers/GameFinish.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
             Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
@@ -68,7 +81,10 @@ public class GameFinishController implements Initializable {
         }
     }
 
-    public void Submit(ActionEvent actionEvent)
+    /**
+     * Submits the name input from the text box and the score to be stored permanently in the highscores file
+     */
+    public void Submit()
     {
         int i=0;
         try {
@@ -120,6 +136,9 @@ public class GameFinishController implements Initializable {
         }
     }
 
+    /**
+     * Called before the scene is drawn to set the display data correctly
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {

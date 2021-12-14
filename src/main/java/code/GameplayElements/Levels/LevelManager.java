@@ -9,11 +9,18 @@ import java.awt.*;
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Represents a level manager
+ * @author Jordan Lovett
+ */
 public class LevelManager
 {
     private int m_level;
     private static int m_StartLevel;
 
+    /**
+     * Default constructor for making a level manager
+     */
     public LevelManager()
     {
         m_level = m_StartLevel;
@@ -59,6 +66,10 @@ public class LevelManager
         }
     }
 
+    /**
+     * Checks if there's a next level
+     * @return Boolean represeting if there's a new level or not
+     */
     public boolean HasNextLevel()
     {
         try
@@ -73,16 +84,28 @@ public class LevelManager
         }
     }
 
+    /**
+     * Increments to the next level
+     */
     public void IncrementLevel()
     {
         m_level++;
     }
 
+    /**
+     * Sets the starting level
+     * @param level Int level to start at
+     */
     public static void setStartLevel(int level)
     {
         m_StartLevel=level;
     }
 
+    /**
+     * Creates a list of all the bricks that will make up the game wall
+     * @param drawArea Canvas to draw all the bricks on
+     * @return Brick[] that contains all the bricks that make up the wall
+     */
     public Brick[] RenderWall(Canvas drawArea){
         String nextLevel = "src/main/java/code/GameplayElements/Levels/Level"+m_level+".txt";
         return ReadLevelFile(nextLevel, drawArea);

@@ -2,7 +2,6 @@ package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.GameplayElements.Wall;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.SFXPlayer;
@@ -20,6 +19,10 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the gameplay. This maintains all the IO operations for the actual game
+ * @author Jordan Lovett
+ */
 public class MainGameController implements Initializable {
     private ElementsManager m_GameManager;
     private Stage m_Stage;
@@ -38,9 +41,23 @@ public class MainGameController implements Initializable {
     @FXML
     private Label m_ScoreLabel;
 
+    /**
+     * Sets the state of the game to paused and stops the timer
+     */
+    public void setPaused()
+    {
+        m_Pause = true;
+        m_GameTimer.stop();
+        m_GameBoardPainter.SetMessage("PAUSED");
+        m_GameBoardPainter.Refresh();
+    }
+
+    /**
+     * Default constructor for the controller. This initialises the sound effects player
+     */
     public MainGameController()
     {
-        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+        m_SFXPlayer = new SFXPlayer();
     }
     private void loadScene(Event event, String fxmlFile)
     {
@@ -128,14 +145,6 @@ public class MainGameController implements Initializable {
         }
     }
 
-    public void setPaused()
-    {
-        m_Pause = true;
-        m_GameTimer.stop();
-        m_GameBoardPainter.SetMessage("PAUSED");
-        m_GameBoardPainter.Refresh();
-    }
-
     private void showPauseMenu()
     {
         m_PauseMenuPane.setVisible(true);
@@ -143,6 +152,9 @@ public class MainGameController implements Initializable {
         m_PauseMenuPane.requestFocus();
     }
 
+    /**
+     * Returns the user to the game scene and hides the pause menu
+     */
     public void GameContinue()
     {
         m_SFXPlayer.ButtonSFX();
@@ -151,6 +163,9 @@ public class MainGameController implements Initializable {
         m_GameBoard.toFront();
     }
 
+    /**
+     * Restarts the game by refreshing the wall, ball and paddle. Also returns to the game and hides the pause menu
+     */
     public void GameRestart()
     {
         m_SFXPlayer.ButtonSFX();
@@ -164,16 +179,26 @@ public class MainGameController implements Initializable {
         m_GameBoardPainter.Refresh();
     }
 
+    /**
+     * Exits from the game and returns to the start menu
+     * @param event Action Event caused by the button press
+     */
     public void GameExit(ActionEvent event)
     {
-        loadScene(event, "/Menu/Frames/StartFrame.fxml");
+        loadScene(event, "/Menu/StartFrame.fxml");
     }
 
+    /**
+     * Exits from the game without a button press, instead using the game finish menu
+     */
     public void GameExit()
     {
-        loadScene("/Menu/Frames/StartFrame.fxml");
+        loadScene("/Menu/StartFrame.fxml");
     }
 
+    /**
+     * Called before the mainGame is drawn to format it and set all the data correctly
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -183,7 +208,7 @@ public class MainGameController implements Initializable {
         m_GameBoard.requestFocus();
         m_GameBoard.setOnKeyPressed(event->KeyPress(event));
         m_GameBoard.setOnKeyReleased(event->KeyRelease());
-        m_GameManager = new ElementsManager(new Wall(), m_GameBoard);
+        m_GameManager = new ElementsManager(m_GameBoard);
         m_GameManager.RenderLevel();
         m_GameBoardPainter = new GameBoardPainter(m_GameBoard, m_GameManager, m_GameInfo, m_ScoreLabel);
         m_GameBoardPainter.Refresh();

@@ -18,28 +18,56 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller that manages the IO with the debugMenu screen
+ * @author Jordan Lovett
+ */
 public class DebugMenuController implements Initializable {
 
     private static ElementsManager m_GameManager;
     private static GameBoardPainter m_GameBoardPainter;
     private SFXPlayer m_SFXPlayer;
     @FXML
-    public Slider m_XSlider;
+    private Slider m_XSlider;
     @FXML
-    public Slider m_YSlider;
-
-    public DebugMenuController()
+    private Slider m_YSlider;
+    /**
+     * Sets the X speed of the ball to slider position
+     */
+    public void SetXSpeed()
     {
-        m_SFXPlayer = SFXPlayer.GetSFXPlayer();
+        m_GameManager.SetBallXSpeed((int)m_XSlider.getValue());
     }
 
+    /**
+     * Sets the Y speed of the ball to slider position
+     */
+    public void SetYSpeed()
+    {
+        m_GameManager.SetBallYSpeed((int)m_YSlider.getValue());
+    }
+
+    /**
+     * Default constructor to create a new controller. This initialises the sound effects player
+     */
+    public DebugMenuController()
+    {
+        m_SFXPlayer = new SFXPlayer();
+    }
+
+    /**
+     * Constructor used to set the controller variables
+     * @param stage A stage to draw the scene and contents on
+     * @param gameManager An interface for all game elements to manipulate for debugging
+     * @param gameBoardPainter A view class of the other stage that needs refreshing upon changes being made
+     */
     public DebugMenuController(Stage stage, ElementsManager gameManager, GameBoardPainter gameBoardPainter)
     {
         m_GameManager = gameManager;
         m_GameBoardPainter = gameBoardPainter;
         try
         {
-            String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
+            String fxmlFile = "/Controllers/DebugMenu.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
             Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());
@@ -56,6 +84,9 @@ public class DebugMenuController implements Initializable {
         }
     }
 
+    /**
+     * Skips the level if there's a next one, and then refreshes the GUI
+     */
     public void LevelSkipButton()
     {
         m_SFXPlayer.ButtonSFX();
@@ -66,23 +97,18 @@ public class DebugMenuController implements Initializable {
         m_GameBoardPainter.Refresh();
     }
 
+    /**
+     * Resets the number of balls back to 3 for the user
+     */
     public void ResetBalls()
     {
         m_SFXPlayer.ButtonSFX();
         m_GameManager.ResetBallCount();
         m_GameBoardPainter.Refresh();
     }
-
-    public void SetXSpeed()
-    {
-        m_GameManager.SetBallXSpeed((int)m_XSlider.getValue());
-    }
-
-    public void SetYSpeed()
-    {
-        m_GameManager.SetBallYSpeed((int)m_YSlider.getValue());
-    }
-
+    /**
+     * Sets values for the sliders before the debug GUI is drawn
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
