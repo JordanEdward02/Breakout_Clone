@@ -1,7 +1,6 @@
 package code.Controllers;
 
 import code.Menu.ThemeMaintainer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -67,7 +66,7 @@ public class GameFinishController implements Initializable {
      */
     public void load(Stage stage) {
         try {
-            String fxmlFile = "/Menu/Frames/GameFinish.fxml";
+            String fxmlFile = "/Controllers/GameFinish.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
             Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());

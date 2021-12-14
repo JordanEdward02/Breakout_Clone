@@ -2,7 +2,6 @@ package code.Controllers;
 
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.GameplayElements.Wall;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.SFXPlayer;
@@ -186,7 +185,7 @@ public class MainGameController implements Initializable {
      */
     public void GameExit(ActionEvent event)
     {
-        loadScene(event, "/Menu/Frames/StartFrame.fxml");
+        loadScene(event, "/Menu/StartFrame.fxml");
     }
 
     /**
@@ -194,7 +193,7 @@ public class MainGameController implements Initializable {
      */
     public void GameExit()
     {
-        loadScene("/Menu/Frames/StartFrame.fxml");
+        loadScene("/Menu/StartFrame.fxml");
     }
 
     /**

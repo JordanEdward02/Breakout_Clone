@@ -2,7 +2,7 @@ package code.GameplayElements.Bricks;
 
 import code.GameplayElements.Balls.Ball;
 import code.Menu.SFXPlayer;
-import code.Menu.ScoreManager;
+import code.GameplayElements.ScoreManager;
 import java.awt.*;
 import java.util.Random;
 

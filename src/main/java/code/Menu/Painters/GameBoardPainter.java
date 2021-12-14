@@ -4,27 +4,19 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
-import code.Menu.ScoreManager;
+import code.GameplayElements.ScoreManager;
 import code.Menu.ThemeMaintainer;
-import javafx.fxml.FXML;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 
-import java.io.File;
-
-
+/**
+ * Painter which draws all of the gameplay elements upon every refresh
+ * @author Jordan Lovett
+ */
 public class GameBoardPainter {
 
-    private static double TEXT_RATIO_X = 0.475, TEXT_RATIO_Y = 0.5;
-    private static double BALL_PADDLE_RATIO=60, PADDLE_RATIO_X = 4;
     private static double BRICK_X = 30, BRICK_Y = 10;
-    private static double PADDLE_X = 60, PADDLE_Y = 4;
     private static double BALL_SIZE = 10;
 
     private double m_CanvasSize;
@@ -33,14 +25,24 @@ public class GameBoardPainter {
     private ThemeMaintainer m_ThemeMaintainer;
     private Label m_ScoreLabel;
     private ScoreManager m_ScoreManager;
-    public Label m_GameInfo;
+    private Label m_GameInfo;
 
-
+    /**
+     * Sets the middle screen message
+     * @param newMessage String to set the label too
+     */
     public void SetMessage(String newMessage)
     {
         m_GameInfo.setText(newMessage);
     }
 
+    /**
+     * Main constructor to create a working instance of the painter
+     * @param GameBoard Canvas to draw all the elements too
+     * @param gameManager ElementsManager to get all the data for elements to draw
+     * @param GameInfo Label to hold the middle screen text
+     * @param ScoreLabel Label to hold the score text
+     */
     public GameBoardPainter(Canvas GameBoard, ElementsManager gameManager, Label GameInfo, Label ScoreLabel)
     {
         m_ThemeMaintainer = ThemeMaintainer.GetThemeMaintainer();
@@ -53,6 +55,9 @@ public class GameBoardPainter {
         SetMessage("Press SPACE to start");
     }
 
+    /**
+     * Redraw the whole screen by clearing the full canvas and then redrawing all the elements and labels
+     */
     public void Refresh() {
         GraphicsContext graphics = m_GameBoard.getGraphicsContext2D();
         graphics.clearRect(0, 0, m_CanvasSize, m_CanvasSize);

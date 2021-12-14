@@ -5,7 +5,6 @@ import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.Levels.LevelManager;
 import code.Menu.SFXPlayer;
-import code.Menu.ScoreManager;
 import javafx.scene.canvas.Canvas;
 import java.awt.*;
 

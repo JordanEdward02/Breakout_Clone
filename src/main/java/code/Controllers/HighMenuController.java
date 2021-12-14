@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 /**
  * Controller for the Highscores section of the start menu
- * @@author Jordan Lovett
+ * @author Jordan Lovett
  */
 public class HighMenuController implements Initializable {
 
@@ -103,7 +103,7 @@ public class HighMenuController implements Initializable {
      */
     public void returnToStart(ActionEvent event)
     {
-        loadScene(event,"/Menu/Frames/StartFrame.fxml");
+        loadScene(event, "/Menu/StartFrame.fxml");
     }
 
 }

@@ -67,7 +67,7 @@ public class DebugMenuController implements Initializable {
         m_GameBoardPainter = gameBoardPainter;
         try
         {
-            String fxmlFile = "/Menu/Frames/DebugMenu.fxml";
+            String fxmlFile = "/Controllers/DebugMenu.fxml";
             Parent m_Root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
             Scene Scene = new Scene(m_Root);
             Scene.getStylesheets().add(getClass().getResource(ThemeMaintainer.GetThemeMaintainer().GetTheme()).toExternalForm());

@@ -103,7 +103,7 @@ public class ThemeMenuController implements  Initializable{
      */
     public void ReturnToStart(ActionEvent event)
     {
-        loadScene(event,"/Menu/Frames/StartFrame.fxml");
+        loadScene(event, "/Menu/StartFrame.fxml");
     }
 
     /**

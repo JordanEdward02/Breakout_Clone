@@ -2,6 +2,7 @@ package code.Controllers;
 
 import code.GameplayElements.Levels.LevelManager;
 import code.Menu.SFXPlayer;
+import code.GameplayElements.ScoreManager;
 import code.Menu.ThemeMaintainer;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -32,6 +33,8 @@ public class StartMenuController {
     {
         try
         {
+            ScoreManager myManager = ScoreManager.GetScoreManager();
+            myManager.SetDefault();
             m_SFXPlayer.ButtonSFX();
             m_Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             m_Root = FXMLLoader.load(getClass().getResource(fxmlFile));
@@ -52,7 +55,7 @@ public class StartMenuController {
      */
     public void loadLevels(ActionEvent event)
     {
-        loadScene(event, "/Menu/Frames/LevelChoiceFrame.fxml");
+        loadScene(event, "/Controllers/LevelChoiceFrame.fxml");
     }
 
     /**
@@ -61,7 +64,7 @@ public class StartMenuController {
      */
     public void returnToStart(ActionEvent event)
     {
-        loadScene(event,"/Menu/Frames/StartFrame.fxml");
+        loadScene(event, "/Menu/StartFrame.fxml");
     }
 
     /**
@@ -71,7 +74,7 @@ public class StartMenuController {
     public void startLevel1(ActionEvent event)
     {
         LevelManager.setStartLevel(1);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
     /**
      * Loads the second level
@@ -80,7 +83,7 @@ public class StartMenuController {
     public void startLevel2(ActionEvent event)
     {
         LevelManager.setStartLevel(2);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
     /**
      * Loads the third level
@@ -89,7 +92,7 @@ public class StartMenuController {
     public void startLevel3(ActionEvent event)
     {
         LevelManager.setStartLevel(3);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
     /**
      * Loads the forth level
@@ -98,7 +101,7 @@ public class StartMenuController {
     public void startLevel4(ActionEvent event)
     {
         LevelManager.setStartLevel(4);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
     /**
      * Loads the fifth level
@@ -107,7 +110,7 @@ public class StartMenuController {
     public void startLevel5(ActionEvent event)
     {
         LevelManager.setStartLevel(5);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
     /**
      * Loads the sixth level
@@ -116,7 +119,7 @@ public class StartMenuController {
     public void startLevel6(ActionEvent event)
     {
         LevelManager.setStartLevel(6);
-        loadScene(event, "/Menu/Frames/GameBoard.fxml");
+        loadScene(event, "/Controllers/GameBoard.fxml");
     }
 
     /**
@@ -125,7 +128,7 @@ public class StartMenuController {
      */
     public void loadHighscoresMenu(ActionEvent event)
     {
-        loadScene(event, "/Menu/Frames/HighscoresMenu.fxml");
+        loadScene(event, "/Controllers/HighscoresMenu.fxml");
     }
 
     /**
@@ -134,6 +137,6 @@ public class StartMenuController {
      */
     public void LoadThemeMenu(ActionEvent event)
     {
-        loadScene(event, "/Menu/Frames/ThemeMenu.fxml");
+        loadScene(event, "/Controllers/ThemeMenu.fxml");
     }
 }
