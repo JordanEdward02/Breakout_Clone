@@ -4,7 +4,7 @@ import code.GameplayElements.Balls.Ball;
 import code.GameplayElements.ElementsManager;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.SFXPlayer;
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

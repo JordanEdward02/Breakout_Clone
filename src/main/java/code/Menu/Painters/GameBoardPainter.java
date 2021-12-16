@@ -5,7 +5,7 @@ import code.GameplayElements.Bricks.Brick;
 import code.GameplayElements.ElementsManager;
 import code.GameplayElements.Paddle;
 import code.GameplayElements.ScoreManager;
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;

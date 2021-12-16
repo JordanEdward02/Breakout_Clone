@@ -5,7 +5,7 @@ import code.GameplayElements.Paddle;
 import code.Menu.GameLoop;
 import code.Menu.Painters.GameBoardPainter;
 import code.Menu.SFXPlayer;
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;

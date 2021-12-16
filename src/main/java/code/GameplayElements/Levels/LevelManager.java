@@ -17,6 +17,7 @@ public class LevelManager
 {
     private int m_level;
     private static int m_StartLevel;
+    private BrickFactory m_BrickFactory = new BrickFactory();
 
     /**
      * Default constructor for making a level manager
@@ -52,7 +53,7 @@ public class LevelManager
                     x = (line % 2 == 0) ? x : (x - (BrickLn / 2));
                     double y = ((line)+2) * BrickHgt;
                     p.setLocation(x, y);
-                    out[i + offSet] = BrickFactory.GetBrick(p, brickSize, BrickLine.charAt(i)-'0');
+                    out[i + offSet] = m_BrickFactory.GetBrick(p, brickSize, BrickLine.charAt(i)-'0');
                 }
                 line+=1;
                 offSet += i;

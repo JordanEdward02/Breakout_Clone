@@ -1,13 +1,9 @@
 package code.GameplayElements;
 
-import code.GameplayElements.Balls.Ball;
-import code.GameplayElements.Balls.BallRubber;
 import code.GameplayElements.Levels.LevelManager;
 import javafx.scene.canvas.Canvas;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +16,11 @@ class WallTest {
 
     @Test
     void getBricks() {
+        assertNull(m_Wall.GetBricks());
+        LevelManager newLevels = new LevelManager();
+        newLevels.IncrementLevel();
+        m_Wall.RenderWall(newLevels, new Canvas());
+        assertNotNull(m_Wall.GetBricks());
     }
 
     @Test

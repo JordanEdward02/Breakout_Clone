@@ -1,7 +1,7 @@
 package code.Controllers;
 
 import code.Menu.SFXPlayer;
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

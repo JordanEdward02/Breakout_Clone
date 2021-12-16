@@ -1,5 +1,6 @@
 package code.Menu;
 
+import code.GameplayElements.ThemeMaintainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;

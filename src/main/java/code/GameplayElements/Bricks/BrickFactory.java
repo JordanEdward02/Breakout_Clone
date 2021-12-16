@@ -13,7 +13,7 @@ public class BrickFactory {
      * @param type Int type of brick to be created
      * @return Brick created by the factory
      */
-    public static Brick GetBrick(Point point, Dimension size, int type)
+    public Brick GetBrick(Point point, Dimension size, int type)
     {
         Brick newBrick;
         switch(type)

@@ -1,6 +1,6 @@
 package code.Controllers;
 
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

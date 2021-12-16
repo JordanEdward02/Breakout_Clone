@@ -3,7 +3,7 @@ package code.Controllers;
 import code.GameplayElements.Levels.LevelManager;
 import code.Menu.SFXPlayer;
 import code.GameplayElements.ScoreManager;
-import code.Menu.ThemeMaintainer;
+import code.GameplayElements.ThemeMaintainer;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.*;

@@ -1,4 +1,4 @@
-package code.Menu;
+package code.GameplayElements;
 
 import javafx.scene.image.Image;
 
