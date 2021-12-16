@@ -100,7 +100,7 @@ public class ElementsManager
         m_gameWall = new Wall();
         m_drawArea = drawArea;
         m_StartX = (int) (m_drawArea.getHeight()*0.5);
-        m_StartY = (int) (drawArea.getWidth()*0.8);
+        m_StartY = (int) (m_drawArea.getWidth()*0.8);
         m_startPoint = new Point(m_StartX,m_StartY);
         m_gameBall = new BallRubber(m_startPoint, drawArea);
         m_gamePaddle = new Paddle(m_startPoint, drawArea);

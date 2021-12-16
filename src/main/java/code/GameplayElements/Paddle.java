@@ -88,8 +88,10 @@ public class Paddle {
      */
     public boolean Impact(Ball b){
         double ballCollision = b.getLocation().getX()+b.GetRadius();
-        if (b.getLocation().getY() >= getLocation().getY() && b.getLocation().getY()-10 <= getLocation().getY()){
-            if (ballCollision >= getLocation().getX() && ballCollision <= getLocation().getX() + 150) {
+        if (b.getLocation().getY() >= getLocation().getY() &&
+                b.getLocation().getY()-10 <= getLocation().getY()){
+            if (ballCollision >= getLocation().getX() && ballCollision <=
+                    getLocation().getX() + 150) {
                 return true;
             }
         }
