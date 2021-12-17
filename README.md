@@ -42,11 +42,11 @@
 - GameLoop
 - GameBoardPainter
 - ThemeMaintainer
-- ScoreManager
-- ElementsManager
+- ScoreManager - Manages the total score and score given for each feature of the game. This can easily be swapped out
+- ElementsManager - Interface for all the model (GameplayElements)
 - Paddle
-- LevelManager
-- BrickFactory
+- LevelManager - Renders walls (Brick[]) from external files
+- BrickFactory - Factory for making any type of brick
 - DebugMenuController
 - GameFinishedController
 - HighMenuController
@@ -57,10 +57,10 @@
 ### Modified java classes
 
 - Wall
-- Ball
+- Ball - Kept as abstract, so you can easily expand this to add new balls
 - BallRubber
-- Brick
+- Brick - Abstract for different brick types to be added
 - BrickClay
 - BrickCement
-- CrickSteel
+- BrickSteel
 - StartFrame

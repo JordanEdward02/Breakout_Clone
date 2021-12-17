@@ -7,6 +7,9 @@ package code.GameplayElements;
 public class ScoreManager {
     private static final int CLAY_BRICK=1, CEMENT_BRICK=2;
     private static final int STEEL_BRICK=3, LEVEL_COMPLETE=4;
+    private static final int CLAY_BROKEN=100, CEMENT_BROKEN=150;
+    private static final int STEEL_BROKEN=200, LEVEL_COMPLETED=1000;
+    private static final int BALL_LOST=1000;
     private static ScoreManager m_ScoreManager;
     private int m_TotalScore=0;
 
@@ -46,16 +49,16 @@ public class ScoreManager {
     {
         switch(type){
             case CLAY_BRICK:
-                m_TotalScore+=100;
+                m_TotalScore+=CLAY_BROKEN;
                 break;
             case CEMENT_BRICK:
-                m_TotalScore+=150;
+                m_TotalScore+=CEMENT_BROKEN;
                 break;
             case STEEL_BRICK:
-                m_TotalScore+=200;
+                m_TotalScore+=STEEL_BROKEN;
                 break;
             case LEVEL_COMPLETE:
-                m_TotalScore+=1000;
+                m_TotalScore+=LEVEL_COMPLETED;
                 break;
             default:
                 break;
@@ -67,6 +70,6 @@ public class ScoreManager {
      */
     public void BallLost()
     {
-        m_TotalScore -= 1000;
+        m_TotalScore -= BALL_LOST;
     }
 }
