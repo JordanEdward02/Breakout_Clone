@@ -107,7 +107,7 @@ abstract public class Ball {
     {
         m_speedY = -2;
         do {
-            m_speedX = (m_Rnd.nextInt(2) - 1) * 2;
+            m_speedX = (m_Rnd.nextInt(3) - 1) * 2;
         } while (m_speedX==0);
     }
 

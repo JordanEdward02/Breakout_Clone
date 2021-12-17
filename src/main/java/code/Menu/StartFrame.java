@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * Start game class to run the application and make the main stage to draw on
+ * @author Jordan Lovett
  */
 public class StartFrame extends Application {
 

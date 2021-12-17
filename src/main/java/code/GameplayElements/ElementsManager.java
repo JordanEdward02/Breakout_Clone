@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class ElementsManager
 {
-    private static final int THREE = 3;
+    private static final int MAX_BALL_COUNT = 3;
     private int m_StartX;
     private int m_StartY;
 
@@ -105,7 +105,7 @@ public class ElementsManager
         m_gameBall = new BallRubber(m_startPoint, drawArea);
         m_gamePaddle = new Paddle(m_startPoint, drawArea);
         m_levelManager = new LevelManager();
-        m_ballCount = THREE;
+        m_ballCount = MAX_BALL_COUNT;
         m_ballLost = false;
         m_ScoreManager = ScoreManager.GetScoreManager();
         m_SFXPlayer = new SFXPlayer();
@@ -178,7 +178,7 @@ public class ElementsManager
                 b.Repair();
                 m_gameWall.IncrementBrickCount();
             }
-        m_ballCount = THREE;
+        m_ballCount = MAX_BALL_COUNT;
     }
 
     /**
@@ -210,7 +210,7 @@ public class ElementsManager
      */
     public void ResetBallCount()
     {
-        m_ballCount = THREE;
+        m_ballCount = MAX_BALL_COUNT;
     }
 
     /**
