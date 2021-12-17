@@ -18,18 +18,23 @@
 
 ### Implemented features (working)
 
-- Full start menu
-- Highscores menu with file reader from highscores file
-- Themes menu that swaps out css and texture image for all frames
-- Level Choice menu that allows the user to start from any point
-- Level reader that renders custom walls (levels) from external files
-- Random speedup feature that increases user speed with brick breaks
-- Score system that maintains across all levels
-- Score counter that live updates on the screen when events happen
-- Game finish popup that allows input of custom name when game finishes to be stored in external file
-- Sound effects for menu buttons and ball collisions
-- Texture images for all the gameplay elements
-- Converted all code to javaFX, so it runs at PC frame rate
+|Feature| Location|
+|---|---|
+|Full start menu| in FXML with controllers|
+|Highscores menu with file reader from highscores file |HighscoresMenu.fxml|
+|Themes menu that swaps out css and texture image for all frames|ThemeMenu.fxml|
+|Level Choice menu that allows the user to start from any point|
+|Level reader that renders custom walls (levels) from external files|code/GameplayElemenents/Levels/LevelManager.java|
+|Random speedup feature that increases user speed with brick breaks | code/GameplayElements/Wall.java|
+|Score system that's maintained across all levels|code/GameplayElements/ScoreManager.java|
+| Score counter that live updates on the screen when events happen|Part of GameBoard.fxml|
+| Game finish popup that allows input of custom name when game finishes to be stored in external file|GameFinish.fxml and GameFinishController |
+| Sound effects for menu buttons and ball collisions| SFXPlayer.java|
+| Texture images for all the gameplay elements| resources/assets/*|
+| Converted all code to javaFX, so it runs at PC frame rate|
+| Added MVC, factory and singleton patterns|
+| Debug Menu dialog box that live updates the game with level skips, ball speed changes and ball count reset| DebugMenu.fxml and DebugMenuController.java|
+| Added JUnit tests for model classes| test/* |
 
 ### New java classes
 
