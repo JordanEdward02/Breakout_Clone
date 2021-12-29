@@ -5,7 +5,7 @@
 
 ### How to compile the code
 
-- Download the git repo
+- Download the git repo or use the zip from the projects folder
 - Extract the files from the zip
 - Create a new IntelliJ project from existing sources
 - Import project from external model - choose "Maven"
@@ -16,7 +16,7 @@
 
 [Javadoc/index.html](Javadoc/index.html) (on GIT)
 
-Or index.html in the javadocs folder
+Or index.html in the javadoc folder
 
 ### Implemented features (working)
 

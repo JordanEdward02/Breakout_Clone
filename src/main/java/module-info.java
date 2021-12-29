@@ -1,3 +1,8 @@
+/**
+ * Code for the breakout_clone. This has all the code for every aspect of the code
+ * @author Jordan Lovett - Modified
+ */
+
 module COMP2013.coursework {
     requires java.desktop;
     requires javafx.controls;
