@@ -14,7 +14,9 @@
 
 ### Javadoc Location
 
-[Javadoc/index.html](Javadoc/index.html)
+[Javadoc/index.html](Javadoc/index.html) (on GIT)
+
+Or index.html in the javadocs folder
 
 ### Implemented features (working)
 
@@ -30,7 +32,7 @@
 | Score counter that live updates on the screen when events happen|Part of GameBoard.fxml|
 | Game finish popup that allows input of custom name when game finishes to be stored in external file|GameFinish.fxml and GameFinishController |
 | Sound effects for menu buttons and ball collisions| SFXPlayer.java|
-| Texture images for all the gameplay elements| resources/assets/*|
+| Texture images for all the gameplay elements (sprites)| resources/assets/*|
 | Converted all code to javaFX, so it runs at PC frame rate|
 | Added MVC, factory and singleton patterns|
 | Debug Menu dialog box that live updates the game with level skips, ball speed changes and ball count reset| DebugMenu.fxml and DebugMenuController.java|
