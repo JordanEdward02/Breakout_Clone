@@ -49,7 +49,7 @@ Or index.html in the javadoc folder
 - Paddle
 - LevelManager - Renders walls (Brick[]) from external files
 - BrickFactory - Factory for making any type of brick
-- DebugMenuController
+- DebugMenuController - Highscores are kept across all levels rather then for individual levels. This was chosen to allow much more variance in score and for higher skills. Also it looks better with having the score tracked at the bottom of the screen which live updates and carries your progress through the game.
 - GameFinishedController
 - HighMenuController
 - MainGameController
